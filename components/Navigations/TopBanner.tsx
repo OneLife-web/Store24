@@ -1,4 +1,4 @@
-import { ArrowBigRight, ArrowRightIcon, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 

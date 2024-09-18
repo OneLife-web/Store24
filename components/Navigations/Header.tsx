@@ -20,6 +20,7 @@ const Header = () => {
         <div className="flex items-center justify-between gap-4 max-lg:hidden">
           {NavLinks.map((nav) => (
             <Link
+              key={nav.title}
               href={nav.link}
               className={cn(
                 "text-primary transition-colors text-sm font-medium opacity-90 hover:opacity-100 hover:border-b border-primary",
