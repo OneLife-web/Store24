@@ -12,7 +12,7 @@ const Promotion = () => {
       <p className="text-center bodyText">
         Our newest release is deserving of fascination
       </p>
-      <div className="flex max-sm:flex-col mt-16">
+      <div className="flex max-sm:flex-col max-sm:gap-7 mt-16">
         <div className="bg-gray-500 md:basis-1/2 max-sm:h-[450px] max-h-[495px] w-full"></div>
         <div className="basis-1/2">
           <div className="lg:max-w-[60%] mx-auto">
@@ -22,7 +22,7 @@ const Promotion = () => {
               <li>- Counts repetitions automatically</li>
               <li>- Large weight selection</li>
             </ul>
-            <p className="bodyText my-3 !opacity-100 !max-sm:text-base text-lg">
+            <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
               $19.94 USD
             </p>
             <div>
