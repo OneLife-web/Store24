@@ -6,7 +6,7 @@ import React from "react";
 const Promotion = () => {
   return (
     <section className="py-10 max-sm:px-[3%]">
-      <h1 className="font-bold text-xl md:text-2xl text-center mb-5">
+      <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
         Welcome to Store45. See what&apos;s new
       </h1>
       <p className="text-center bodyText">
