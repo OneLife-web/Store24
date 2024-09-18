@@ -14,7 +14,7 @@ const Header = () => {
         <div>
           <MenuIcon strokeWidth={1} color="#121212" />
         </div>
-        <div className="max-lg:absolute max-lg:left-[50%] max-lg:translate-x-[-50%]">
+        <div className="max-lg:absolute max-lg:top-[50%] translate-y-[-50%] max-lg:left-[50%] max-lg:translate-x-[-50%]">
           <Logo />
         </div>
         <div className="flex items-center justify-between gap-4 max-lg:hidden">
