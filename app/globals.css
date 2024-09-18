@@ -9,3 +9,11 @@
 body {
   @apply text-primary;
 }
+
+.bodyText {
+  @apply opacity-70 font-medium max-sm:text-sm;
+}
+
+.heading1 {
+  @apply text-[30px] md:text-[40px] font-bold;
+}
