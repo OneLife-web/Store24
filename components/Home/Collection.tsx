@@ -8,7 +8,7 @@ const Collection = () => {
         <div className="grid mt-6 grid-cols-2 gap-3 lg:grid-cols-4">
           {[0, 0, 0, 0].map((_, i) => (
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            <ProductCard key={1} />
+            <ProductCard key={i} />
           ))}
         </div>
       </div>
