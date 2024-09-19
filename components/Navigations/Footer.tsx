@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
   return (
-    <div>
-      Footer
-    </div>
-  )
-}
+    <footer className="bg-primary py-10 max-lg:px-[3%]">
+      <div></div>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;
