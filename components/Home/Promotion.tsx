@@ -5,15 +5,15 @@ import React from "react";
 
 const Promotion = () => {
   return (
-    <section className="py-10 max-sm:px-[3%]">
+    <section className="py-10 max-lg:px-[3%]">
       <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
         Welcome to Store45. See what&apos;s new
       </h1>
       <p className="text-center bodyText">
         Our newest release is deserving of fascination
       </p>
-      <div className="flex max-sm:flex-col max-sm:gap-7 mt-16">
-        <div className="bg-gray-500 md:basis-1/2 max-sm:h-[450px] max-h-[495px] w-full"></div>
+      <div className="flex max-lg:flex-col max-lg:gap-7 mt-16">
+        <div className="bg-gray-200 lg:basis-1/2 max-lg:h-[450px] max-h-[495px] w-full"></div>
         <div className="basis-1/2">
           <div className="lg:max-w-[60%] mx-auto">
             <h1 className="heading1">DynaGrip 2.0™</h1>
