@@ -5,14 +5,49 @@ import Link from "next/link";
 import { NavLinks } from "@/lib/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [isMenu, setIsMenu] = useState(false);
   const pathName = usePathname();
+
+  // Disable body scroll when menu is open
+  useEffect(() => {
+    if (isMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isMenu]);
+
   return (
     <nav className="bg-secondary min-h-[150px] relative w-full flex items-center justify-center max-lg:px-[5%]">
+      {isMenu && (
+        <div
+          className={`fixed top-[195px] bottom-0 right-0 grid left-0 bg-white z-50 transition-transform duration-300 transform ${
+            isMenu ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          {NavLinks.map((nav) => (
+            <Link
+              key={nav.title}
+              href={nav.link}
+              className={cn(
+                "text-primary transition-colors text-sm font-medium opacity-90 hover:opacity-100 hover:border-b border-primary",
+                {
+                  "opacity-100 border-b border-primary hover:border-b-2":
+                    pathName === nav.link,
+                }
+              )}
+            >
+              {nav.title}
+            </Link>
+          ))}
+        </div>
+      )}
       <div className="lg:max-w-4xl xl:max-w-5xl w-full flex items-center justify-between">
-        <div>
-          <MenuIcon strokeWidth={1} color="#121212" />
+        <div onClick={() => setIsMenu(!isMenu)} className="lg:hidden">
+          <MenuIcon strokeWidth={1} size={28} color="#121212" />
         </div>
         <div className="max-lg:absolute max-lg:top-[50%] max-lg:translate-y-[-50%] max-lg:left-[50%] max-lg:translate-x-[-50%]">
           <Logo />
