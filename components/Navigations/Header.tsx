@@ -1,6 +1,6 @@
 "use client";
 import Logo from "./Logo";
-import { MenuIcon, SearchIcon, UserRound } from "lucide-react";
+import { MenuIcon, SearchIcon, UserRound, X } from "lucide-react";
 import Link from "next/link";
 import { NavLinks } from "@/lib/constants";
 import { usePathname } from "next/navigation";
@@ -9,24 +9,28 @@ import { useEffect, useState } from "react";
 
 const Header = () => {
   const [isMenu, setIsMenu] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
   const pathName = usePathname();
 
   // Disable body scroll when menu is open
   useEffect(() => {
     if (isMenu) {
       document.body.style.overflow = "hidden";
+      setMenuVisible(true); // Show menu immediately when isMenu is true
     } else {
       document.body.style.overflow = "auto";
+      setTimeout(() => setMenuVisible(false), 200); // Delay hiding to allow animation to play
     }
   }, [isMenu]);
 
   return (
     <nav className="bg-secondary min-h-[150px] relative w-full flex items-center justify-center max-lg:px-[5%]">
-      {isMenu && (
+      {menuVisible && (
         <div
-          className={`fixed top-[195px] bottom-0 right-0 grid left-0 bg-white z-50 transition-transform duration-300 transform ${
-            isMenu ? "translate-x-0" : "-translate-x-full"
+          className={`absolute grid top-[150px] left-0 right-0 bottom-0 bg-white z-50 transition-all ${
+            isMenu ? "animate-slide-in" : "animate-slide-out"
           }`}
+          style={{ height: "calc(100vh - 150px)" }}
         >
           {NavLinks.map((nav) => (
             <Link
@@ -47,7 +51,11 @@ const Header = () => {
       )}
       <div className="lg:max-w-4xl xl:max-w-5xl w-full flex items-center justify-between">
         <div onClick={() => setIsMenu(!isMenu)} className="lg:hidden">
-          <MenuIcon strokeWidth={1} size={28} color="#121212" />
+          {!menuVisible ? (
+            <MenuIcon strokeWidth={1} size={28} color="#121212" />
+          ) : (
+            <X strokeWidth={1} size={32} color="#121212" />
+          )}
         </div>
         <div className="max-lg:absolute max-lg:top-[50%] max-lg:translate-y-[-50%] max-lg:left-[50%] max-lg:translate-x-[-50%]">
           <Logo />

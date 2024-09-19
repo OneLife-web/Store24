@@ -13,6 +13,20 @@ const config: Config = {
         primary: "#121212",
         secondary: "#FFF2DF",
       },
+      keyframes: {
+        slideIn: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        slideOut: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+      animation: {
+        "slide-in": "slideIn 0.2s ease-out forwards",
+        "slide-out": "slideOut 0.2s ease-in forwards",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
