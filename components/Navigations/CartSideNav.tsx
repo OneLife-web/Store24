@@ -22,7 +22,7 @@ const CartSideNav = () => {
           />
         </svg>
       </SheetTrigger>
-      <SheetContent></SheetContent>
+      <SheetContent className="bg-white"></SheetContent>
     </Sheet>
   );
 };
