@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/* import { NextResponse } from "next/server";
 import { connectToDb } from "@/utils/config/mongodb";
 import { verifyOTP } from "@/services/otpService";
 
@@ -32,3 +32,4 @@ export async function POST(req: Request) {
     );
   }
 }
+ */

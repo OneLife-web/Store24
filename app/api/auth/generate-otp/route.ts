@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/* import { NextResponse } from "next/server";
 import { generateOTP } from "@/services/otpService";
 import { connectToDb } from "@/utils/config/mongodb";
 
@@ -24,3 +24,4 @@ export async function POST(req: Request) {
     );
   }
 }
+ */
