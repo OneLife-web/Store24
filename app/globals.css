@@ -17,3 +17,34 @@ body {
 .heading1 {
   @apply text-[30px] md:text-[40px] font-bold;
 }
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+/* Swiper button overrides */
+.swiper-button-prev, .swiper-button-next {
+  color: #F8AF24 !important; /* Change button color */
+}
+
+/* Optional: Change hover effect */
+.swiper-button-prev:hover, .swiper-button-next:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Swiper pagination dot overrides */
+.swiper-pagination-bullet {
+  background-color: #F8AF24 !important; /* Dot color */
+}
+
+/* Active dot styling */
+.swiper-pagination-bullet-active {
+  background-color: #FF5733; /* Change color of active dot */
+  transform: scale(1.2); /* Optional: enlarge active dot */
+}
