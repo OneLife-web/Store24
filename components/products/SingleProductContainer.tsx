@@ -7,8 +7,8 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
   const { images } = data;
   return (
     <section className="max-sm:px-[3%] py-7">
-      <div className="lg:flex">
-        <div className="lg:max-w-[60%]">
+      <div className="lg:flex lg:gap-9">
+        <div className="lg:min-w-[60%]">
           <Carousel images={images} />
         </div>
         <div className="w-full">
@@ -23,11 +23,14 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                   <li key={index}>- {item}</li>
                 ))}
               </ul>
+              <button className="bg-primary text-white block w-full py-3 font-medium my-4 transform transition-transform hover:scale-105">
+                BUY NOW
+              </button>
               <div>
                 <p className="text-center">
                   We accept these payment methods and more..
                 </p>
-                <div className="max-w-[70%] mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
+                <div className="mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
                   <Image
                     src="/payment-logos/visa.svg"
                     width={43}
@@ -60,9 +63,6 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                   />
                 </div>
               </div>
-              <button className="bg-primary text-white block w-full py-3 font-medium mt-10 transform transition-transform hover:scale-105">
-                BUY NOW
-              </button>
             </div>
           </div>
         </div>
