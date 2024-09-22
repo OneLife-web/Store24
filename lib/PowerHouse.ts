@@ -1,6 +1,6 @@
 export const getSettings = async () => {
   try {
-    const res = await fetch("http://localhost:3001/api/settings", {
+    const res = await fetch("https://store24-kohl.vercel.app/api/settings", {
       method: "GET",
       cache: "no-store",
     });
@@ -19,7 +19,7 @@ export const getSettings = async () => {
 
 export const fetchProducts = async () => {
   try {
-    const res = await fetch("http://localhost:3001/api/product", {
+    const res = await fetch("https://store24-kohl.vercel.app/api/product", {
       method: "GET",
       cache: "no-store",
     });
@@ -38,7 +38,7 @@ export const fetchProducts = async () => {
 
 export const fetchProduct = async (id?: string) => {
   try {
-    const res = await fetch(`http://localhost:3001/api/product/${id}`, {
+    const res = await fetch(`https://store24-kohl.vercel.app/api/product/${id}`, {
       method: "GET",
       cache: "no-store",
     });
