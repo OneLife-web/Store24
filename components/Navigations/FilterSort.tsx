@@ -1,7 +1,12 @@
-import React from "react";
+import SortDropdown from "../SortDropdown";
 import Slider from "./Slider";
 
-const FilterSort = () => {
+interface SortDropdownProps {
+  sortOption: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const FilterSort: React.FC<SortDropdownProps> = ({ sortOption, onChange }) => {
   return (
     <div className="md:hidden">
       <Slider
@@ -16,7 +21,7 @@ const FilterSort = () => {
               fill="none"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M4.833 6.5a1.667 1.667 0 1 1 3.334 0 1.667 1.667 0 0 1-3.334 0ZM4.05 7H2.5a.5.5 0 0 1 0-1h1.55a2.5 2.5 0 0 1 4.9 0h8.55a.5.5 0 0 1 0 1H8.95a2.5 2.5 0 0 1-4.9 0Zm11.117 6.5a1.667 1.667 0 1 0-3.334 0 1.667 1.667 0 0 0 3.334 0ZM13.5 11a2.5 2.5 0 0 1 2.45 2h1.55a.5.5 0 0 1 0 1h-1.55a2.5 2.5 0 0 1-4.9 0H2.5a.5.5 0 0 1 0-1h8.55a2.5 2.5 0 0 1 2.45-2Z"
                 fill="black"
               ></path>
@@ -25,7 +30,15 @@ const FilterSort = () => {
           </div>
         }
       >
-        hello
+        <div>
+          <div className="border-b pb-3">
+            <p className="font-semibold text-sm text-center">Fitler and sort</p>
+            <p className="bodyText text-center">4 products</p>
+          </div>
+          <div className="px-[3%] py-5 pt-10">
+            <SortDropdown sortOption={sortOption} onChange={onChange} />
+          </div>
+        </div>
       </Slider>
     </div>
   );

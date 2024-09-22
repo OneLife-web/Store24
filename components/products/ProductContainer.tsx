@@ -3,6 +3,8 @@ import { updateData } from "@/types";
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Cards/ProductCard";
 import FilterSort from "../Navigations/FilterSort";
+import SortDropdown from "../SortDropdown";
+import InfoText from "../InfoText";
 
 const ProductContainer = ({ data }: { data: updateData[] }) => {
   const [filteredData, setFilteredData] = useState(data);
@@ -73,7 +75,7 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
     <section className="py-10 px-[3%]">
       <h1 className="heading1">Strong Grip Collection</h1>
       <div className="my-7 mb-10 flex items-center justify-between">
-        <FilterSort />
+        <FilterSort sortOption={sortOption} onChange={handleSortChange} />
         <div className="max-sm:hidden">
           <label htmlFor="sort" className="font-semibold">
             Sort by:
@@ -94,24 +96,9 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
         </div>
         <div className="flex items-center gap-5">
           <div className="max-sm:hidden">
-            <label htmlFor="sort" className="font-semibold">
-              Sort by:
-            </label>
-            <select
-              className="bodyText"
-              id="sort"
-              value={sortOption}
-              onChange={handleSortChange}
-            >
-              <option value="date-new-old">Date: New to Old</option>
-              <option value="date-old-new">Date: Old to New</option>
-              <option value="price-low-high">Price: Low to High</option>
-              <option value="price-high-low">Price: High to Low</option>
-              <option value="title-a-z">Title: A-Z</option>
-              <option value="title-z-a">Title: Z-A</option>
-            </select>
+            <SortDropdown sortOption={sortOption} onChange={handleSortChange} />
           </div>
-          <div className="bodyText">{data.length} products</div>
+          <InfoText text={`${data.length} products`} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
