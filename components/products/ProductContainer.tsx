@@ -2,6 +2,7 @@
 import { updateData } from "@/types";
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Cards/ProductCard";
+import FilterSort from "../Navigations/FilterSort";
 
 const ProductContainer = ({ data }: { data: updateData[] }) => {
   const [filteredData, setFilteredData] = useState(data);
@@ -72,23 +73,7 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
     <section className="py-10 px-[3%]">
       <h1 className="heading1">Strong Grip Collection</h1>
       <div className="my-7 mb-10 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <svg
-            className="w-6"
-            aria-hidden="true"
-            focusable="false"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.833 6.5a1.667 1.667 0 1 1 3.334 0 1.667 1.667 0 0 1-3.334 0ZM4.05 7H2.5a.5.5 0 0 1 0-1h1.55a2.5 2.5 0 0 1 4.9 0h8.55a.5.5 0 0 1 0 1H8.95a2.5 2.5 0 0 1-4.9 0Zm11.117 6.5a1.667 1.667 0 1 0-3.334 0 1.667 1.667 0 0 0 3.334 0ZM13.5 11a2.5 2.5 0 0 1 2.45 2h1.55a.5.5 0 0 1 0 1h-1.55a2.5 2.5 0 0 1-4.9 0H2.5a.5.5 0 0 1 0-1h8.55a2.5 2.5 0 0 1 2.45-2Z"
-              fill="black"
-            ></path>
-          </svg>
-          <p className="bodyText">Filter and sort</p>
-        </div>
+        <FilterSort />
         <div className="max-sm:hidden">
           <label htmlFor="sort" className="font-semibold">
             Sort by:
