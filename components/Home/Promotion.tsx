@@ -1,9 +1,10 @@
+import { Settings } from "@/types";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Promotion = () => {
+const Promotion = ({ data }: { data: Settings }) => {
   return (
     <section className="py-10 max-lg:px-[3%]">
       <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
@@ -13,17 +14,23 @@ const Promotion = () => {
         Our newest release is deserving of fascination
       </p>
       <div className="flex max-lg:flex-col max-lg:gap-7 mt-16">
-        <div className="bg-gray-200 lg:basis-1/2 max-lg:h-[450px] max-h-[495px] w-full"></div>
+        <Image
+          src={data?.promotion?.productId?.images[0]}
+          alt="image"
+          width={300}
+          height={450}
+          className="bg-gray-200 lg:basis-1/2 max-lg:h-[450px] max-h-[495px] w-full"
+        />
         <div className="basis-1/2">
           <div className="lg:max-w-[60%] mx-auto">
-            <h1 className="heading1">DynaGrip 2.0™</h1>
+            <h1 className="heading1">{data?.promotion?.productId?.title}</h1>
             <ul className="bodyText grid gap-3 mt-3">
-              <li>- Builds forearm muscle & strengthens grip</li>
-              <li>- Counts repetitions automatically</li>
-              <li>- Large weight selection</li>
+              {data?.promotion?.productId?.features.map((item, index) => (
+                <li key={index}>- {item}</li>
+              ))}
             </ul>
             <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
-              $19.94 USD
+              ${data?.promotion?.productId?.price} USD
             </p>
             <div>
               <p className="text-center">
@@ -66,7 +73,7 @@ const Promotion = () => {
               BUY NOW
             </button>
             <Link
-              href="/"
+              href={`/product/${data?.promotion?.productId?._id}`}
               className="text-sm w-fit mt-7 font-semibold flex items-center gap-2 group"
             >
               <span className="border-b border-transparent group-hover:border-black transition-all duration-300">
