@@ -2,6 +2,7 @@ import { connectToDb } from "@/utils/config/mongodb";
 import { Settings } from "@/utils/models/Settings";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
 export const fetchCache = 'force-no-store';
 
 // GET request for fetching banner and promotion details
