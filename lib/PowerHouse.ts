@@ -2,7 +2,8 @@ export const getSettings = async () => {
   try {
     const res = await fetch("https://store45.vercel.app/api/settings", {
       method: "GET",
-      cache: "no-store", // Disable caching for this fetch
+      cache: "force-cache",
+      next: { revalidate: 300 }, // Revalidate every 300 seconds
     });
 
     if (!res.ok) {
