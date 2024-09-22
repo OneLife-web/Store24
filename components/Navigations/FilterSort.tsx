@@ -38,6 +38,14 @@ const FilterSort: React.FC<SortDropdownProps> = ({ sortOption, onChange }) => {
           <div className="px-[3%] py-5 pt-10">
             <SortDropdown sortOption={sortOption} onChange={onChange} />
           </div>
+          <div className="absolute right-[3%] left-[3%] bottom-7 flex gap-3 items-center">
+            <div className="basis-1/2 flex items-center justify-center">
+              <button className="text-primary font-medium h-fit border-b border-primary">Remove all</button>
+            </div>
+            <div className="basis-1/2 flex items-center justify-center">
+              <button className="w-full h-[48px] font-medium bg-primary text-white">Apply</button>
+            </div>
+          </div>
         </div>
       </Slider>
     </div>
