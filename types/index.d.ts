@@ -78,6 +78,7 @@ export interface updateData {
     question: string;
     answer: string;
   }[];
+  createdAt?: string;
 }
 
 export interface crumbsType {

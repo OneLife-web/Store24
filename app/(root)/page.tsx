@@ -13,9 +13,8 @@ export default async function Home() {
     settingsResult.status === "fulfilled" ? settingsResult.value : null;
   const products: updateData[] =
     productsResult.status === "fulfilled" ? productsResult.value : [];
-  console.log(products);
   return (
-    <main className="lg:max-w-4xl mx-auto xl:max-w-5xl w-full">
+    <main className="lg:max-w-4xl min-h-screen mx-auto xl:max-w-5xl w-full">
       {data && <Promotion data={data} />}
       {products && <Collection products={products} />}
     </main>
