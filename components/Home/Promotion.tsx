@@ -1,10 +1,20 @@
+'use client';
+import { getSettings } from "@/lib/PowerHouse";
 import { Settings } from "@/types";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  const getPromo = async () => {
+    const res = await getSettings();
+    console.log(res);
+  };
+
+  useEffect(() => {
+    getPromo();
+  }, []);
   return (
     <section className="py-10 max-lg:px-[3%]">
       <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">

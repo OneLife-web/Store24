@@ -2,6 +2,8 @@ import { connectToDb } from "@/utils/config/mongodb";
 import { Settings } from "@/utils/models/Settings";
 import { NextResponse } from "next/server";
 
+export const fetchCache = 'force-no-store';
+
 // GET request for fetching banner and promotion details
 export async function GET() {
   try {
@@ -19,11 +21,16 @@ export async function GET() {
       return NextResponse.json({ error: "No settings found" }, { status: 404 });
     }
 
-    // Return the banner and promotion details with a 200 status
+    // Set cache control headers
+    const responseHeaders = {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+    };
+
     return NextResponse.json(
       { banner: settings.banner, promotion: settings.promotion },
-      { status: 200 }
+      { status: 200, headers: responseHeaders }
     );
+    // Return the banner and promotion details with a 200 status
   } catch (error) {
     // Type guard to check if 'error' has a 'message' property
     if (error instanceof Error) {

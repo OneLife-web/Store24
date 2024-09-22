@@ -3,6 +3,12 @@ import Promotion from "@/components/Home/Promotion";
 import { fetchProducts, getSettings } from "@/lib/PowerHouse";
 import { Settings, updateData } from "@/types";
 
+export const fetchCache = 'force-no-store';
+
+export const metadata = {
+  revalidate: 0, // Revalidate every 10 seconds
+};
+
 export default async function Home() {
   const [settingsResult, productsResult] = await Promise.allSettled([
     getSettings(),
@@ -13,6 +19,7 @@ export default async function Home() {
     settingsResult.status === "fulfilled" ? settingsResult.value : null;
   const products: updateData[] =
     productsResult.status === "fulfilled" ? productsResult.value : [];
+  console.log(data);
   return (
     <main className="lg:max-w-4xl min-h-screen mx-auto xl:max-w-5xl w-full">
       {data && <Promotion data={data} />}
