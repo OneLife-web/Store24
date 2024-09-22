@@ -69,7 +69,7 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
   };
 
   return (
-    <section className="py-10">
+    <section className="py-10 px-[3%]">
       <h1 className="heading1">Strong Grip Collection</h1>
       <div>
         <label htmlFor="sort">Sort by:</label>
@@ -82,9 +82,11 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
           <option value="title-z-a">Title: Z-A</option>
         </select>
       </div>
-      {filteredData.map((item) => (
-        <ProductCard key={item._id} item={item} />
-      ))}
+      <div className="grid grid-cols-2 gap-3 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
+        {filteredData.map((item) => (
+          <ProductCard key={item._id} item={item} />
+        ))}
+      </div>
     </section>
   );
 };
