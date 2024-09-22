@@ -1,9 +1,10 @@
 import { updateData } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 const ProductCard = ({ item }: { item: updateData }) => {
   return (
-    <div className="group cursor-pointer">
+    <Link href={`/products/${item?._id}`} className="group cursor-pointer">
       <Image
         src={item?.images[0]}
         alt="image"
@@ -17,7 +18,7 @@ const ProductCard = ({ item }: { item: updateData }) => {
       <p className="bodyText !font-semibold !opacity-100 !max-sm:text-base text-lg">
         ${item?.price} USD
       </p>
-    </div>
+    </Link>
   );
 };
 

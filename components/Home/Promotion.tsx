@@ -73,7 +73,7 @@ const Promotion = ({ data }: { data: Settings }) => {
               BUY NOW
             </button>
             <Link
-              href={`/product/${data?.promotion?.productId?._id}`}
+              href={`/products/${data?.promotion?.productId?._id}`}
               className="text-sm w-fit mt-7 font-semibold flex items-center gap-2 group"
             >
               <span className="border-b border-transparent group-hover:border-black transition-all duration-300">
