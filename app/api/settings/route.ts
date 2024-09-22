@@ -3,7 +3,6 @@ import { Settings } from "@/utils/models/Settings";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
-export const fetchCache = 'force-no-store';
 
 // GET request for fetching banner and promotion details
 export async function GET() {
@@ -22,9 +21,8 @@ export async function GET() {
       return NextResponse.json({ error: "No settings found" }, { status: 404 });
     }
 
-    // Set cache control headers
     const responseHeaders = {
-      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
     };
 
     return NextResponse.json(

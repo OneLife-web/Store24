@@ -3,10 +3,8 @@ import Promotion from "@/components/Home/Promotion";
 import { fetchProducts, getSettings } from "@/lib/PowerHouse";
 import { Settings, updateData } from "@/types";
 
-export const fetchCache = 'force-no-store';
-
 export const metadata = {
-  revalidate: 0, // Revalidate every 10 seconds
+  revalidate: 180, // Revalidate every 10 seconds
 };
 
 export default async function Home() {
