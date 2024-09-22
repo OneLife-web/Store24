@@ -1,4 +1,4 @@
-// utils/emailService.ts
+/* // utils/emailService.ts
 import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
@@ -19,3 +19,4 @@ export async function sendOTPViaEmail(to: string, otp: string) {
     console.error('Error sending OTP:', error);
   }
 }
+ */
