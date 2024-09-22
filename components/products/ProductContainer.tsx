@@ -9,7 +9,7 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
 
   // Effect to handle sorting whenever sortOption changes
   useEffect(() => {
-    let sortedData = [...data]; // Create a copy of the original data
+    const sortedData = [...data]; // Create a copy of the original data
 
     switch (sortOption) {
       case "price-low-high":
@@ -71,16 +71,63 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
   return (
     <section className="py-10 px-[3%]">
       <h1 className="heading1">Strong Grip Collection</h1>
-      <div>
-        <label htmlFor="sort">Sort by:</label>
-        <select id="sort" value={sortOption} onChange={handleSortChange}>
-          <option value="date-new-old">Date: New to Old</option>
-          <option value="date-old-new">Date: Old to New</option>
-          <option value="price-low-high">Price: Low to High</option>
-          <option value="price-high-low">Price: High to Low</option>
-          <option value="title-a-z">Title: A-Z</option>
-          <option value="title-z-a">Title: Z-A</option>
-        </select>
+      <div className="my-7 mb-10 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <svg
+            className="w-6"
+            aria-hidden="true"
+            focusable="false"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.833 6.5a1.667 1.667 0 1 1 3.334 0 1.667 1.667 0 0 1-3.334 0ZM4.05 7H2.5a.5.5 0 0 1 0-1h1.55a2.5 2.5 0 0 1 4.9 0h8.55a.5.5 0 0 1 0 1H8.95a2.5 2.5 0 0 1-4.9 0Zm11.117 6.5a1.667 1.667 0 1 0-3.334 0 1.667 1.667 0 0 0 3.334 0ZM13.5 11a2.5 2.5 0 0 1 2.45 2h1.55a.5.5 0 0 1 0 1h-1.55a2.5 2.5 0 0 1-4.9 0H2.5a.5.5 0 0 1 0-1h8.55a2.5 2.5 0 0 1 2.45-2Z"
+              fill="black"
+            ></path>
+          </svg>
+          <p className="bodyText">Filter and sort</p>
+        </div>
+        <div className="max-sm:hidden">
+          <label htmlFor="sort" className="font-semibold">
+            Sort by:
+          </label>
+          <select
+            className="bodyText"
+            id="sort"
+            value={sortOption}
+            onChange={handleSortChange}
+          >
+            <option value="date-new-old">Date: New to Old</option>
+            <option value="date-old-new">Date: Old to New</option>
+            <option value="price-low-high">Price: Low to High</option>
+            <option value="price-high-low">Price: High to Low</option>
+            <option value="title-a-z">Title: A-Z</option>
+            <option value="title-z-a">Title: Z-A</option>
+          </select>
+        </div>
+        <div className="flex items-center gap-5">
+          <div className="max-sm:hidden">
+            <label htmlFor="sort" className="font-semibold">
+              Sort by:
+            </label>
+            <select
+              className="bodyText"
+              id="sort"
+              value={sortOption}
+              onChange={handleSortChange}
+            >
+              <option value="date-new-old">Date: New to Old</option>
+              <option value="date-old-new">Date: Old to New</option>
+              <option value="price-low-high">Price: Low to High</option>
+              <option value="price-high-low">Price: High to Low</option>
+              <option value="title-a-z">Title: A-Z</option>
+              <option value="title-z-a">Title: Z-A</option>
+            </select>
+          </div>
+          <div className="bodyText">{data.length} products</div>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-3 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
         {filteredData.map((item) => (

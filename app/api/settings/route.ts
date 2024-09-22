@@ -1,7 +1,6 @@
-import { CreateRequestBody, UpdateRequestBody } from "@/types";
 import { connectToDb } from "@/utils/config/mongodb";
 import { Settings } from "@/utils/models/Settings";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 // GET request for fetching banner and promotion details
 export async function GET() {
