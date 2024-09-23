@@ -104,7 +104,7 @@ const SignInContainer = () => {
         Sign in with Google
       </button>
       <p className="text-sm text-center font-medium py-3">
-        Don't have an account yet?{" "}
+        Don&apos;t have an account yet?{" "}
         <Link
           href="/sign-up"
           className="w-fit border-b border-black hover:text-secondaryBg"
