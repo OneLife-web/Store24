@@ -1,9 +1,10 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Logo from "./Logo";
 import { MenuIcon, SearchIcon, UserRound, X } from "lucide-react";
 import Link from "next/link";
 import { NavLinks } from "@/lib/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import CartSideNav from "./CartSideNav";
@@ -12,6 +13,19 @@ const Header = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const pathName = usePathname();
+
+  const { status } = useSession(); // `session` contains the user data
+  const router = useRouter();
+
+  const handleProfile = () => {
+    if (status === 'authenticated') {
+      // Redirect to the user profile page
+      router.push('/profile');
+    } else {
+      // Optionally, redirect to the sign-in page or show a message
+      router.push('/sign-in');
+    }
+  }
 
   // Disable body scroll when menu is open
   useEffect(() => {
@@ -90,12 +104,12 @@ const Header = () => {
           <div className="cursor-pointer hover:scale-110 transition-all duration-150">
             <SearchIcon strokeWidth={1} color="#121212" />
           </div>
-          <Link
-            href="/"
+          <button
+            onClick={handleProfile}
             className="hover:scale-110 transition-all duration-150 max-lg:hidden"
           >
             <UserRound strokeWidth={1} color="#121212" />
-          </Link>
+          </button>
 
           <CartSideNav />
         </div>
