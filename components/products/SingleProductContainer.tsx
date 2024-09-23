@@ -11,7 +11,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         <div className="lg:min-w-[60%]">
           <Carousel images={images} />
         </div>
-        <div className="w-full">
+        <div className="w-full max-sm:mt-10">
           <h1 className="heading1">{data?.title}</h1>
           <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
             ${data?.price} USD

@@ -2,7 +2,6 @@ export const getSettings = async () => {
   try {
     const res = await fetch("https://store45.vercel.app/api/settings", {
       method: "GET",
-      cache: "force-cache",
       next: { revalidate: 300 }, // Revalidate every 300 seconds
     });
 
@@ -22,7 +21,7 @@ export const fetchProducts = async () => {
   try {
     const res = await fetch("https://store45.vercel.app/api/product", {
       method: "GET",
-      cache: "no-store", // Disable caching for this fetch
+      next: { revalidate: 300 }, // Revalidate every 300 seconds
     });
 
     /* if (!res.ok) {
@@ -41,7 +40,7 @@ export const fetchProduct = async (id?: string) => {
   try {
     const res = await fetch(`https://store45.vercel.app/api/product/${id}`, {
       method: "GET",
-      cache: "no-store", // Disable caching for this fetch
+      next: { revalidate: 300 }, // Revalidate every 300 seconds
     });
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
