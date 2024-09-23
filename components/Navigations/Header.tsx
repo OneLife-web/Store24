@@ -28,26 +28,34 @@ const Header = () => {
     <nav className="bg-secondary min-h-[150px] relative w-full flex items-center justify-center max-lg:px-[5%]">
       {menuVisible && (
         <div
-          className={`absolute grid top-[150px] left-0 right-0 bottom-0 bg-white z-50 transition-all ${
-            isMenu ? "animate-slide-in" : "animate-slide-out"
-          }`}
+          className={`absolute flex flex-col justify-between top-[150px] left-0 right-0 bottom-0 bg-white z-50 transition-all ${isMenu ? "animate-slide-in" : "animate-slide-out"
+            }`}
           style={{ height: "calc(100vh - 150px)" }}
         >
-          {NavLinks.map((nav) => (
-            <Link
-              key={nav.title}
-              href={nav.link}
-              className={cn(
-                "text-primary transition-colors text-sm font-medium opacity-90 hover:opacity-100 hover:border-b border-primary",
-                {
-                  "opacity-100 border-b border-primary hover:border-b-2":
-                    pathName === nav.link,
-                }
-              )}
-            >
-              {nav.title}
+          <div className="mt-7 flex flex-col gap-3">
+            {NavLinks.map((nav) => (
+              <Link
+                key={nav.title}
+                href={nav.link}
+                className={cn(
+                  "py-2 px-[5%] font-medium",
+                  {
+                    "bg-secondary":
+                      pathName === nav.link,
+                  }
+                )}
+              >
+                {nav.title}
+              </Link>
+            ))}
+          </div>
+          <div className="bg-secondary text-sm font-semibold py-10 pb-20 px-[5%]">
+            <Link href="/" className="flex gap-2 items-center w-fit">
+              <UserRound strokeWidth={1.2} />
+              Log in
             </Link>
-          ))}
+
+          </div>
         </div>
       )}
       <div className="lg:max-w-4xl xl:max-w-5xl w-full flex items-center justify-between">
