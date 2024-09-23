@@ -1,42 +1,48 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Input from "../Input";
-import { toast } from "@/hooks/use-toast";
+import Link from "next/link";
+import Image from "next/image";
 import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { toast } from "@/hooks/use-toast";
 
-const SignInContainer = () => {
-  const router = useRouter();
+const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!email || !password || !name) {
       setError("All fields are required");
       return;
     }
+
     setLoading(true);
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, name }),
       });
 
-      if (result?.error) {
-        setError(result.error || "Something went wrong.");
-      } else {
+      const data = await response.json();
+
+      if (response.ok) {
         toast({
-          title: "Login successful. Redirecting...",
+          title: "Sign up successful. Redirecting...",
         });
-        router.push("/"); // Redirect to home page after successful login
+        router.push("/sign-in"); // Redirect to home page after successful login
+      } else {
+        setError(data.message || "Something went wrong.");
       }
     } catch (error) {
       toast({
@@ -53,15 +59,15 @@ const SignInContainer = () => {
   };
 
   return (
-    <section className="bg-white rounded-xl pb-7 lg:pb-5 w-full min-w-[90vw] lg:min-w-[550px] px-5">
+    <section className="bg-white rounded-xl pb-7 w-full min-w-[90vw] lg:min-w-[500px] px-5">
       <div className="flex items-center justify-center">
         <Link href="/" className="w-fit">
           <Image src="/logo2.png" width={130} height={130} alt="logo" />
         </Link>
       </div>
-      <h1 className="heading1">Welcome Back</h1>
+      <h1 className="heading1">Create Your Account</h1>
       <p className="opacity-70 max-sm:text-sm font-medium">
-        Sign in to your account
+        Sign up to start using our services
       </p>
       <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
         {error && (
@@ -69,6 +75,13 @@ const SignInContainer = () => {
             {error}
           </p>
         )}
+        <Input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+          className="bg-gray-100 h-[60px]"
+        />
         <Input
           type="email"
           placeholder="Email"
@@ -88,7 +101,7 @@ const SignInContainer = () => {
           disabled={loading}
           className="bg-secondaryBg flex items-center justify-center rounded-lg h-[60px] font-semibold"
         >
-          {loading ? <Loader2 className="animate-spin" /> : " Sign in"}
+          {loading ? <Loader2 className="animate-spin" /> : " Sign up"}
         </button>
       </form>
       <div className="relative w-full h-[2px] my-7 bg-gray-100">
@@ -104,16 +117,16 @@ const SignInContainer = () => {
         Sign in with Google
       </button>
       <p className="text-sm text-center font-medium py-3">
-        Don't have an account yet?{" "}
+        Already have an account?{" "}
         <Link
-          href="/sign-up"
+          href="/sign-in"
           className="w-fit border-b border-black hover:text-secondaryBg"
         >
-          Sign Up
+          Sign in
         </Link>
       </p>
     </section>
   );
 };
 
-export default SignInContainer;
+export default SignUpContainer;
