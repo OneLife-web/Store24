@@ -1,14 +1,27 @@
 "use client";
-import { useCart } from "@/providers/CartContext";
+import { CartItem, useCart } from "@/providers/CartContext";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import CartCard from "../Cards/CartCard";
 //import { useRouter } from "next/navigation";
 
-const CartContainer = () => {
+const CartContainer = ({
+  cart,
+  totalPrice,
+  updateItemInCart,
+  removeItemFromCart,
+}: {
+  cart: CartItem[];
+  totalPrice: number;
+  updateItemInCart: (
+    productId: string,
+    quantity: number,
+    userId: string
+  ) => void;
+  removeItemFromCart: (productId: string, userId: string) => void;
+}) => {
   const { data: session } = useSession();
   const userId = session?.id;
-  const { cart, totalPrice, updateItemInCart, removeItemFromCart } = useCart();
 
   if (!userId)
     return (
