@@ -8,8 +8,7 @@ import CartCard from "../Cards/CartCard";
 const CartContainer = () => {
   const { data: session } = useSession();
   const userId = session?.id;
-  const { cart, totalPrice } = useCart();
-  // updateItemInCart, removeItemFromCart
+  const { cart, totalPrice, updateItemInCart, removeItemFromCart } = useCart();
 
   if (!userId)
     return (
@@ -20,7 +19,7 @@ const CartContainer = () => {
 
   // Call fetchCart to load the cart when needed (e.g., in useEffect or manually)
 
-  /* const handleIncrease = (productId: string, currentQuantity: number) => {
+  const handleIncrease = (productId: string, currentQuantity: number) => {
     updateItemInCart(productId, currentQuantity + 1, userId);
   };
 
@@ -28,7 +27,7 @@ const CartContainer = () => {
     if (currentQuantity > 1) {
       updateItemInCart(productId, currentQuantity - 1, userId);
     }
-  }; */
+  };
 
   if (cart.length < 1) {
     return (
@@ -54,13 +53,21 @@ const CartContainer = () => {
         <ul>
           {cart.map((item) => (
             <li key={item.productId}>
-             <CartCard item={item} />
+              <CartCard item={item} />
             </li>
           ))}
         </ul>
       </div>
 
-      <h2>Total: ${totalPrice}</h2>
+      <div className="absolute grid gap-3 border-t pb-5 pt-9 bottom-0 right-[3%] left-[3%]">
+        <div className="flex items-center justify-between">
+          <p className="font-semibold text-lg">Estimated Total</p>
+          <p className="font-semibold text-lg opacity-90">${totalPrice} USD</p>
+        </div>
+        <button className="bg-primary w-full text-white block py-3 mx-auto font-medium transform transition-transform hover:scale-105">
+          Check out
+        </button>
+      </div>
     </div>
   );
 };
