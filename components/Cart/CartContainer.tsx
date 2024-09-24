@@ -53,7 +53,13 @@ const CartContainer = () => {
         <ul>
           {cart.map((item) => (
             <li key={item.productId}>
-              <CartCard item={item} />
+              <CartCard
+                item={item}
+                userId={userId}
+                removeItem={removeItemFromCart}
+                increaseItem={handleIncrease}
+                decreaseItem={handleDecrease}
+              />
             </li>
           ))}
         </ul>
