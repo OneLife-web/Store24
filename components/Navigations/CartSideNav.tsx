@@ -1,3 +1,4 @@
+import CartContainer from "../Cart/CartContainer";
 import Slider from "./Slider";
 
 const CartSideNav = () => {
@@ -21,7 +22,7 @@ const CartSideNav = () => {
           </svg>
         }
       >
-        hello
+        <CartContainer />
       </Slider>
     </div>
   );

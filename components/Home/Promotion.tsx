@@ -1,9 +1,38 @@
+"use client";
+import { CartItem, useCart } from "@/providers/CartContext";
 import { Settings } from "@/types";
 import { MoveRight } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  const { data: session } = useSession();
+  const userId = session?.id;
+
+  const handleAddToCart = async () => {
+    let item: CartItem | undefined;
+
+    if (
+      data?.promotion?.productId?._id &&
+      data?.promotion?.productId?.price !== undefined
+    ) {
+      item = {
+        productId: data.promotion.productId._id,
+        name: data.promotion.productId.title,
+        price: data.promotion.productId.price,
+        quantity: 1, // Default to 1 when adding to cart
+      };
+
+      if (item && userId) {
+        await addItemToCart(item, userId); // Await if addItemToCart is a Promise
+      }
+    } else {
+      console.error("Product ID or Price is missing");
+    }
+  };
+
+  const { addItemToCart } = useCart();
   return (
     <section className="py-10 max-lg:px-[3%]">
       <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
@@ -69,7 +98,10 @@ const Promotion = ({ data }: { data: Settings }) => {
                 />
               </div>
             </div>
-            <button className="bg-primary text-white block w-full py-3 font-medium mt-10 transform transition-transform hover:scale-105">
+            <button
+              onClick={handleAddToCart}
+              className="bg-primary text-white block w-full py-3 font-medium mt-10 transform transition-transform hover:scale-105"
+            >
               BUY NOW
             </button>
             <Link

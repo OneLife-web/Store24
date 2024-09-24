@@ -16,9 +16,7 @@ const Slider = ({
       >
         {trigger}
       </SheetTrigger>
-      <SheetContent className="bg-white w-[90%] px-0">
-        {children}
-      </SheetContent>
+      <SheetContent className="bg-white w-[90%] px-0">{children}</SheetContent>
     </Sheet>
   );
 };

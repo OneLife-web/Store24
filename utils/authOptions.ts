@@ -8,7 +8,7 @@ import { NextAuthOptions } from "next-auth";
 // Extend NextAuth types for session
 declare module "next-auth" {
   interface Session {
-    id: string; // Add any additional properties you want here
+    id: string; // MongoDB User ID
   }
 }
 
@@ -26,7 +26,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("Received credentials:", credentials); // Debugging line
         await connectToDb();
 
         if (!credentials || !credentials.email || !credentials.password) {
@@ -34,7 +33,6 @@ export const authOptions: NextAuthOptions = {
         }
 
         const user = await User.findOne({ email: credentials.email });
-        console.log("Found user:", user); // Debugging line
 
         if (!user) {
           throw new Error("No user found with this email.");
@@ -44,7 +42,6 @@ export const authOptions: NextAuthOptions = {
           credentials.password,
           user.password
         );
-        console.log("Password valid:", isValid); // Debugging line
 
         if (!isValid) {
           throw new Error("Invalid password.");
@@ -65,10 +62,13 @@ export const authOptions: NextAuthOptions = {
             name: user.name,
             image: user.image,
           });
-          await newUser.save();
+          const savedUser = await newUser.save();
+          user.id = savedUser._id.toString();
+        } else {
+          user.id = existingUser._id.toString();
         }
       }
-      return true;
+      return true;  // Ensure true is returned for successful sign-in
     },
     async jwt({ token, user }) {
       if (user) {
@@ -81,6 +81,11 @@ export const authOptions: NextAuthOptions = {
         session.id = token.id;
       }
       return session;
+    },
+    // Define the redirect behavior
+    async redirect({ url, baseUrl }) {
+      // After successful login, redirect to the homepage (or other desired URL)
+      return baseUrl; // Redirect to homepage (base URL of your app)
     },
   },
   pages: {
