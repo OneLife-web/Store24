@@ -1,13 +1,20 @@
 "use client";
 import { useCart } from "@/providers/CartContext";
+import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 //import { useRouter } from "next/navigation";
 
 const CartContainer = () => {
   const { data: session } = useSession();
   const userId = session?.id;
-  if (!userId) return;
   const { cart, totalPrice, updateItemInCart, removeItemFromCart } = useCart();
+
+  if (!userId)
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin" size={32} />
+      </div>
+    );
 
   // Call fetchCart to load the cart when needed (e.g., in useEffect or manually)
 

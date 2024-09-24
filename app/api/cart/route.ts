@@ -100,7 +100,7 @@ export async function PUT(req: Request) {
       JSON.stringify({ error: "Item not found in cart" }),
       { status: 404 }
     );
-  } catch (error) {
+  } catch {
     return new NextResponse(
       JSON.stringify({ error: "Failed to update cart" }),
       { status: 500 }
@@ -135,7 +135,7 @@ export async function DELETE(req: Request) {
     return new NextResponse(JSON.stringify({ error: "Cart not found" }), {
       status: 404,
     });
-  } catch (error) {
+  } catch {
     return new NextResponse(
       JSON.stringify({ error: "Failed to remove item from cart" }),
       { status: 500 }
