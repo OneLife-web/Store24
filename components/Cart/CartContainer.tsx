@@ -8,7 +8,8 @@ import CartCard from "../Cards/CartCard";
 const CartContainer = () => {
   const { data: session } = useSession();
   const userId = session?.id;
-  const { cart, totalPrice, updateItemInCart, removeItemFromCart } = useCart();
+  const { cart, totalPrice } = useCart();
+  // updateItemInCart, removeItemFromCart
 
   if (!userId)
     return (
@@ -19,7 +20,7 @@ const CartContainer = () => {
 
   // Call fetchCart to load the cart when needed (e.g., in useEffect or manually)
 
-  const handleIncrease = (productId: string, currentQuantity: number) => {
+  /* const handleIncrease = (productId: string, currentQuantity: number) => {
     updateItemInCart(productId, currentQuantity + 1, userId);
   };
 
@@ -27,7 +28,7 @@ const CartContainer = () => {
     if (currentQuantity > 1) {
       updateItemInCart(productId, currentQuantity - 1, userId);
     }
-  };
+  }; */
 
   if (cart.length < 1) {
     return (
