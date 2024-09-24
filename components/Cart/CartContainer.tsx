@@ -49,8 +49,8 @@ const CartContainer = () => {
         <p className="bodyText max-sm:text-xs text-sm">PRODUCT</p>
         <p className="bodyText max-sm:text-xs text-sm">TOTAL</p>
       </div>
-      <div className="grid gap-2 py-4">
-        <ul>
+      <div className="py-4">
+        <ul className="grid gap-5">
           {cart.map((item) => (
             <li key={item.productId}>
               <CartCard

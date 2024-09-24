@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  const { addItemToCart } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
 
@@ -32,7 +33,6 @@ const Promotion = ({ data }: { data: Settings }) => {
     }
   };
 
-  const { addItemToCart } = useCart();
   return (
     <section className="py-10 max-lg:px-[3%]">
       <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
