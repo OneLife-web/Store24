@@ -45,8 +45,8 @@ const CartContainer = () => {
     <div className="px-[3%]">
       <h1 className="font-bold text-xl md:text-2xl">Your Cart</h1>
       <div className="py-4 flex border-b items-center justify-between">
-        <p className="bodyText">PRODUCT</p>
-        <p className="bodyText">TOTAL</p>
+        <p className="bodyText max-sm:text-xs text-sm">PRODUCT</p>
+        <p className="bodyText max-sm:text-xs text-sm">TOTAL</p>
       </div>
       <div className="grid gap-2 py-4">
         <ul>
