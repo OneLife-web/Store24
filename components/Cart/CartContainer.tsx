@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 const CartContainer = () => {
   const { data: session } = useSession();
   const userId = session?.id;
-
   if (!userId) return;
   const { cart, totalPrice, updateItemInCart, removeItemFromCart } = useCart();
 
@@ -22,8 +21,17 @@ const CartContainer = () => {
     }
   };
 
-  if (status === "unauthenticated") {
-    <div className="">N</div>;
+  if (cart.length < 1) {
+    return (
+      <div className="mt-[80%]">
+        <h2 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
+          Your cart is empty
+        </h2>
+        <button className="bg-primary text-white block px-6 py-3 mx-auto font-medium transform transition-transform hover:scale-105">
+          Continue shopping
+        </button>
+      </div>
+    );
   }
 
   return (
