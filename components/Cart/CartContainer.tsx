@@ -1,5 +1,5 @@
 "use client";
-import { CartItem, useCart } from "@/providers/CartContext";
+import { CartItem } from "@/providers/CartContext";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import CartCard from "../Cards/CartCard";
