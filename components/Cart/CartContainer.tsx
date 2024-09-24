@@ -43,7 +43,9 @@ const CartContainer = () => {
 
   return (
     <div>
-      <h1>Your Cart</h1>
+      <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
+        Your Cart
+      </h1>
       <ul>
         {cart.map((item) => (
           <li key={item.productId}>

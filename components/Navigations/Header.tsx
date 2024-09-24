@@ -28,7 +28,7 @@ const Header = () => {
   };
 
   const handleCart = () => {
-    if (status === "authenticated") {
+    if (status === "unauthenticated") {
       // Redirect to the user profile page
       router.push("/sign-in");
     }
