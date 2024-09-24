@@ -2,6 +2,7 @@
 import { useCart } from "@/providers/CartContext";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
+import CartCard from "../Cards/CartCard";
 //import { useRouter } from "next/navigation";
 
 const CartContainer = () => {
@@ -52,25 +53,7 @@ const CartContainer = () => {
         <ul>
           {cart.map((item) => (
             <li key={item.productId}>
-              {item.name} - ${item.price} x {item.quantity}
-              <div>
-                <button
-                  onClick={() => handleDecrease(item.productId, item.quantity)}
-                >
-                  -
-                </button>
-                <span>{item.quantity}</span>
-                <button
-                  onClick={() => handleIncrease(item.productId, item.quantity)}
-                >
-                  +
-                </button>
-              </div>
-              <button
-                onClick={() => removeItemFromCart(item.productId, userId)}
-              >
-                Remove
-              </button>
+             <CartCard item={item} />
             </li>
           ))}
         </ul>
