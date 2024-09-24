@@ -59,6 +59,7 @@ const Header = () => {
               <Link
                 key={nav.title}
                 href={nav.link}
+                onClick={() => setIsMenu(false)}
                 className={cn("py-2 px-[5%] font-medium", {
                   "bg-secondary": pathName === nav.link,
                 })}
