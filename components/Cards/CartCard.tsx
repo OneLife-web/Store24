@@ -15,7 +15,7 @@ const CartCard = ({
   increaseItem: (productId: string, quantity: number) => void;
   decreaseItem: (productId: string, quantity: number) => void;
 }) => {
-  const singleTotal = item.price + item.quantity;
+  const singleTotal = item.price * item.quantity;
   return (
     <div className="flex gap-4">
       <div className="flex gap-3 w-full basis-[80%]">
