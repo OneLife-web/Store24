@@ -3,6 +3,7 @@ import { Trash2 } from "lucide-react";
 import React from "react";
 
 const CartCard = ({ item }: { item: CartItem }) => {
+  const singleTotal = item.price + item.quantity;
   return (
     <div className="flex gap-4">
       <div className="flex gap-3 w-full basis-[80%]">
@@ -23,12 +24,14 @@ const CartCard = ({ item }: { item: CartItem }) => {
               </button>
             </div>
             <button className="flex items-center justify-center px-3">
-              <Trash2 strokeWidth={1.2} size={17}/>
+              <Trash2 strokeWidth={1.2} size={17} />
             </button>
           </div>
         </div>
       </div>
-      <div></div>
+      <div>
+        <p className="font-semibold">${singleTotal}</p>
+      </div>
     </div>
   );
 };
