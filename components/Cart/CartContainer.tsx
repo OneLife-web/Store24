@@ -42,33 +42,40 @@ const CartContainer = () => {
   }
 
   return (
-    <div>
-      <h1 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
-        Your Cart
-      </h1>
-      <ul>
-        {cart.map((item) => (
-          <li key={item.productId}>
-            {item.name} - ${item.price} x {item.quantity}
-            <div>
+    <div className="px-[3%]">
+      <h1 className="font-bold text-xl md:text-2xl">Your Cart</h1>
+      <div className="py-4 flex border-b items-center justify-between">
+        <p className="bodyText">PRODUCT</p>
+        <p className="bodyText">TOTAL</p>
+      </div>
+      <div className="grid gap-2 py-4">
+        <ul>
+          {cart.map((item) => (
+            <li key={item.productId}>
+              {item.name} - ${item.price} x {item.quantity}
+              <div>
+                <button
+                  onClick={() => handleDecrease(item.productId, item.quantity)}
+                >
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button
+                  onClick={() => handleIncrease(item.productId, item.quantity)}
+                >
+                  +
+                </button>
+              </div>
               <button
-                onClick={() => handleDecrease(item.productId, item.quantity)}
+                onClick={() => removeItemFromCart(item.productId, userId)}
               >
-                -
+                Remove
               </button>
-              <span>{item.quantity}</span>
-              <button
-                onClick={() => handleIncrease(item.productId, item.quantity)}
-              >
-                +
-              </button>
-            </div>
-            <button onClick={() => removeItemFromCart(item.productId, userId)}>
-              Remove
-            </button>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <h2>Total: ${totalPrice}</h2>
     </div>
   );
