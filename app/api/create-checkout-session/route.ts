@@ -6,11 +6,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-06-20", // Use the latest API version
 });
 
+// Define an interface for the item
+interface CheckoutItem {
+  name: string;
+  image: string;
+  price: number; // Assuming price is in dollars
+  quantity: number;
+}
+
 export async function POST(req: Request) {
   try {
-    const { items } = await req.json(); // Get items from the request body
+    const { items }: { items: CheckoutItem[] } = await req.json(); // Get items from the request body
 
-    const line_items = items.map((item: any) => ({
+    const line_items = items.map((item) => ({
       price_data: {
         currency: "usd",
         product_data: {
