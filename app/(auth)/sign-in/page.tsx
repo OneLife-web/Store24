@@ -1,9 +1,12 @@
 import SignInContainer from "@/components/auth/SignInContainer";
+import { Suspense } from "react";
 
 export default function SignIn() {
   return (
     <main>
-      <SignInContainer />
+      <Suspense>
+        <SignInContainer />
+      </Suspense>
     </main>
   );
 }
