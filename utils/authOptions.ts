@@ -82,11 +82,6 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    // Define the redirect behavior
-    async redirect({ url, baseUrl }) {
-      // After successful login, redirect to the homepage (or other desired URL)
-      return baseUrl; // Redirect to homepage (base URL of your app)
-    },
   },
   pages: {
     signIn: "/sign-in",
