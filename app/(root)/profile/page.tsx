@@ -1,12 +1,10 @@
-import React from 'react'
+import ProfileContainer from '@/components/ProfileContainer'
 
 const ProfilePage = () => {
   return (
-    <div>
-      <div>
-        ProfilePage
-      </div>
-    </div>
+    <main>
+     <ProfileContainer />
+    </main>
   )
 }
 
