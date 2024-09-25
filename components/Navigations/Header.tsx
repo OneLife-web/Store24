@@ -20,9 +20,11 @@ const Header = () => {
   const handleProfile = () => {
     if (status === "authenticated") {
       // Redirect to the user profile page
+      setIsMenu(false);
       router.push("/profile");
     } else {
       // Optionally, redirect to the sign-in page or show a message
+      setIsMenu(false);
       router.push("/sign-in");
     }
   };
@@ -69,10 +71,14 @@ const Header = () => {
             ))}
           </div>
           <div className="bg-secondary text-sm font-semibold py-10 pb-20 px-[5%]">
-            <Link href="/" className="flex gap-2 items-center w-fit">
+            <button
+              disabled={status === "loading"}
+              onClick={handleProfile}
+              className="flex gap-2 items-center w-fit"
+            >
               <UserRound strokeWidth={1.2} />
-              Log in
-            </Link>
+              {status === "authenticated" ? "Account" : "Log in"}
+            </button>
           </div>
         </div>
       )}
