@@ -1,7 +1,8 @@
 "use client";
-import { useRouter } from "next/navigation";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "../Input";
@@ -10,10 +11,19 @@ import toast from "react-hot-toast";
 
 const SignInContainer = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [callbackUrl, setCallbackUrl] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const callback = searchParams?.get("callbackUrl");
+    if (callback) {
+      setCallbackUrl(callback);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +33,7 @@ const SignInContainer = () => {
       return;
     }
     setLoading(true);
+
     try {
       const result = await signIn("credentials", {
         redirect: false,
@@ -30,22 +41,26 @@ const SignInContainer = () => {
         password,
       });
 
-      if (result?.error) {
-        setError(result.error || "Something went wrong.");
+      if (!result) {
+        setError("Something went wrong.");
+      } else if (result.error) {
+        setError(result.error);
       } else {
         toast.success("Login successful. Redirecting...");
-        router.push("/"); // Redirect to home page after successful login
+        router.push(callbackUrl || "/");
       }
     } catch (error) {
-      toast.error("Sorry an error occured");
-      console.log(error);
+      toast.error("Sorry, an error occurred.");
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = () => {
-    signIn("google");
+    signIn("google", {
+      callbackUrl: callbackUrl || "/", // Properly pass the callback URL for Google sign-in
+    });
   };
 
   return (
@@ -102,7 +117,9 @@ const SignInContainer = () => {
       <p className="text-sm text-center font-medium py-3">
         Don&apos;t have an account yet?{" "}
         <Link
-          href="/sign-up"
+          href={
+            callbackUrl ? `/sign-up?callbackUrl=${callbackUrl}` : "/sign-up"
+          }
           className="w-fit border-b border-black hover:text-secondaryBg"
         >
           Sign Up

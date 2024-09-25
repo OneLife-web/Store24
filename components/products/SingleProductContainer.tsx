@@ -1,19 +1,28 @@
 "use client";
+
 import { updateData } from "@/types";
-import React from "react";
 import Carousel from "../Carousel";
 import Image from "next/image";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
+  const router = useRouter();
   const { images } = data;
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
 
   const handleAddToCart = async () => {
+    if (!userId) {
+      router.push(
+        `/sign-in?callbackUrl=${encodeURIComponent(window.location.pathname)}`
+      );
+      return;
+    }
+
     let item: CartItem | undefined;
 
     if (data?._id && data?.price !== undefined) {
