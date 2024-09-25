@@ -5,6 +5,7 @@ import { getToken } from "next-auth/jwt"; // Import this if you're using JWT
 export async function middleware(req: NextRequest) {
   // Check if the user is authenticated
   const token = await getToken({ req });
+  const url = req.nextUrl.clone();
 
   // Define the paths that you want to protect
   const protectedPaths = ["/profile", "/dashboard"]; // Add your protected routes here
@@ -13,7 +14,9 @@ export async function middleware(req: NextRequest) {
   if (protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
     // If the user is not authenticated, redirect to the sign-in page
     if (!token) {
-      return NextResponse.redirect(new URL("/sign-in", req.url));
+      url.pathname = "/sign-in";
+      url.searchParams.set("callbackUrl", req.nextUrl.pathname);
+      return NextResponse.redirect(url);
     }
   }
 
