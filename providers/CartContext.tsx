@@ -14,6 +14,7 @@ export interface CartItem {
 interface CartContextType {
   cart: CartItem[];
   totalPrice: number;
+  loadingIndex: number | null; // Track the index of the loading card
   loading: boolean; // New loading state
   addItemToCart: (item: CartItem, userId: string) => Promise<void>;
   updateItemInCart: (
@@ -21,7 +22,11 @@ interface CartContextType {
     quantity: number,
     userId: string
   ) => Promise<void>;
-  removeItemFromCart: (productId: string, userId: string) => Promise<void>;
+  removeItemFromCart: (
+    productId: string,
+    userId: string,
+    index: number
+  ) => Promise<void>;
   fetchCart: (userId: string) => Promise<void>;
 }
 
@@ -33,6 +38,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false); // New loading state
+  const [loadingIndex, setLoadingIndex] = useState<number | null>(null);
 
   // Fetch cart and cart total from the API
   const fetchCart = async (userId: string) => {
@@ -111,8 +117,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const removeItemFromCart = async (productId: string, userId: string) => {
-    setLoading(true); // Start loading
+  const removeItemFromCart = async (
+    productId: string,
+    userId: string,
+    index: number
+  ) => {
+    setLoadingIndex(index); // Start loading for the specific card
     try {
       const response = await fetch("/api/cart", {
         method: "DELETE",
@@ -137,7 +147,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       toast.error("Failed to remove item from cart.");
       console.error("Failed to remove item from cart", error);
     } finally {
-      setLoading(false); // End loading
+      setLoadingIndex(null); // End loading
     }
   };
 
@@ -150,6 +160,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         cart,
         totalPrice,
+        loadingIndex,
         loading, // Provide the loading state to the context
         addItemToCart,
         updateItemInCart,

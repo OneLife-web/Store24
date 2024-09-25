@@ -1,19 +1,23 @@
 import { CartItem } from "@/providers/CartContext";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import React from "react";
 
 const CartCard = ({
   item,
   userId,
+  index,
   removeItem,
   increaseItem,
   decreaseItem,
+  loading,
 }: {
   item: CartItem;
   userId: string;
-  removeItem: (productId: string, userId: string) => void;
+  index: number;
+  removeItem: (productId: string, userId: string, index: number) => void;
   increaseItem: (productId: string, quantity: number) => void;
   decreaseItem: (productId: string, quantity: number) => void;
+  loading: boolean;
 }) => {
   const singleTotal = item.price * item.quantity;
   return (
@@ -43,10 +47,15 @@ const CartCard = ({
               </button>
             </div>
             <button
-              onClick={() => removeItem(item.productId, userId)}
+              onClick={() => removeItem(item.productId, userId, index)}
+              disabled={loading}
               className="flex items-center justify-center px-3"
             >
-              <Trash2 strokeWidth={1.2} size={17} />
+              {loading ? (
+                <Loader2 className="animate-spin" size={17} />
+              ) : (
+                <Trash2 strokeWidth={1.2} size={17} />
+              )}
             </button>
           </div>
         </div>

@@ -3,13 +3,15 @@ import { CartItem } from "@/providers/CartContext";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import CartCard from "../Cards/CartCard";
-//import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const CartContainer = ({
   cart,
   totalPrice,
   updateItemInCart,
   removeItemFromCart,
+  loadingIndex,
+  setOpen,
 }: {
   cart: CartItem[];
   totalPrice: number;
@@ -18,9 +20,16 @@ const CartContainer = ({
     quantity: number,
     userId: string
   ) => void;
-  removeItemFromCart: (productId: string, userId: string) => void;
+  removeItemFromCart: (
+    productId: string,
+    userId: string,
+    index: number
+  ) => void;
+  loadingIndex: number | null;
+  setOpen: (open: boolean) => void;
 }) => {
   const { data: session } = useSession();
+  const router = useRouter();
   const userId = session?.id;
 
   if (!userId)
@@ -30,7 +39,10 @@ const CartContainer = ({
       </div>
     );
 
-  // Call fetchCart to load the cart when needed (e.g., in useEffect or manually)
+  const handleContinueShopping = () => {
+    setOpen(false);
+    router.push("/");
+  };
 
   const handleIncrease = (productId: string, currentQuantity: number) => {
     updateItemInCart(productId, currentQuantity + 1, userId);
@@ -48,7 +60,10 @@ const CartContainer = ({
         <h2 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
           Your cart is empty
         </h2>
-        <button className="bg-primary text-white block px-6 py-3 mx-auto font-medium transform transition-transform hover:scale-105">
+        <button
+          onClick={handleContinueShopping}
+          className="bg-primary text-white block px-6 py-3 mx-auto font-medium transform transition-transform hover:scale-105"
+        >
           Continue shopping
         </button>
       </div>
@@ -64,14 +79,16 @@ const CartContainer = ({
       </div>
       <div className="py-4">
         <ul className="grid gap-5">
-          {cart.map((item) => (
+          {cart.map((item, index) => (
             <li key={item.productId}>
               <CartCard
                 item={item}
                 userId={userId}
+                index={index}
                 removeItem={removeItemFromCart}
                 increaseItem={handleIncrease}
                 decreaseItem={handleDecrease}
+                loading={loadingIndex === index}
               />
             </li>
           ))}

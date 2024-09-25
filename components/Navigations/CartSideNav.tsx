@@ -2,9 +2,17 @@
 import { useCart } from "@/providers/CartContext";
 import CartContainer from "../Cart/CartContainer";
 import Slider from "./Slider";
+import { useState } from "react";
 
 const CartSideNav = () => {
-  const { cart, totalPrice, updateItemInCart, removeItemFromCart } = useCart();
+  const {
+    cart,
+    totalPrice,
+    updateItemInCart,
+    removeItemFromCart,
+    loadingIndex,
+  } = useCart();
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <Slider
@@ -31,12 +39,16 @@ const CartSideNav = () => {
             )}
           </div>
         }
+        open={open}
+        setOpen={setOpen}
       >
         <CartContainer
           cart={cart}
           totalPrice={totalPrice}
           updateItemInCart={updateItemInCart}
           removeItemFromCart={removeItemFromCart}
+          loadingIndex={loadingIndex}
+          setOpen={setOpen}
         />
       </Slider>
     </div>

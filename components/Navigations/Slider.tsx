@@ -4,12 +4,16 @@ import React from "react";
 const Slider = ({
   trigger,
   children,
+  open,
+  setOpen,
 }: {
   trigger: React.ReactNode | string;
   children: React.ReactNode;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }) => {
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         asChild
         className="cursor-pointer hover:scale-105 transition-all duration-200"
