@@ -1,13 +1,13 @@
 "use client";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { Settings } from "@/types";
-import { MoveRight } from "lucide-react";
+import { Loader2, MoveRight } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Promotion = ({ data }: { data: Settings }) => {
-  const { addItemToCart } = useCart();
+  const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
 
@@ -100,9 +100,10 @@ const Promotion = ({ data }: { data: Settings }) => {
             </div>
             <button
               onClick={handleAddToCart}
-              className="bg-primary text-white block w-full py-3 font-medium mt-10 transform transition-transform hover:scale-105"
+              disabled={loading}
+              className="bg-primary text-white flex items-center justify-center w-full py-3 font-medium mt-10 transform transition-transform hover:scale-105"
             >
-              BUY NOW
+              {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
             </button>
             <Link
               href={`/products/${data?.promotion?.productId?._id}`}

@@ -5,10 +5,11 @@ import Carousel from "../Carousel";
 import Image from "next/image";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
   const { images } = data;
-  const { addItemToCart } = useCart();
+  const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
 
@@ -50,9 +51,10 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
               </ul>
               <button
                 onClick={handleAddToCart}
-                className="bg-primary text-white block w-full py-3 font-medium my-4 transform transition-transform hover:scale-105"
+                disabled={loading}
+                className="bg-primary text-white flex items-center justify-center w-full py-3 font-medium my-4 transform transition-transform hover:scale-105"
               >
-                BUY NOW
+                {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
               </button>
               <div>
                 <p className="text-center">

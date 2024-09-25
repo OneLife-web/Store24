@@ -5,8 +5,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Input from "../Input";
-import { toast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const SignInContainer = () => {
   const router = useRouter();
@@ -33,15 +33,11 @@ const SignInContainer = () => {
       if (result?.error) {
         setError(result.error || "Something went wrong.");
       } else {
-        toast({
-          title: "Login successful. Redirecting...",
-        });
+        toast.success("Login successful. Redirecting...");
         router.push("/"); // Redirect to home page after successful login
       }
     } catch (error) {
-      toast({
-        title: "Sorry an error occured",
-      });
+      toast.error("Sorry an error occured");
       console.log(error);
     } finally {
       setLoading(false);

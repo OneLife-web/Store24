@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { AuthProvider } from "@/providers/Providers";
-import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/providers/CartContext";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ["latin"], // Subset if needed, Google Fonts fetches automatically

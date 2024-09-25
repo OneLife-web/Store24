@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { toast } from "@/hooks/use-toast";
+import toast from "react-hot-toast";
 
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
@@ -37,17 +37,13 @@ const SignUpContainer = () => {
       const data = await response.json();
 
       if (response.ok) {
-        toast({
-          title: "Sign up successful. Redirecting...",
-        });
+        toast.success("Sign up successful. Redirecting...");
         router.push("/sign-in"); // Redirect to home page after successful login
       } else {
         setError(data.message || "Something went wrong.");
       }
     } catch (error) {
-      toast({
-        title: "Sorry an error occured",
-      });
+      toast.error("Sorry an error occured");
       console.log(error);
     } finally {
       setLoading(false);
