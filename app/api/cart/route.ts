@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 interface CartItem {
   productId: string;
+  productImage: string;
   name: string;
   price: number;
   quantity: number;
@@ -12,6 +13,7 @@ interface CartItem {
 interface CartRequest {
   userId: string;
   productId?: string;
+  productImage: string;
   name?: string;
   price?: number;
   quantity?: number;
@@ -22,8 +24,14 @@ export async function POST(req: Request) {
   await connectToDb();
 
   try {
-    const { userId, productId, name, price, quantity }: CartRequest =
-      await req.json();
+    const {
+      userId,
+      productId,
+      productImage,
+      name,
+      price,
+      quantity,
+    }: CartRequest = await req.json();
 
     // Ensure a valid quantity (default to 1 if not provided)
     const itemQuantity = quantity ?? 1;
@@ -34,7 +42,7 @@ export async function POST(req: Request) {
       // Create a new cart if it doesn't exist
       cart = new Cart({
         userId,
-        items: [{ productId, name, price, quantity: itemQuantity }],
+        items: [{ productId, productImage, name, price, quantity: itemQuantity }],
         totalPrice: price! * itemQuantity,
       });
     } else {

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 export interface CartItem {
   productId: string;
+  productImage: string;
   name: string;
   price: number;
   quantity: number;

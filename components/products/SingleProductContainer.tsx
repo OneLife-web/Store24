@@ -28,6 +28,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     if (data?._id && data?.price !== undefined) {
       item = {
         productId: data._id,
+        productImage: data.images[0],
         name: data.title,
         price: data.price,
         quantity: 1, // Default to 1 when adding to cart

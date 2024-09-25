@@ -28,6 +28,7 @@ const Promotion = ({ data }: { data: Settings }) => {
     ) {
       item = {
         productId: data.promotion.productId._id,
+        productImage: data.promotion.productId.images[0],
         name: data.promotion.productId.title,
         price: data.promotion.productId.price,
         quantity: 1, // Default to 1 when adding to cart

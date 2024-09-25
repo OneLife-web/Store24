@@ -1,5 +1,6 @@
 import { CartItem } from "@/providers/CartContext";
 import { Loader2, Trash2 } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 const CartCard = ({
@@ -23,7 +24,13 @@ const CartCard = ({
   return (
     <div className="flex gap-4">
       <div className="flex gap-3 w-full basis-[80%]">
-        <div className="size-20 bg-gray-100"></div>
+        <Image
+          src={item.productImage}
+          alt="product Image"
+          width={80}
+          height={80}
+          className="size-20 bg-gray-100"
+        />
         <div className="flex-grow">
           <h3 className="font-semibold">{item.name}</h3>
           <p className="bodyText !opacity-90">${item.price}</p>
