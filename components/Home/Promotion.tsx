@@ -5,13 +5,21 @@ import { Loader2, MoveRight } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  const router = useRouter();
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
 
   const handleAddToCart = async () => {
+    if (!userId) {
+      router.push(
+        `/sign-in?callbackUrl=${encodeURIComponent(window.location.pathname)}`
+      );
+      return;
+    }
     let item: CartItem | undefined;
 
     if (
