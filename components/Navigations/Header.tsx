@@ -52,7 +52,7 @@ const Header = () => {
           className={`absolute flex flex-col justify-between top-[150px] left-0 right-0 bottom-0 bg-white z-50 transition-all ${
             isMenu ? "animate-slide-in" : "animate-slide-out"
           }`}
-          style={{ height: "calc(100vh - 150px)" }}
+          style={{ height: "calc(90vh - 150px)" }}
         >
           <div className="mt-7 flex flex-col gap-3">
             {NavLinks.map((nav) => (

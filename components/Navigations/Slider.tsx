@@ -9,8 +9,8 @@ const Slider = ({
 }: {
   trigger: React.ReactNode | string;
   children: React.ReactNode;
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
 }) => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
