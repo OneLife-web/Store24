@@ -1,4 +1,5 @@
 // app/my-orders/page.tsx
+"use client";
 import React, { useEffect, useState } from "react";
 
 const MyOrders = () => {
