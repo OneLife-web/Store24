@@ -13,7 +13,7 @@ interface CartItem {
 interface CartRequest {
   userId: string;
   productId?: string;
-  productImage: string;
+  productImage?: string;
   name?: string;
   price?: number;
   quantity?: number;
@@ -42,7 +42,9 @@ export async function POST(req: Request) {
       // Create a new cart if it doesn't exist
       cart = new Cart({
         userId,
-        items: [{ productId, productImage, name, price, quantity: itemQuantity }],
+        items: [
+          { productId, productImage, name, price, quantity: itemQuantity },
+        ],
         totalPrice: price! * itemQuantity,
       });
     } else {
@@ -56,7 +58,13 @@ export async function POST(req: Request) {
         existingItem.quantity += itemQuantity;
       } else {
         // Add the new item to the cart
-        cart.items.push({ productId, name, price, quantity: itemQuantity });
+        cart.items.push({
+          productId,
+          productImage,
+          name,
+          price,
+          quantity: itemQuantity,
+        });
       }
 
       // Update total price
