@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   // Define the paths that you want to protect
-  const protectedPaths = ["/profile", "/dashboard"]; // Add your protected routes here
+  const protectedPaths = ["/profile", "/dashboard", "/checkout"]; // Add your protected routes here
 
   // Check if the requested path is protected
   if (protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
@@ -26,5 +26,5 @@ export async function middleware(req: NextRequest) {
 
 // You can specify which paths the middleware should run on
 export const config = {
-  matcher: ["/profile/:path*", "/dashboard/:path*"], // Add paths to match
+  matcher: ["/profile/:path*", "/dashboard/:path*", "/checkout/:path*"], // Add paths to match
 };

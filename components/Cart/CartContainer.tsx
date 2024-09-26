@@ -44,6 +44,11 @@ const CartContainer = ({
     router.push("/");
   };
 
+  const handleToCheckout = () => {
+    setOpen(false);
+    router.push("/checkout");
+  };
+
   const handleIncrease = (productId: string, currentQuantity: number) => {
     updateItemInCart(productId, currentQuantity + 1, userId);
   };
@@ -100,7 +105,10 @@ const CartContainer = ({
           <p className="font-semibold text-lg">Estimated Total</p>
           <p className="font-semibold text-lg opacity-90">${totalPrice} USD</p>
         </div>
-        <button className="bg-primary w-full text-white block py-3 mx-auto font-medium transform transition-transform hover:scale-105">
+        <button
+          onClick={handleToCheckout}
+          className="bg-primary w-full text-white block py-3 mx-auto font-medium transform transition-transform hover:scale-105"
+        >
           Check out
         </button>
       </div>
