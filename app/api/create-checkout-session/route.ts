@@ -9,14 +9,22 @@ export async function POST(req: Request) {
   try {
     const { items } = await req.json();
 
-    const line_items = items.map((item: any) => ({
+    // Define an interface for the expected item structure
+    interface CheckoutItem {
+      name: string;
+      image: string;
+      price: number;
+      quantity: number;
+    }
+
+    const line_items = items.map((item: CheckoutItem) => ({
       price_data: {
         currency: "usd",
         product_data: {
           name: item.name,
           images: [item.image],
         },
-        unit_amount: item.price * 100,
+        unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
     }));
