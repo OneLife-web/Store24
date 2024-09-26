@@ -12,7 +12,7 @@ export async function GET(req: Request, { params }: { params: { userId: string }
       return new NextResponse(JSON.stringify({ message: "No orders found" }), { status: 404 });
     }
     return new NextResponse(JSON.stringify(orders), { status: 200 });
-  } catch (error) {
+  } catch {
     return new NextResponse(JSON.stringify({ error: "Failed to fetch orders" }), { status: 500 });
   }
 }

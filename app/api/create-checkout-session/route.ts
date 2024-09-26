@@ -10,6 +10,7 @@ export async function POST(req: Request) {
   try {
     const { items } = await req.json(); // Get items from the request body
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const line_items = items.map((item: any) => ({
       price_data: {
         currency: "usd",
