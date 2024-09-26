@@ -1,24 +1,22 @@
-// app/api/create-checkout-session/route.ts
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2024-06-20", // Use the latest API version
+  apiVersion: "2024-06-20",
 });
 
 export async function POST(req: Request) {
   try {
-    const { items } = await req.json(); // Get items from the request body
+    const { items } = await req.json();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const line_items = items.map((item: any) => ({
       price_data: {
         currency: "usd",
         product_data: {
           name: item.name,
-          images: [item.image], // Product image URL
+          images: [item.image],
         },
-        unit_amount: item.price * 100, // Price in cents
+        unit_amount: item.price * 100,
       },
       quantity: item.quantity,
     }));

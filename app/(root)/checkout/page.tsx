@@ -1,4 +1,3 @@
-// app/checkout/page.tsx
 'use client';
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -22,8 +21,8 @@ const Checkout = () => {
         items: [
           {
             name: "Product Name",
-            image: "https://example.com/image.jpg", // Replace with your product image URL
-            price: 20.0, // Product price in dollars
+            image: "https://example.com/image.jpg",
+            price: 20.0,
             quantity: 1,
           },
         ],
