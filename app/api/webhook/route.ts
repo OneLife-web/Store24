@@ -3,6 +3,22 @@ import Stripe from "stripe";
 import getRawBody from "raw-body";
 import { connectToDb } from "@/utils/config/mongodb";
 import Order from "@/utils/models/Order"; // Assuming you have an Order model for MongoDB
+import { Readable } from "stream";
+
+// Helper function to convert a Web stream (ReadableStream) to a Node.js stream
+function convertToNodeReadable(webStream: ReadableStream<Uint8Array>): Readable {
+  const reader = webStream.getReader();
+  return new Readable({
+    async read() {
+      const { done, value } = await reader.read();
+      if (done) {
+        this.push(null);
+      } else {
+        this.push(Buffer.from(value));
+      }
+    },
+  });
+}
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
@@ -10,8 +26,24 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 });
 
 // Webhook handler
-export async function POST(req: Request) {  // Change to `Request` type
-  const payload = await getRawBody(req.body); // Use req.body instead of rawBody(req)
+export async function POST(req: Request) {
+  if (!req.body) {
+    return new NextResponse(JSON.stringify({ error: "Request body is missing" }), { status: 400 });
+  }
+
+  // Convert the Web stream to Node.js stream
+  const nodeStream = convertToNodeReadable(req.body);
+
+  // Ensure content-length is valid and fallback to 0 if not provided
+  const contentLength = req.headers.get("content-length");
+  const length = contentLength ? parseInt(contentLength, 10) : 0;
+
+  // Extract raw body using getRawBody and pass the correct options
+  const payload = await getRawBody(nodeStream, {
+    length, // Safely pass the content length
+    encoding: 'utf-8', // Assuming you're working with a UTF-8 encoded payload
+  });
+
   const sig = req.headers.get("stripe-signature");
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
