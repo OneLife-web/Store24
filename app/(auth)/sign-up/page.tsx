@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 export default function SignUp() {
   return (
-    <main className="lg: py-10">
+    <main>
       <Suspense>
         <SignUpContainer />
       </Suspense>

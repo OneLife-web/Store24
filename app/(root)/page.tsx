@@ -3,10 +3,6 @@ import Promotion from "@/components/Home/Promotion";
 import { fetchProducts, getSettings } from "@/lib/PowerHouse";
 import { Settings, updateData } from "@/types";
 
-export const metadata = {
-  revalidate: 180, // Revalidate every 10 seconds
-};
-
 export default async function Home() {
   const [settingsResult, productsResult] = await Promise.allSettled([
     getSettings(),
