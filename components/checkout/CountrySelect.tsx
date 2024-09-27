@@ -9,8 +9,8 @@ import {
 export function SelectCountry() {
   return (
     <Select>
-      <SelectTrigger className="w-full h-16 shadow-none placeholder:text-red-400 focus:ring-0">
-        <SelectValue className="placeholder:text-red-500" placeholder="Select a country" />
+      <SelectTrigger className="w-full h-14 lg:h-16 shadow-none focus:ring-0">
+        <SelectValue placeholder="Select a country" />
       </SelectTrigger>
       <SelectContent className="bg-white">
         <SelectItem value="AF">Afghanistan</SelectItem>
