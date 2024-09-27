@@ -42,6 +42,8 @@ const CheckoutMainContainter = () => {
 
     if (response.ok) {
       const stripe = await stripePromise;
+      console.log(stripe); // Check if this outputs a Stripe object
+
       await stripe?.redirectToCheckout({ sessionId: session.id });
     } else {
       console.error(session.error);
