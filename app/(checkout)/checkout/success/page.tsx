@@ -34,7 +34,7 @@ const SuccessPage = () => {
     if (storedOrderDetails && storedOrderId) {
       const details = JSON.parse(storedOrderDetails);
       setOrderDetails(details);
-      setOrderId(storedOrderId); // Ensure the orderId is saved in localStorage when creating the order
+      setOrderId(storedOrderId); // Save orderId from localStorage
     }
   }, []);
 
@@ -42,7 +42,7 @@ const SuccessPage = () => {
     const updateOrderStatus = async () => {
       if (orderId && id) {
         try {
-          const userId = id; // Fetch this from your session or auth state
+          const userId = id; // Ensure this is the correct user ID
           const response = await fetch(`/api/orders/${orderId}`, {
             method: "PATCH",
             headers: {
@@ -56,11 +56,20 @@ const SuccessPage = () => {
             throw new Error("Failed to update order status");
           }
 
-          // Remove the orderDetails from localStorage only after successful status update
+          // Successfully updated order, remove localStorage data
           localStorage.removeItem("orderDetails");
-          console.log("Order status updated, localStorage cleared");
+          localStorage.removeItem("orderId");
+
+          // Delete the cart
+          const res = await fetch(`/api/cart/${userId}`, {
+            method: "DELETE",
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to delete cart");
+          }
         } catch (error) {
-          console.error("Error updating order status:", error);
+          console.error("Error updating order status or deleting cart:", error);
         }
       }
     };
@@ -85,7 +94,7 @@ const SuccessPage = () => {
           <p>Phone: {orderDetails.phone}</p>
           <h3>Items:</h3>
           <ul>
-            {orderDetails.cart.map((item: any, index: number) => (
+            {orderDetails.cart.map((item: CartItem, index: number) => (
               <li key={index}>
                 {item.name} - Quantity: {item.quantity}
               </li>
