@@ -7,6 +7,7 @@ import { ChevronDown, CircleHelp, Lock } from "lucide-react";
 import Input from "../Input";
 import { useCart } from "@/providers/CartContext";
 import Image from "next/image";
+import PhoneNumberInput from "../PhoneInput";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -54,8 +55,8 @@ const CheckoutMainContainter = () => {
   const handlechange = () => {};
 
   return (
-    <section>
-      <div className="text-sm grid gap-2 py-3 border-b">
+    <section className="bg-gray-50">
+      <div className="text-sm grid gap-2 px-[3%] py-3 border-b bg-white">
         <div className="flex items-center justify-between">
           <p className="opacity-80">Account</p>
           <button
@@ -79,14 +80,17 @@ const CheckoutMainContainter = () => {
           </button>
         )}
       </div>
-      <div className="py-10">
-        <h2 className="heading2">Delivery</h2>
+      <div className="mt-3">
         <form className="grid gap-4 mt-4">
-          <SelectCountry />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
+            <h2 className="heading2">Country/region</h2>
+            <SelectCountry />
+          </div>
+          <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
+            <h2 className="heading2">Contact information</h2>
             <Input
               value=""
-              className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+              className="border h-14 mb-2 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="First name"
               onChange={handlechange}
             />
@@ -97,42 +101,59 @@ const CheckoutMainContainter = () => {
               onChange={handlechange}
             />
           </div>
-          <Input
-            value=""
-            className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
-            placeholder="Address"
-            onChange={handlechange}
-          />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
+            <h2 className="heading2">Address</h2>
             <Input
               value=""
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
-              placeholder="City"
+              placeholder="Street"
               onChange={handlechange}
             />
-            <Input
-              value=""
-              className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
-              placeholder="State"
-              onChange={handlechange}
-            />
-            <Input
-              value=""
-              className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
-              placeholder="ZIP code"
-              onChange={handlechange}
-            />
+            <p className="text-xs opacity-80 mb-2">
+              Enter an address with 5 - 50 characters including building or
+              house number
+            </p>
+            <div className="grid gap-4">
+              <Input
+                value=""
+                className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+                placeholder="Apt, suite, unit, etc (optional)"
+                onChange={handlechange}
+              />
+              <Input
+                value=""
+                className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+                placeholder="State"
+                onChange={handlechange}
+              />
+              <Input
+                value=""
+                className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+                placeholder="City"
+                onChange={handlechange}
+              />
+              <Input
+                value=""
+                className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+                placeholder="Zip code"
+                onChange={handlechange}
+              />
+              <Input
+                value=""
+                className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+                placeholder="Delivery Instructions"
+                onChange={handlechange}
+              />
+            </div>
           </div>
-          <Input
-            value=""
-            className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
-            placeholder="Phone"
-            onChange={handlechange}
-          />
+          <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
+            <h2 className="heading2">Mobile number</h2>
+            <PhoneNumberInput />
+          </div>
         </form>
       </div>
 
-      <div>
+      <div className="mt-3 px-[3%] bg-white py-7">
         <h2 className="heading2">Order Summary</h2>
         <div className="mt-10">
           <ul className="grid gap-5">
@@ -180,21 +201,22 @@ const CheckoutMainContainter = () => {
           </div>
         </div>
       </div>
-
-      <button
-        className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
-        type="submit"
-        onClick={handleCheckout}
-        disabled={loading}
-      >
-        {loading ? "Processing..." : "Pay Now"}
-      </button>
-      <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
-        <span>
-          <Lock strokeWidth={1.2} size={15} />
-        </span>
-        Secure and encrypted
-      </p>
+      <div className="bg-white px-[3%]">
+        <button
+          className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
+          type="submit"
+          onClick={handleCheckout}
+          disabled={loading}
+        >
+          {loading ? "Processing..." : "Pay Now"}
+        </button>
+        <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
+          <span>
+            <Lock strokeWidth={1.2} size={15} />
+          </span>
+          Secure and encrypted
+        </p>
+      </div>
     </section>
   );
 };
