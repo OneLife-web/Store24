@@ -47,6 +47,7 @@ const CheckoutMainContainter = () => {
             phone,
             deliveryInstructions,
             cart,
+            totalPrice,
           })
         );
       }

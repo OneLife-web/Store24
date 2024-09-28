@@ -67,7 +67,7 @@ const CartContainer = ({
         </h2>
         <button
           onClick={handleContinueShopping}
-          className="bg-primary text-white block px-6 py-3 mx-auto font-medium transform transition-transform hover:scale-105"
+          className="bg-secondaryBg rounded-lg block px-6 py-3 mx-auto font-medium transform transition-transform hover:scale-105"
         >
           Continue shopping
         </button>
@@ -107,7 +107,7 @@ const CartContainer = ({
         </div>
         <button
           onClick={handleToCheckout}
-          className="bg-primary w-full text-white block py-3 mx-auto font-medium transform transition-transform hover:scale-105"
+          className="bg-secondaryBg rounded-lg w-full block py-3 mx-auto font-medium transform transition-transform hover:scale-105"
         >
           Check out
         </button>
