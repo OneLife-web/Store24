@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -8,15 +8,18 @@ interface PhoneNumberInputProps {
 }
 
 const PhoneNumberInput = ({ phone, setPhone }: PhoneNumberInputProps) => {
-  // Update this function to match the expected signature
-  const handlePhoneChange = (
-    value: string,
-    data: {},
-    event: React.ChangeEvent<HTMLInputElement>,
-    formattedValue: string
-  ) => {
-    setPhone(value); // setPhone now receives the phone number directly
+  const phoneInputRef = useRef<HTMLInputElement>(null); // Create a ref for the input
+
+  const handlePhoneChange = (value: string) => {
+    setPhone(value);
   };
+
+  useEffect(() => {
+    // Blur the input after the component mounts
+    if (phoneInputRef.current) {
+      phoneInputRef.current.blur();
+    }
+  }, []);
 
   return (
     <div>
@@ -27,6 +30,7 @@ const PhoneNumberInput = ({ phone, setPhone }: PhoneNumberInputProps) => {
         inputProps={{
           name: "phone",
           required: true,
+          ref: phoneInputRef, // Assign the ref to the inputProps
         }}
         enableSearch={true}
       />
