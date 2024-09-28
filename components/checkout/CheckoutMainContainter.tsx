@@ -87,6 +87,9 @@ const CheckoutMainContainter = () => {
         throw new Error(orderData.error || "Order creation failed");
       }
 
+      // Save order ID to localStorage
+      localStorage.setItem("orderId", orderData.order._id); // Ensure orderId is saved
+
       // Now send request to create checkout session
       const sessionResponse = await fetch("/api/create-checkout-session", {
         method: "POST",

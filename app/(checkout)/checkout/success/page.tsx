@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 // Define the types for order details and cart items
@@ -22,40 +23,50 @@ interface OrderDetails {
 }
 
 const SuccessPage = () => {
+  const { data: session } = useSession();
+  const id = session?.id;
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     const storedOrderDetails = localStorage.getItem("orderDetails");
-    if (storedOrderDetails) {
+    const storedOrderId = localStorage.getItem("orderId");
+    if (storedOrderDetails && storedOrderId) {
       const details = JSON.parse(storedOrderDetails);
       setOrderDetails(details);
-      setOrderId(details.orderId); // Ensure the orderId is saved in localStorage when creating the order
-      localStorage.removeItem("orderDetails");
+      setOrderId(storedOrderId); // Ensure the orderId is saved in localStorage when creating the order
     }
   }, []);
 
   useEffect(() => {
-    if (orderId) {
-      const updateOrderStatus = async () => {
-        const userId = "some-user-id"; // Fetch this from your session or auth state
-        const response = await fetch(`/api/orders/${orderId}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "user-id": userId, // Send the userId in headers
-          },
-          body: JSON.stringify({ status: "processing" }), // Update status to 'processing'
-        });
+    const updateOrderStatus = async () => {
+      if (orderId && id) {
+        try {
+          const userId = id; // Fetch this from your session or auth state
+          const response = await fetch(`/api/orders/${orderId}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              "user-id": userId, // Send the userId in headers
+            },
+            body: JSON.stringify({ status: "processing" }), // Update status to 'processing'
+          });
 
-        if (!response.ok) {
-          console.error("Failed to update order status");
+          if (!response.ok) {
+            throw new Error("Failed to update order status");
+          }
+
+          // Remove the orderDetails from localStorage only after successful status update
+          localStorage.removeItem("orderDetails");
+          console.log("Order status updated, localStorage cleared");
+        } catch (error) {
+          console.error("Error updating order status:", error);
         }
-      };
+      }
+    };
 
-      updateOrderStatus();
-    }
-  }, [orderId]);
+    updateOrderStatus();
+  }, [orderId, id]);
 
   return (
     <div>
