@@ -55,8 +55,8 @@ const CheckoutMainContainter = () => {
   const handlechange = () => {};
 
   return (
-    <section className="bg-gray-50">
-      <div className="text-sm grid gap-2 px-[3%] py-3 border-b bg-white">
+    <section className="bg-gray-100">
+      <div className="text-sm grid gap-2 px-[3%] py-3 bg-white">
         <div className="flex items-center justify-between">
           <p className="opacity-80">Account</p>
           <button
