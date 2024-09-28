@@ -31,70 +31,75 @@ const CheckoutMainContainter = () => {
   const handleCheckout = async () => {
     setLoading(true);
 
-    // Create order before sending checkout session request
-    const orderResponse = await fetch("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: cart.map((item) => ({
-          name: item.name,
-          image: item.productImage,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-        customerDetails: {
-          firstName, // Assume these are defined in your component
-          lastName,
-          street,
-          apt,
-          city,
-          state,
-          zip,
-          country,
-          phone,
-          deliveryInstructions,
-          email: userSession?.user?.email,
+    try {
+      // Create order before sending checkout session request
+      const orderResponse = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        userId: userSession?.id, // Add userId here
-      }),
-    });
+        body: JSON.stringify({
+          items: cart.map((item) => ({
+            name: item.name,
+            image: item.productImage,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+          customerDetails: {
+            firstName,
+            lastName,
+            street,
+            apt,
+            city,
+            state,
+            zip,
+            country,
+            phone,
+            deliveryInstructions,
+            email: userSession?.user?.email,
+          },
+          userId: userSession?.id,
+        }),
+      });
 
-    const orderData = await orderResponse.json();
+      const orderData = await orderResponse.json();
+      if (!orderResponse.ok) {
+        console.error("Failed to create order:", orderData.error);
+        throw new Error(orderData.error || "Order creation failed");
+      }
 
-    if (orderData.status === 500) {
-      console.error("Failed to create order:", orderData.error);
-      setLoading(false);
-      return;
-    }
+      // Now send request to create checkout session
+      const sessionResponse = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: cart.map((item) => ({
+            name: item.name,
+            image: item.productImage,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        }),
+      });
 
-    // Now send request to create checkout session
-    const sessionResponse = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: cart.map((item) => ({
-          name: item.name,
-          image: item.productImage,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-      }),
-    });
+      const sessionData = await sessionResponse.json();
+      if (!sessionResponse.ok) {
+        console.error("Failed to create Stripe session:", sessionData.error);
+        throw new Error(sessionData.error || "Stripe session creation failed");
+      }
 
-    const sessionData: { id: string; error?: string } =
-      await sessionResponse.json();
-
-    if (sessionResponse.status === 200) {
       const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
       );
-      await stripe?.redirectToCheckout({ sessionId: sessionData.id });
+      if (!stripe) {
+        throw new Error("Stripe failed to load");
+      }
 
-      // Save the form data to localStorage for use on the success page
+      await stripe.redirectToCheckout({ sessionId: sessionData.id });
+
+      // Save the form data to localStorage
       localStorage.setItem(
         "orderDetails",
         JSON.stringify({
@@ -111,11 +116,12 @@ const CheckoutMainContainter = () => {
           cart,
         })
       );
-    } else {
-      console.error(sessionData.error); // Handle error appropriately
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("There was an error during checkout. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
