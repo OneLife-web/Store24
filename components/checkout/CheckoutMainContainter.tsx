@@ -32,6 +32,25 @@ const CheckoutMainContainter = () => {
     setLoading(true);
 
     try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "orderDetails",
+          JSON.stringify({
+            firstName,
+            lastName,
+            street,
+            apt,
+            city,
+            state,
+            zip,
+            country,
+            phone,
+            deliveryInstructions,
+            cart,
+          })
+        );
+      }
+
       // Create order before sending checkout session request
       const orderResponse = await fetch("/api/orders", {
         method: "POST",
@@ -98,24 +117,6 @@ const CheckoutMainContainter = () => {
       }
 
       await stripe.redirectToCheckout({ sessionId: sessionData.id });
-
-      // Save the form data to localStorage
-      localStorage.setItem(
-        "orderDetails",
-        JSON.stringify({
-          firstName,
-          lastName,
-          street,
-          apt,
-          city,
-          state,
-          zip,
-          country,
-          phone,
-          deliveryInstructions,
-          cart,
-        })
-      );
     } catch (error) {
       console.error("Checkout error:", error);
       alert("There was an error during checkout. Please try again.");
