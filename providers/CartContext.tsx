@@ -29,6 +29,7 @@ interface CartContextType {
     index: number
   ) => Promise<void>;
   fetchCart: (userId: string) => Promise<void>;
+  clearCart: (userId: string) => Promise<void>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -152,6 +153,31 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const clearCart = async (userId: string) => {
+    setLoading(true); // Start loading
+    try {
+      const response = await fetch(`/api/cart/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Reset cart and total price after successful cart deletion
+      setCart([]);
+      setTotalPrice(0);
+    } catch (error) {
+      // Error handling
+      console.error("Failed to clear cart", error);
+    } finally {
+      setLoading(false); // End loading
+    }
+  };
+
   useEffect(() => {
     if (userId) fetchCart(userId);
   }, [userId]); // Fetch cart on initial mount
@@ -167,6 +193,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         updateItemInCart,
         removeItemFromCart,
         fetchCart,
+        clearCart,
       }}
     >
       {children}

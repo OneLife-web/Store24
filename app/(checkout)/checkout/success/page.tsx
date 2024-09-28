@@ -1,4 +1,5 @@
 "use client";
+import { useCart } from "@/providers/CartContext";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
@@ -23,10 +24,17 @@ interface OrderDetails {
 }
 
 const SuccessPage = () => {
+  const { clearCart } = useCart();
   const { data: session } = useSession();
   const id = session?.id;
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
+
+  const handleClearCart = () => {
+    if (id) {
+      clearCart(id);
+    }
+  };
 
   useEffect(() => {
     const storedOrderDetails = localStorage.getItem("orderDetails");
@@ -60,14 +68,7 @@ const SuccessPage = () => {
           localStorage.removeItem("orderDetails");
           localStorage.removeItem("orderId");
 
-          // Delete the cart
-          const res = await fetch(`/api/cart/${userId}`, {
-            method: "DELETE",
-          });
-
-          if (!res.ok) {
-            throw new Error("Failed to delete cart");
-          }
+          handleClearCart();
         } catch (error) {
           console.error("Error updating order status or deleting cart:", error);
         }
