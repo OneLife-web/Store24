@@ -1,13 +1,21 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const PhoneNumberInput = () => {
-  const [phone, setPhone] = useState("");
+interface PhoneNumberInputProps {
+  phone: string;
+  setPhone: (phone: string) => void;
+}
 
-  const handlePhoneChange = (value: string) => {
-    setPhone(value);
+const PhoneNumberInput = ({ phone, setPhone }: PhoneNumberInputProps) => {
+  // Update this function to match the expected signature
+  const handlePhoneChange = (
+    value: string,
+    data: {},
+    event: React.ChangeEvent<HTMLInputElement>,
+    formattedValue: string
+  ) => {
+    setPhone(value); // setPhone now receives the phone number directly
   };
 
   return (
@@ -15,11 +23,10 @@ const PhoneNumberInput = () => {
       <PhoneInput
         country={"us"}
         value={phone}
-        onChange={handlePhoneChange}
+        onChange={handlePhoneChange} // Pass the updated handler
         inputProps={{
           name: "phone",
           required: true,
-          autoFocus: true,
         }}
         enableSearch={true}
       />

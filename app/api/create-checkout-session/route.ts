@@ -33,16 +33,13 @@ export async function POST(req: Request) {
       payment_method_types: ["card", "paypal"],
       line_items,
       mode: "payment",
-      success_url: `${req.headers.get("origin")}/success`,
-      cancel_url: `${req.headers.get("origin")}/cancel`,
+      success_url: `${req.headers.get("origin")}/checkout/success`,
+      cancel_url: `${req.headers.get("origin")}/checkout/cancel`,
     });
 
-    return NextResponse.json({ id: session.id });
+    return NextResponse.json({ id: session.id, status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error", status: 500 });
   }
 }

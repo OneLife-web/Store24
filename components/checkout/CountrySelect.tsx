@@ -6,9 +6,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectCountry() {
+interface SelectCountryProps {
+  selectedCountry: string | undefined; // Change to string | undefined
+  setSelectedCountry: (country: string) => void;
+}
+
+export function SelectCountry({
+  selectedCountry,
+  setSelectedCountry,
+}: SelectCountryProps) {
+  const handleCountryChange = (value: string) => {
+    setSelectedCountry(value); // Update the country in the parent component
+  };
   return (
-    <Select>
+    <Select value={selectedCountry} onValueChange={handleCountryChange}>
       <SelectTrigger className="w-full h-14 lg:h-16 shadow-none focus:ring-0">
         <SelectValue placeholder="Select a country" />
       </SelectTrigger>
