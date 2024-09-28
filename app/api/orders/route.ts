@@ -8,9 +8,14 @@ export async function POST(req: Request) {
   try {
     const orderData = await req.json();
     const order = new OrderModel(orderData);
-    await order.save();
+    const savedOrder = await order.save();
 
-    return NextResponse.json({ order, status: 200 });
+    // Check if savedOrder is successful
+    if (savedOrder) {
+      return NextResponse.json({ order: savedOrder, status: 200 });
+    } else {
+      return NextResponse.json({ error: "Order not saved", status: 400 });
+    }
   } catch (error) {
     console.error("Error creating order:", error);
     return NextResponse.json({ error: "Failed to create order", status: 500 });

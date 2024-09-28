@@ -39,8 +39,9 @@ const OrderSchema: Schema = new Schema({
     phone: { type: String, required: true },
     email: { type: String, required: true },
   },
-  useer: {
-    type: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   status: {
