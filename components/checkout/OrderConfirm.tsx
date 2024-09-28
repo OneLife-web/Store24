@@ -86,7 +86,7 @@ export default function OrderConfirm() {
       <div className="flex flex-col items-center gap-5 px-[3%] lg:gap-10">
         <div className="mt-20 grid justify-items-center text-center">
           <Image
-            src="/images/confetti.png"
+            src="/confetti.png"
             alt="Logo"
             width={76}
             height={76}
@@ -109,7 +109,7 @@ export default function OrderConfirm() {
         </div>
         <Link
           href="/"
-          className="mb-3 min-w-full rounded-xl border-0 p-3 font-medium text-base shadow-none lg:min-w-[600px] lg:p-5"
+          className="mb-3 min-w-full bg-secondaryBg flex items-center justify-center rounded-xl border-0 p-3 font-medium text-base shadow-none lg:min-w-[600px] lg:p-5"
         >
           Continue Shopping
         </Link>
@@ -129,7 +129,7 @@ const OrderSummary = ({
     <div className="w-full pb-5 pt-12 lg:rounded-[20px] lg:border lg:border-[#E4E7EC] lg:px-10">
       <div className="w-full rounded-2xl border border-[#F4F4F4] lg:border-0">
         <div className="mb-3 flex items-center justify-center gap-2 pt-6 lg:block lg:pl-4 lg:pt-0">
-          <div className="flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#FFE0E0] font-medium text-[8px] text-black lg:hidden">
+          <div className="flex h-[15px] w-[15px] items-center justify-center rounded-full bg-secondary font-medium text-[8px] text-black lg:hidden">
             1
           </div>
           <p className="font-medium text-xs lg:text-base lg:text-myGray">
@@ -152,7 +152,7 @@ const OrderSummary = ({
       <div className="mt-5 w-full rounded-[10px] border border-[#F4F4F4] p-5 px-5 lg:rounded-2xl lg:border-[#E4E7EC]">
         <div className="mb-4 flex items-center justify-between text-[10px] text-myGray lg:text-base">
           <span>Amount:</span>
-          <p className="font-medium text-sm lg:text-base">{amount}</p>
+          <p className="font-medium text-sm lg:text-base">${amount}</p>
         </div>
         <div className="flex items-center justify-between text-[10px] text-myGray lg:text-base">
           <span>Payment method:</span>
@@ -194,7 +194,7 @@ const OrderItem = ({
         </div>
         <div className="min-w-fit">
           <p className="font-medium text-sm text-black lg:text-[20px] lg:text-[#989898]">
-            {price}
+            ${price}
           </p>
         </div>
       </div>
