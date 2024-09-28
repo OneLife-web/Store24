@@ -1,8 +1,28 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+// Define the types for order details and cart items
+interface CartItem {
+  name: string;
+  quantity: number;
+}
+
+interface OrderDetails {
+  firstName: string;
+  lastName: string;
+  street: string;
+  apt: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+  phone: string;
+  orderId: string;
+  cart: CartItem[];
+}
+
 const SuccessPage = () => {
-  const [orderDetails, setOrderDetails] = useState<any>(null);
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
