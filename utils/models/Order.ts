@@ -14,7 +14,7 @@ interface Order extends Document {
     phone: string;
     email: string;
   };
-  userId: string;
+  userId: mongoose.Types.ObjectId; // Use ObjectId here
   status: "pending" | "processing" | "completed" | "failed";
 }
 
