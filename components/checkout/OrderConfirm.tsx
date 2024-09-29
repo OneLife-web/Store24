@@ -83,7 +83,7 @@ export default function OrderConfirm() {
   }, [orderId, id]);
   return (
     <div>
-      <div className="flex flex-col items-center gap-5 px-[3%] lg:gap-10">
+      <div className="flex flex-col items-center gap-5 py-8 px-[3%] lg:gap-10">
         <div className="mt-20 grid justify-items-center text-center">
           <Image
             src="/confetti.png"

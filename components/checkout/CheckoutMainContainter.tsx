@@ -3,7 +3,13 @@ import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { SelectCountry } from "./CountrySelect";
 import { signOut, useSession } from "next-auth/react";
-import { ChevronDown, CircleHelp, Loader2, Lock } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  CircleHelp,
+  Loader2,
+  Lock,
+} from "lucide-react";
 import Input from "../Input";
 import { useCart } from "@/providers/CartContext";
 import Image from "next/image";
@@ -130,7 +136,7 @@ const CheckoutMainContainter = () => {
   };
 
   return (
-    <section className="bg-gray-100">
+    <section className="max-sm:bg-gray-100">
       <div className="text-sm grid gap-2 px-[3%] py-3 bg-white">
         <div className="flex items-center justify-between">
           <p className="opacity-80">Account</p>
@@ -138,11 +144,19 @@ const CheckoutMainContainter = () => {
             onClick={() => setisShowAccount(!isShowAccount)}
             className="bg-secondary flex items-center justify-center cursor-pointer rounded-md size-6"
           >
-            <ChevronDown
-              size={17}
-              strokeWidth={1.2}
-              className="text-secondaryBg"
-            />
+            {isShowAccount ? (
+              <ChevronUp
+                size={19}
+                strokeWidth={1.2}
+                className="text-secondaryBg"
+              />
+            ) : (
+              <ChevronDown
+                size={19}
+                strokeWidth={1.2}
+                className="text-secondaryBg"
+              />
+            )}
           </button>
         </div>
         <p>{userSession?.user?.email}</p>
@@ -155,8 +169,8 @@ const CheckoutMainContainter = () => {
           </button>
         )}
       </div>
-      <div className="mt-3">
-        <form className="grid gap-4 mt-4">
+      <div className="max-sm:mt-3">
+        <form className="grid max-sm:gap-4 max-sm:mt-4">
           <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
             <h2 className="heading2">Country/region</h2>
             <SelectCountry
@@ -224,75 +238,93 @@ const CheckoutMainContainter = () => {
           </div>
         </form>
       </div>
-      {cart.length > 0 ? (
-        <div className="mt-3 px-[3%] bg-white py-7">
-          <h2 className="heading2">Order Summary</h2>
-          {/* Render cart items here */}
-          <div className="mt-10">
-            <ul className="grid gap-5">
-              {cart.map((item) => (
-                <li key={item.productId}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="relative w-fit">
-                        <Image
-                          src={item.productImage}
-                          width={70}
-                          height={70}
-                          alt="product Image"
-                          className="size-[70px] object-cover rounded-xl object-center"
-                        />
-                        <div className="text-xs -top-2 -right-2 bg-gray-800 flex items-center justify-center text-white size-[22px] rounded-full absolute">
-                          {item.quantity}
+      <div className="lg:hidden">
+        {cart.length > 0 ? (
+          <div className="mt-3 px-[3%] bg-white py-7">
+            <h2 className="heading2">Order Summary</h2>
+            {/* Render cart items here */}
+            <div className="mt-10">
+              <ul className="grid gap-5">
+                {cart.map((item) => (
+                  <li key={item.productId}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="relative w-fit">
+                          <Image
+                            src={item.productImage}
+                            width={70}
+                            height={70}
+                            alt="product Image"
+                            className="size-[70px] object-cover rounded-xl object-center"
+                          />
+                          <div className="text-xs -top-2 -right-2 bg-gray-800 flex items-center justify-center text-white size-[22px] rounded-full absolute">
+                            {item.quantity}
+                          </div>
                         </div>
+                        <p className="text-sm">{item.name}</p>
                       </div>
-                      <p className="text-sm">{item.name}</p>
+                      <p className="text-sm">${item.price}</p>
                     </div>
-                    <p className="text-sm">${item.price}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="grid gap-3 mt-3">
+              <div className="flex opacity-80 items-center justify-between text-sm">
+                <p>Subtotal</p>
+                <p>${totalPrice}</p>
+              </div>
+              <div className="flex opacity-80 items-center justify-between text-sm">
+                <p className="flex items-center gap-1">
+                  Shipping{" "}
+                  <span>
+                    <CircleHelp size={14} />
+                  </span>
+                </p>
+                <p>Free</p>
+              </div>
+              <div className="flex mt-2 items-center justify-between heading2">
+                <p>Total</p>
+                <p>${totalPrice}</p>
+              </div>
+            </div>
+            <button
+              className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
+              type="submit"
+              onClick={handleCheckout}
+              disabled={loading}
+            >
+              {loading ? "Processing..." : "Pay Now"}
+            </button>
+            <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
+              <span>
+                <Lock strokeWidth={1.2} size={15} />
+              </span>
+              Secure and encrypted
+            </p>
           </div>
-          <div className="grid gap-3 mt-3">
-            <div className="flex opacity-80 items-center justify-between text-sm">
-              <p>Subtotal</p>
-              <p>${totalPrice}</p>
-            </div>
-            <div className="flex opacity-80 items-center justify-between text-sm">
-              <p className="flex items-center gap-1">
-                Shipping{" "}
-                <span>
-                  <CircleHelp size={14} />
-                </span>
-              </p>
-              <p>Free</p>
-            </div>
-            <div className="flex mt-2 items-center justify-between heading2">
-              <p>Total</p>
-              <p>${totalPrice}</p>
-            </div>
+        ) : (
+          <div className="min-h-[300px] mt-3 w-full bg-white flex items-center justify-center">
+            <Loader2 size={36} className="animate-spin text-secondaryBg" />
           </div>
-          <button
-            className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
-            type="submit"
-            onClick={handleCheckout}
-            disabled={loading}
-          >
-            {loading ? "Processing..." : "Pay Now"}
-          </button>
-          <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
-            <span>
-              <Lock strokeWidth={1.2} size={15} />
-            </span>
-            Secure and encrypted
-          </p>
-        </div>
-      ) : (
-        <div className="min-h-[300px] mt-3 w-full bg-white flex items-center justify-center">
-          <Loader2 size={36} className="animate-spin text-secondaryBg" />
-        </div>
-      )}
+        )}
+      </div>
+      <div className="max-lg:hidden">
+        <button
+          className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
+          type="submit"
+          onClick={handleCheckout}
+          disabled={loading}
+        >
+          {loading ? "Processing..." : "Pay Now"}
+        </button>
+        <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
+          <span>
+            <Lock strokeWidth={1.2} size={15} />
+          </span>
+          Secure and encrypted
+        </p>
+      </div>
     </section>
   );
 };
