@@ -5,7 +5,7 @@ const Collection = ({ products }: { products: updateData[] }) => {
   return (
     <section className="py-10 max-lg:px-[3%]">
       <div>
-        <h1 className="heading1">Strong Grip Collection</h1>
+        <h1 className="heading1">Latest in Store</h1>
         <div className="grid mt-6 grid-cols-2 gap-3 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
           {products.map((item, i) => (
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
