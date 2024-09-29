@@ -62,12 +62,12 @@ const CartContainer = ({
   if (cart.length < 1) {
     return (
       <div className="mt-[80%]">
-        <h2 className="font-bold text-xl md:text-2xl text-center mb-5 mx-auto max-sm:w-[80%]">
+        <h2 className="font-bold text-xl md:text-2xl text-center mb-10 mx-auto max-sm:w-[80%]">
           Your cart is empty
         </h2>
         <button
           onClick={handleContinueShopping}
-          className="bg-secondaryBg rounded-lg block px-6 py-3 mx-auto font-medium transform transition-transform hover:scale-105"
+          className="bg-secondaryBg rounded-lg block px-8 py-3 mx-auto font-semibold transform transition-transform hover:scale-105"
         >
           Continue shopping
         </button>
@@ -107,7 +107,7 @@ const CartContainer = ({
         </div>
         <button
           onClick={handleToCheckout}
-          className="bg-secondaryBg rounded-lg w-full block py-3 mx-auto font-medium transform transition-transform hover:scale-105"
+          className="bg-secondaryBg rounded-lg w-full block py-3 mx-auto font-semibold transform transition-transform hover:scale-105"
         >
           Check out
         </button>

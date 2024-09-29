@@ -62,7 +62,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
               <button
                 onClick={handleAddToCart}
                 disabled={loading}
-                className="bg-secondaryBg rounded-lg flex items-center justify-center w-full py-3 font-medium my-4 transform transition-transform hover:scale-105"
+                className="bg-secondaryBg rounded-lg flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
               >
                 {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
               </button>
