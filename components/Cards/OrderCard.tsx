@@ -6,16 +6,13 @@ const OrderCard = ({
   items,
   status,
   total,
-  key,
 }: {
   items: { name: string; image: string; price: number; quantity: number }[];
   status: "pending" | "processing" | "completed" | "failed";
   total: number;
-  key: string
-  
 }) => {
   return (
-    <div key={key} className="bg-gray-100/80 lg:min-w-[500px] relative rounded-2xl min-h-[110px] flex items-center pl-3">
+    <div className="bg-gray-100/80 lg:min-w-[500px] relative rounded-2xl min-h-[110px] flex items-center pl-3">
       <div className="flex items-center gap-3">
         <Image
           src={items[0].image}
@@ -26,11 +23,9 @@ const OrderCard = ({
         />
         <div className="grid gap-1">
           {items.map((item) => (
-            <div>
-              <p className="max-sm:text-sm">
-                {item.quantity} &times; {item.name}
-              </p>
-            </div>
+            <p key={item.name} className="max-sm:text-sm">
+              {item.quantity} &times; {item.name}
+            </p>
           ))}
           <p className="font-semibold">${total}</p>
         </div>
