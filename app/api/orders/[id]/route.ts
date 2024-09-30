@@ -8,41 +8,27 @@ const connectDB = async () => {
   await mongoose.connect(process.env.MONGODB_URI!);
 };
 
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
     await connectDB();
 
-    // Assuming you have a way to retrieve the userId, e.g., from the session or token
-    const userId = req.headers.get("user-id"); // Example: User ID from headers (modify based on your auth strategy)
+    const userId = params.id; // Assuming this is the user's ID passed in the request params
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const order = await OrderModel.findById(params.id);
+    // Fetch all orders belonging to the user
+    const orders = await OrderModel.find({ userId });
 
-    if (!order) {
-      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    if (!orders || orders.length === 0) {
+      return NextResponse.json({ error: "No orders found for this user" }, { status: 404 });
     }
 
-    // Check if the order belongs to the current user
-    if (order.userId.toString() !== userId) {
-      return NextResponse.json(
-        { error: "Forbidden: You do not own this order" },
-        { status: 403 }
-      );
-    }
-
-    return NextResponse.json(order);
+    return NextResponse.json(orders);
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -55,7 +41,6 @@ export async function PATCH(
 
     const { status } = await req.json();
     const userId = req.headers.get("User-Id");
-    console.log(userId);
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

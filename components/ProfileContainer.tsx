@@ -4,11 +4,11 @@ import { signOut } from "next-auth/react";
 
 const ProfileContainer = () => {
   return (
-    <div>
+    <section>
       <button onClick={() => signOut({callbackUrl: "/"})}>
         Logout
       </button>
-    </div>
+    </section>
   );
 };
 

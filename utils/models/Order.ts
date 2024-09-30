@@ -16,6 +16,7 @@ interface Order extends Document {
   };
   userId: mongoose.Types.ObjectId; // Use ObjectId here
   status: "pending" | "processing" | "completed" | "failed";
+  total: number;
 }
 
 const OrderSchema: Schema = new Schema({
@@ -48,6 +49,10 @@ const OrderSchema: Schema = new Schema({
     type: String,
     enum: ["pending", "processing", "completed", "failed"],
     default: "pending",
+  },
+  total: {
+    type: Number,
+    required: true,
   },
 });
 

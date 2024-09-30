@@ -85,6 +85,7 @@ const CheckoutMainContainter = () => {
             email: userSession?.user?.email,
           },
           userId: userSession?.id,
+          total: totalPrice,
         }),
       });
 
