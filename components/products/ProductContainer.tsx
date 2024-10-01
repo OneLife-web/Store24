@@ -8,7 +8,7 @@ import InfoText from "../InfoText";
 
 const ProductContainer = ({ data }: { data: updateData[] }) => {
   const [filteredData, setFilteredData] = useState(data);
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("date-new-old");
 
   // Effect to handle sorting whenever sortOption changes
   useEffect(() => {
