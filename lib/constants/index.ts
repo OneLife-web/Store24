@@ -8,6 +8,14 @@ export const NavLinks = [
   { title: "CONTACT US", link: "/contact" },
 ];
 
+export const FooterLinks = [
+  { title: "Refund policy", link: "/refund-policy" },
+  { title: "Privacy policy", link: "/privacy-policy" },
+  { title: "Terms of service", link: "/terms-of-service" },
+  { title: "Shipping policy", link: "/shipping-policy" },
+  { title: "Contact information", link: "/contact" },
+];
+
 export const NavLinks2 = [
   { title: "Home", link: "/" },
   { title: "Our Products", link: "/products" },

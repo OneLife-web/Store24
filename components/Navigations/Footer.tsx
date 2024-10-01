@@ -1,14 +1,15 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { NavLinks2 } from "@/lib/constants";
+import { FooterLinks, NavLinks2 } from "@/lib/constants";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const Footer = () => {
   const pathName = usePathname();
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="bg-primary py-10 text-white">
+    <footer className="bg-primary pt-10 text-white">
       <div className="lg:max-w-4xl mx-auto xl:max-w-5xl w-full">
         <h1 className="heading1 text-center">Stay in the know!</h1>
         <div className="grid md:grid-cols-2 pb-10 max-lg:px-[3%] mt-14 w-fit mx-auto gap-10 md:gap-20">
@@ -42,7 +43,51 @@ const Footer = () => {
           </div>
         </div>
         <div className="py-8 max-lg:px-[3%] border-t">
-          <div>&copy; {currentYear}, store45</div>
+          <div className="max-w-[70%] mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
+            <Image
+              src="/payment-logos/visa.svg"
+              width={30}
+              height={30}
+              alt="logo"
+            />
+            <Image
+              src="/payment-logos/mastercard.svg"
+              width={30}
+              height={30}
+              alt="logo"
+            />
+            <Image
+              src="/payment-logos/amex.svg"
+              width={30}
+              height={30}
+              alt="logo"
+            />
+            <Image
+              src="/payment-logos/apple.svg"
+              width={30}
+              height={30}
+              alt="logo"
+            />
+            <Image
+              src="/payment-logos/google.svg"
+              width={30}
+              height={30}
+              alt="logo"
+            />
+          </div>
+          <div className="text-xs pt-7 max-lg:px-[3%] text-center md:text-sm opacity-85 whitespace-nowrap">
+            <ul className="flex justify-center flex-wrap list-disc gap-3">
+              {FooterLinks.map((link) => (
+                <li className="mr-4">
+                  <Link href={link.link}>{link.title}</Link>
+                </li>
+              ))}
+            </ul>
+            <p className="pt-9">
+              {" "}
+              &copy; {currentYear}, store45. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
