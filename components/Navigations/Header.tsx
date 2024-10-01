@@ -1,7 +1,7 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Logo from "./Logo";
-import { MenuIcon, SearchIcon, UserRound, X } from "lucide-react";
+import { LogOut, MenuIcon, SearchIcon, UserRound, X } from "lucide-react";
 import Link from "next/link";
 import { NavLinks } from "@/lib/constants";
 import { usePathname, useRouter } from "next/navigation";
@@ -70,7 +70,7 @@ const Header = () => {
               </Link>
             ))}
           </div>
-          <div className="bg-secondary text-sm font-semibold py-10 pb-20 px-[5%]">
+          <div className="bg-secondary grid gap-3 text-sm font-semibold py-10 pb-20 px-[5%]">
             <button
               disabled={status === "loading"}
               onClick={handleProfile}
@@ -79,6 +79,14 @@ const Header = () => {
               <UserRound strokeWidth={1.2} />
               {status === "authenticated" ? "Account" : "Log in"}
             </button>
+            {status === "authenticated" && (
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="flex gap-2 items-center w-fit"
+              >
+                <LogOut strokeWidth={1.2} /> Logout
+              </button>
+            )}
           </div>
         </div>
       )}
