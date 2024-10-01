@@ -70,7 +70,7 @@ const Header = () => {
               </Link>
             ))}
           </div>
-          <div className="bg-secondary grid gap-3 text-sm font-semibold py-10 pb-20 px-[5%]">
+          <div className="bg-secondary grid gap-4 text-sm font-semibold py-10 pb-20 px-[5%]">
             <button
               disabled={status === "loading"}
               onClick={handleProfile}

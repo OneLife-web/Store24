@@ -56,8 +56,15 @@ const OrderContainer = () => {
 
   if (error) {
     return (
-      <div className="h-[85vh] flex items-center justify-center text-red-500">
-        {error}
+      <div className="h-[70vh] flex items-center justify-center">
+        {error === "No orders found for this user" ? (
+          <div className="flex flex-col items-center justify-center gap-3">
+            <p className="font-semibold text-lg">No orders yet</p>
+            <p>Go to store to place an order.</p>
+          </div>
+        ) : (
+          <p className="text-red-500">{error}</p>
+        )}
       </div>
     );
   }

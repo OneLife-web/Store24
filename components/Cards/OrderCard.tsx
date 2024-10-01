@@ -19,7 +19,7 @@ const OrderCard = ({
           alt="product image"
           width={80}
           height={80}
-          className="rounded-xl"
+          className="rounded-xl h-20 object-contain"
         />
         <div className="grid gap-1">
           {items.map((item) => (
