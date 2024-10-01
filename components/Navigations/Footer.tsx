@@ -10,7 +10,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-primary pt-10 text-white">
-      <div className="lg:max-w-4xl mx-auto xl:max-w-5xl w-full">
+      <div className="">
         <h1 className="heading1 text-center">Stay in the know!</h1>
         <div className="grid md:grid-cols-2 pb-10 max-lg:px-[3%] mt-14 w-fit mx-auto gap-10 md:gap-20">
           <div className="max-sm:text-center">
