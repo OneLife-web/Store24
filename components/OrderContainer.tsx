@@ -77,7 +77,7 @@ const OrderContainer = () => {
         <div className="py-7 px-[3%]">
           <h2 className="text-center font-semibold text-lg pb-8">My Orders</h2>
           <div className="grid gap-6">
-            {orders.reverse()?.map((order) => (
+            {[...orders].reverse()?.map((order) => (
               <OrderCard
                 items={order.items}
                 status={order.status}

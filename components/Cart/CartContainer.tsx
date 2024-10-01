@@ -84,7 +84,7 @@ const CartContainer = ({
       </div>
       <div className="py-4">
         <ul className="grid gap-5">
-          {cart.map((item, index) => (
+          {[...cart].reverse().map((item, index) => (
             <li key={item.productId}>
               <CartCard
                 item={item}
