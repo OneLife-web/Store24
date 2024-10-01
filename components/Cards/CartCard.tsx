@@ -29,7 +29,7 @@ const CartCard = ({
           alt="product Image"
           width={80}
           height={80}
-          className="size-20 bg-gray-100"
+          className="size-20 object-contain"
         />
         <div className="flex-grow">
           <h3 className="font-semibold">{item.name}</h3>

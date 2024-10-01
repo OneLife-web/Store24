@@ -256,7 +256,7 @@ const CheckoutMainContainter = () => {
                             width={70}
                             height={70}
                             alt="product Image"
-                            className="size-[70px] object-cover rounded-xl object-center"
+                            className="size-[70px] object-contain rounded-xl object-center"
                           />
                           <div className="text-xs -top-2 -right-2 bg-gray-800 flex items-center justify-center text-white size-[22px] rounded-full absolute">
                             {item.quantity}
