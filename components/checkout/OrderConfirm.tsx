@@ -129,9 +129,6 @@ const OrderSummary = ({
     <div className="w-full pb-5 pt-12 lg:rounded-[20px] lg:border lg:border-[#E4E7EC] lg:px-10">
       <div className="w-full rounded-2xl border border-[#F4F4F4] lg:border-0">
         <div className="mb-3 flex items-center justify-center gap-2 pt-6 lg:block lg:pl-4 lg:pt-0">
-          <div className="flex h-[15px] w-[15px] items-center justify-center rounded-full bg-secondary font-medium text-[8px] text-black lg:hidden">
-            1
-          </div>
           <p className="font-medium text-xs lg:text-base lg:text-myGray">
             Order Summary
           </p>

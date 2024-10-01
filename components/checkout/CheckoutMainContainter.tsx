@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { SelectCountry } from "./CountrySelect";
 import { signOut, useSession } from "next-auth/react";
 import {
   ChevronDown,
@@ -14,6 +13,7 @@ import Input from "../Input";
 import { useCart } from "@/providers/CartContext";
 import Image from "next/image";
 import PhoneNumberInput from "../PhoneInput";
+import { ComboboxDemo } from "../ComboBox";
 
 const CheckoutMainContainter = () => {
   const { cart, totalPrice } = useCart();
@@ -174,9 +174,9 @@ const CheckoutMainContainter = () => {
         <form className="grid max-sm:gap-4 max-sm:mt-4">
           <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
             <h2 className="heading2">Country/region</h2>
-            <SelectCountry
-              selectedCountry={country} // Pass selectedCountry
-              setSelectedCountry={setCountry} // Pass the setter function
+            <ComboboxDemo
+              selectedCountry={country}
+              setSelectedCountry={setCountry}
             />
           </div>
           <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
