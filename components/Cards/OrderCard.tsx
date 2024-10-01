@@ -27,7 +27,7 @@ const OrderCard = ({
               {item.quantity} &times; {item.name}
             </p>
           ))}
-          <p className="font-semibold">${total}</p>
+          <p className="font-semibold text-sm">${total}</p>
         </div>
       </div>
       <div className="w-fit absolute right-3 bottom-3">
