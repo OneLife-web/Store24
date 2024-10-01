@@ -7,7 +7,7 @@ const Collection = ({ products }: { products: updateData[] }) => {
       <div>
         <h1 className="heading1">Latest in Store</h1>
         <div className="grid mt-6 grid-cols-2 gap-3 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((item, i) => (
+          {products.reverse().map((item, i) => (
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             <ProductCard key={i} item={item} />
           ))}
