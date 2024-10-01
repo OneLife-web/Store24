@@ -78,7 +78,7 @@ const Footer = () => {
           <div className="text-xs pt-7 max-lg:px-[3%] text-center md:text-sm opacity-85 whitespace-nowrap">
             <ul className="flex justify-center flex-wrap list-disc gap-3">
               {FooterLinks.map((link) => (
-                <li className="mr-4">
+                <li key={link.title} className="mr-4">
                   <Link href={link.link}>{link.title}</Link>
                 </li>
               ))}
