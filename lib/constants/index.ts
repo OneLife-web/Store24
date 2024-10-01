@@ -7,3 +7,11 @@ export const NavLinks = [
   { title: "TRACK ORDER", link: "/trackOrder" },
   { title: "CONTACT US", link: "/contact" },
 ];
+
+export const NavLinks2 = [
+  { title: "Home", link: "/" },
+  { title: "Our Products", link: "/products" },
+  { title: "Contact Us", link: "/contact" },
+  { title: "About Us", link: "/about" },
+  { title: "Track Order", link: "/trackOrder" },
+];
