@@ -26,8 +26,12 @@ export async function GET() {
     };
 
     return NextResponse.json(
-      { banner: settings.banner, promotion: settings.promotion },
-      { status: 200, headers: responseHeaders }
+      {
+        banner: settings.banner,
+        promotion: settings.promotion,
+        status: 200,
+      },
+      { headers: responseHeaders }
     );
     // Return the banner and promotion details with a 200 status
   } catch (error) {
