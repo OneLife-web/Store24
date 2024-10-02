@@ -4,6 +4,7 @@ export const NavLinks = [
   { title: "MY ORDERS", link: "/profile/orders" },
   { title: "FAQ", link: "/faq" },
   { title: "SHIPPING INFO", link: "/shipping" },
+  { title: "PAYMENT INFO", link: "/payment-info" },
   { title: "TRACK ORDER", link: "/track-order" },
   { title: "CONTACT US", link: "/contact" },
 ];
