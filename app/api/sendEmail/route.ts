@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const { name, email, phone, comment } = await req.json();
 
   // Set up Nodemailer transporter
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: "gmail", // You can use your email provider or SMTP settings here
     auth: {
       user: process.env.SMTP_USER, // Your email address
@@ -16,9 +16,9 @@ export async function POST(req: NextRequest) {
   });
 
   // Email options
-  let mailOptions = {
+  const mailOptions = {
     from: email, // Sender's email address
-    to: "store45co@gmail.com", // Recipient's email address
+    to: "fatomoyeemmanuel1@gmail.com", // Recipient's email address
     subject: `New Contact Form Submission from ${name}`,
     text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nComment: ${comment}`,
   };

@@ -36,7 +36,7 @@ const ContactPage = () => {
         const resData = await response.json();
         alert("Error sending email: " + resData.error);
       }
-    } catch (error) {
+    } catch {
       alert("An error occurred while sending the email.");
     } finally {
       setLoading(false);
