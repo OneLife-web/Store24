@@ -13,7 +13,7 @@ const FaqPage = () => {
           1. Can you help me find and ship a product that is not listed?
         </h2>
         <p className="bodyText">
-          Yes, if you're looking for a product that is not listed on our
+          Yes, if you&apos;re looking for a product that is not listed on our
           website, feel free to contact us. We will help you find it and ship it
           to you.
         </p>
@@ -104,7 +104,7 @@ const FaqPage = () => {
         </p>
 
         <p className="bodyText">
-          If you experience a payment decline or don't see your preferred
+          If you experience a payment decline or don&apos;t see your preferred
           payment option on our website, feel free to reach out to us and we’ll
           provide alternative payment options.
         </p>
