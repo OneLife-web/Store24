@@ -30,7 +30,9 @@ const PrivacyPolicyPage = () => {
         </ul>
 
         <h2 className="heading2 pt-5 pb-3">How We Use Your Information</h2>
-        <p className="bodyText">We may use the information we collect for the following purposes:</p>
+        <p className="bodyText">
+          We may use the information we collect for the following purposes:
+        </p>
         <ul className="bodyText list-disc pl-4 py-3 grid gap-2">
           <li>To process and fulfill your orders</li>
           <li>
@@ -56,7 +58,9 @@ const PrivacyPolicyPage = () => {
           facilitate your orders:
         </p>
 
-        <h3 className="font-medium underline pt-3">Third-party Service Providers</h3>
+        <h3 className="font-medium underline pt-3">
+          Third-party Service Providers
+        </h3>
         <ul className="bodyText list-disc pl-4 py-3 grid gap-2">
           <li>
             <strong>Payment Gateway:</strong> We do not store your credit card
@@ -69,12 +73,19 @@ const PrivacyPolicyPage = () => {
           </li>
         </ul>
 
-        <p className="bodyText">If you don&apos;t agree to these terms, please leave the website.</p>
+        <p className="bodyText">
+          If you don&apos;t agree to these terms, please leave the website.
+        </p>
 
         <p className="bodyText">
           If you have any questions, please{" "}
-          <a href="mailto:support@store45.com" className="text-secondaryBg underline">contact us</a> for more
-          information.
+          <a
+            href="mailto:store45co@gmail.com"
+            className="text-secondaryBg underline"
+          >
+            contact us
+          </a>{" "}
+          for more information.
         </p>
       </section>
     </div>
