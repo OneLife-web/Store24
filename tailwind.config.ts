@@ -8,27 +8,53 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        primary: "#121212",
-        secondary: "#FFF2DF",
-        secondaryBg: "#F8AF24",
-      },
-      keyframes: {
-        slideIn: {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(0)" },
-        },
-        slideOut: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-100%)" },
-        },
-      },
-      animation: {
-        "slide-in": "slideIn 0.2s ease-out forwards",
-        "slide-out": "slideOut 0.2s ease-in forwards",
-      },
-    },
+  	extend: {
+  		colors: {
+  			primary: '#121212',
+  			secondary: '#FFF2DF',
+  			secondaryBg: '#F8AF24'
+  		},
+  		keyframes: {
+  			slideIn: {
+  				'0%': {
+  					transform: 'translateX(-100%)'
+  				},
+  				'100%': {
+  					transform: 'translateX(0)'
+  				}
+  			},
+  			slideOut: {
+  				'0%': {
+  					transform: 'translateX(0)'
+  				},
+  				'100%': {
+  					transform: 'translateX(-100%)'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'slide-in': 'slideIn 0.2s ease-out forwards',
+  			'slide-out': 'slideOut 0.2s ease-in forwards',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		}
+  	}
   },
   plugins: [require("tailwindcss-animate")],
 };
