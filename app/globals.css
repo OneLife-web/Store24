@@ -28,6 +28,10 @@ input:-webkit-autofill {
   @apply text-lg max-sm:text-base font-medium;
 }
 
+.heading3 {
+  @apply font-bold text-xl md:text-2xl;
+}
+
 button {
   @apply disabled:opacity-65;
 }

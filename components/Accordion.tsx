@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const Accordion = () => {
   return (
     <div>
-      asschf
+      <p className="bodyText text-center">FREQUENTLY ASKED</p>
+      <h1 className="heading1 text-center">QUESTIONS</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Accordion
+export default Accordion;

@@ -7,6 +7,7 @@ import { CartItem, useCart } from "@/providers/CartContext";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Accordion from "../Accordion";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
   const router = useRouter();
@@ -42,8 +43,8 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     }
   };
   return (
-    <section className="max-sm:px-[3%] py-7">
-      <div className="lg:flex lg:gap-9">
+    <div className="max-sm:px-[3%] py-7">
+      <section className="lg:flex lg:gap-9">
         <div className="lg:min-w-[60%]">
           <Carousel images={images} />
         </div>
@@ -108,8 +109,33 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section className="py-14">
+        <h2 className="heading3">Why You Need This</h2>
+        <ul className="py-5 list-disc pl-8 bodyText !opacity-100">
+          {data.whyNeedThis.map((item, index) => (
+            <li key={index}>
+              <span className="font-semibold">{item.title}:</span>
+              <p>{item.content}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="py-14">
+        <h2 className="heading3">Characteristics</h2>
+        <ul className="py-5 list-disc pl-8 bodyText !opacity-100">
+          {data.characteristics.map((item, index) => (
+            <li key={index}>
+              <span className="font-semibold">{item.title}:</span>
+              <p>{item.content}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <Accordion />
+      </section>
+    </div>
   );
 };
 
