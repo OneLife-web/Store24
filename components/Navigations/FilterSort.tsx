@@ -1,12 +1,19 @@
+import { updateData } from "@/types";
+import InfoText from "../InfoText";
 import SortDropdown from "../SortDropdown";
 import Slider from "./Slider";
 
 interface SortDropdownProps {
   sortOption: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  data: updateData[];
 }
 
-const FilterSort: React.FC<SortDropdownProps> = ({ sortOption, onChange }) => {
+const FilterSort: React.FC<SortDropdownProps> = ({
+  sortOption,
+  onChange,
+  data,
+}) => {
   return (
     <div className="md:hidden">
       <Slider
@@ -33,17 +40,23 @@ const FilterSort: React.FC<SortDropdownProps> = ({ sortOption, onChange }) => {
         <div>
           <div className="border-b pb-3">
             <p className="font-semibold text-sm text-center">Fitler and sort</p>
-            <p className="bodyText text-center">4 products</p>
+            <p className="bodyText text-center">
+              <InfoText text={`${data.length} products`} />
+            </p>
           </div>
           <div className="px-[3%] py-5 pt-10">
             <SortDropdown sortOption={sortOption} onChange={onChange} />
           </div>
           <div className="absolute right-[3%] left-[3%] bottom-7 flex gap-3 items-center">
             <div className="basis-1/2 flex items-center justify-center">
-              <button className="text-primary font-medium h-fit border-b border-primary">Remove all</button>
+              <button className="text-primary font-medium h-fit border-b border-primary">
+                Remove all
+              </button>
             </div>
             <div className="basis-1/2 flex items-center justify-center">
-              <button className="w-full h-[48px] font-medium bg-primary text-white">Apply</button>
+              <button className="w-full h-[48px] font-medium bg-primary text-white">
+                Apply
+              </button>
             </div>
           </div>
         </div>

@@ -75,13 +75,13 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
     <section className="py-10 px-[3%]">
       <h1 className="heading1">Strong Grip Collection</h1>
       <div className="my-7 mb-10 flex items-center justify-between">
-        <FilterSort sortOption={sortOption} onChange={handleSortChange} />
+        <FilterSort data={data} sortOption={sortOption} onChange={handleSortChange} />
         <div className="max-sm:hidden">
           <label htmlFor="sort" className="font-semibold">
             Sort by:
           </label>
           <select
-            className="bodyText"
+            className="bodyText focus:outline-none"
             id="sort"
             value={sortOption}
             onChange={handleSortChange}
@@ -95,9 +95,6 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
           </select>
         </div>
         <div className="flex items-center gap-5">
-          <div className="max-sm:hidden">
-            <SortDropdown sortOption={sortOption} onChange={handleSortChange} />
-          </div>
           <InfoText text={`${data.length} products`} />
         </div>
       </div>

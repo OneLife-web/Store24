@@ -12,11 +12,11 @@ const SortDropdown: React.FC<SortDropdownProps> = ({
 }) => {
   return (
     <div className="max-sm:flex max-sm:items-center max-sm:justify-between">
-      <label htmlFor="sort" className="font-semibold opacity-70">
+      <label htmlFor="sort" className="font-semibold">
         Sort by:
       </label>
       <select
-        className="bodyText"
+        className="bodyText focus:outline-none bg-white"
         id="sort"
         value={sortOption}
         onChange={onChange}
