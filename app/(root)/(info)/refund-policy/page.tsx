@@ -15,8 +15,8 @@ const RefundPolicy = () => {
           Refund for Packages Lost in Transit
         </h2>
         <p className="bodyText">
-          You can apply for a refund if your package is marked as "lost in
-          transit" according to its tracking details. If the package eventually
+          You can apply for a refund if your package is marked as &quot;lost in
+          transit&quot; according to its tracking details. If the package eventually
           arrives later, you can keep it with no need to return it.
         </p>
 
