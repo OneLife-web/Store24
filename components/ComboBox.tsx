@@ -38,7 +38,7 @@ export function ComboboxDemo({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full h-[48px] shadow-none rounded-lg justify-between"
+          className="w-full h-14 lg:h-16 shadow-none rounded-lg justify-between"
         >
           {selectedCountry
             ? countries.find((country) => country?.title === selectedCountry)
