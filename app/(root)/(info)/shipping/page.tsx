@@ -4,7 +4,7 @@ import React from "react";
 const ShippingPage = () => {
   return (
     <div className="px-[3%] pb-20 lg:max-w-4xl min-h-screen mx-auto xl:max-w-5xl w-full">
-      <h1 className="heading2 text-center py-8">Shipping Information</h1>
+      <h1 className="heading1 text-center py-8">Shipping Information</h1>
       <p className="bodyText">
         All orders will have a tracking number within 5 business days of the
         order date. You will receive an email with a tracking number once your
