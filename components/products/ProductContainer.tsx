@@ -3,7 +3,6 @@ import { updateData } from "@/types";
 import React, { useState, useEffect } from "react";
 import ProductCard from "../Cards/ProductCard";
 import FilterSort from "../Navigations/FilterSort";
-import SortDropdown from "../SortDropdown";
 import InfoText from "../InfoText";
 
 const ProductContainer = ({ data }: { data: updateData[] }) => {

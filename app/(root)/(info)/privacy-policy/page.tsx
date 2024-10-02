@@ -69,7 +69,7 @@ const PrivacyPolicyPage = () => {
           </li>
         </ul>
 
-        <p className="bodyText">If you don't agree to these terms, please leave the website.</p>
+        <p className="bodyText">If you don&apos;t agree to these terms, please leave the website.</p>
 
         <p className="bodyText">
           If you have any questions, please{" "}
