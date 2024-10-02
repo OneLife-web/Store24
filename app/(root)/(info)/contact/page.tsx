@@ -38,17 +38,15 @@ const ContactPage = () => {
         setEmail("");
         setPhone("");
         setComment("");
-        setError("");
       } else {
         const resData = await response.json();
-        setError("");
         alert("Error sending email: " + resData.error);
       }
     } catch {
       alert("An error occurred while sending the email.");
-      setError("");
     } finally {
       setLoading(false);
+      setError("");
     }
   };
 
