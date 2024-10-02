@@ -27,6 +27,7 @@
     "mongoose": "^8.6.3",
     "next": "14.2.12",
     "next-auth": "^4.24.7",
+    "nodemailer": "^6.9.15",
     "raw-body": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/stripe": "^8.0.417",
