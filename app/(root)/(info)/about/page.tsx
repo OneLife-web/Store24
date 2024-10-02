@@ -22,7 +22,7 @@ const AboutPage = () => {
           We are a passionate team of online shopping enthusiasts dedicated to
           finding the best products for our customers. Our diverse range of
           items reflects our commitment to quality and affordability, ensuring
-          that you can find exactly what you’re looking for, whether it's the
+          that you can find exactly what you&apos;re looking for, whether it's the
           latest gadgets, stylish apparel, or home essentials.
         </p>
         <h2 className="heading2 pt-5 pb-3">Our Promise</h2>
