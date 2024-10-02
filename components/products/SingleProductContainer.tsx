@@ -47,60 +47,62 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         <div className="lg:min-w-[60%]">
           <Carousel images={images} />
         </div>
-        <div className="w-full max-sm:mt-10">
-          <h1 className="heading1">{data?.title}</h1>
-          <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
-            ${data?.price} USD
-          </p>
-          <div className="basis-1/2">
-            <div>
-              <ul className="bodyText grid gap-3 mt-3">
-                {data?.features.map((item, index) => (
-                  <li key={index}>- {item}</li>
-                ))}
-              </ul>
-              <button
-                onClick={handleAddToCart}
-                disabled={loading}
-                className="bg-secondaryBg rounded-lg flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
-              >
-                {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
-              </button>
+        <div className="w-full lg:flex items-center max-sm:mt-10">
+          <div>
+            <h1 className="heading1">{data?.title}</h1>
+            <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
+              ${data?.price} USD
+            </p>
+            <div className="basis-1/2">
               <div>
-                <p className="text-center">
-                  We accept these payment methods and more..
-                </p>
-                <div className="mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
-                  <Image
-                    src="/payment-logos/visa.svg"
-                    width={43}
-                    height={43}
-                    alt="logo"
-                  />
-                  <Image
-                    src="/payment-logos/mastercard.svg"
-                    width={43}
-                    height={43}
-                    alt="logo"
-                  />
-                  <Image
-                    src="/payment-logos/amex.svg"
-                    width={43}
-                    height={43}
-                    alt="logo"
-                  />
-                  <Image
-                    src="/payment-logos/apple.svg"
-                    width={43}
-                    height={43}
-                    alt="logo"
-                  />
-                  <Image
-                    src="/payment-logos/google.svg"
-                    width={43}
-                    height={43}
-                    alt="logo"
-                  />
+                <ul className="bodyText grid gap-3 mt-3">
+                  {data?.features.map((item, index) => (
+                    <li key={index}>- {item}</li>
+                  ))}
+                </ul>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={loading}
+                  className="bg-secondaryBg rounded-lg flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
+                >
+                  {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
+                </button>
+                <div>
+                  <p className="text-center">
+                    We accept these payment methods and more..
+                  </p>
+                  <div className="mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
+                    <Image
+                      src="/payment-logos/visa.svg"
+                      width={43}
+                      height={43}
+                      alt="logo"
+                    />
+                    <Image
+                      src="/payment-logos/mastercard.svg"
+                      width={43}
+                      height={43}
+                      alt="logo"
+                    />
+                    <Image
+                      src="/payment-logos/amex.svg"
+                      width={43}
+                      height={43}
+                      alt="logo"
+                    />
+                    <Image
+                      src="/payment-logos/apple.svg"
+                      width={43}
+                      height={43}
+                      alt="logo"
+                    />
+                    <Image
+                      src="/payment-logos/google.svg"
+                      width={43}
+                      height={43}
+                      alt="logo"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
