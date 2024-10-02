@@ -8,7 +8,7 @@ const ShippingPage = () => {
       <p className="bodyText">
         All orders will have a tracking number within 5 business days of the
         order date. You will receive an email with a tracking number once your
-        order is shipped. You can also check the{" "}
+        order is shipped. You can also check the
         <a href="/track-order">"Track Your Order"</a> page to get more details
         and shipping history information.
       </p>

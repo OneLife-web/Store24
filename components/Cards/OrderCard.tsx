@@ -33,11 +33,11 @@ const OrderCard = ({
       <div className="w-fit absolute right-3 bottom-3">
         <p
           className={cn("w-fit rounded-full px-[10px] py-[5px]", {
-            "bg-[#F8BCBC] font-clashmd text-[8px] text-[#8B1A1A]":
+            "bg-[#F8BCBC] font-clashmd text-[10px] md:text-xs text-[#8B1A1A]":
               status === "failed" || status === "completed", // 'failed' was corrected here
-            "bg-[#BAD9F7] font-clashmd text-[8px] text-[#1673CC]":
+            "bg-[#BAD9F7] font-clashmd text-[10px] md:text-xs text-[#1673CC]":
               status === "pending",
-            "bg-[#BAF7BA] font-clashmd text-[8px] text-[#1B691B]":
+            "bg-[#BAF7BA] font-clashmd text-[10px] md:text-xs text-[#1B691B]":
               status === "processing",
           })}
         >
