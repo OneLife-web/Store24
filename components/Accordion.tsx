@@ -5,11 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-interface Faqs {
-  question: string;
-  answer: string;
-}
-
 const AccordionDemo = ({
   faqs,
 }: {
