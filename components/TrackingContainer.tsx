@@ -12,7 +12,6 @@ const TrackingContainer = () => {
         <Input
           value={trackNo}
           className="border h-14 mb-2 lg:h-16 placeholder:text-black placeholder:font-normal"
-          placeholder="12231453533"
           onChange={(e) => setTrackNo(e.target.value)}
         />
       </div>
