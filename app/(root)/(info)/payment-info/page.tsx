@@ -28,14 +28,14 @@ const PaymentInfoPage = () => {
           unauthorized access.
         </p>
 
-        <p className="bodyText">
+        <p className="bodyText mt-4">
           <strong>Important:</strong> You may experience payment declines or
           other issues if your card does not support 3DS authentication. If this
           occurs, please contact us and we will provide you with an alternative
           payment option.
         </p>
 
-        <p className="bodyText">
+        <p className="bodyText mt-4">
           If your preferred payment option is not available, feel free to reach
           out to us, and we will do our best to assist you with other possible
           payment methods.
