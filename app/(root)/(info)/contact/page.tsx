@@ -9,10 +9,16 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!name || !email || !comment || !phone) {
+      setError("All fields are required");
+      return null;
+    }
     setLoading(true);
 
     const data = { name, email, phone, comment };
@@ -32,12 +38,15 @@ const ContactPage = () => {
         setEmail("");
         setPhone("");
         setComment("");
+        setError("");
       } else {
         const resData = await response.json();
+        setError("");
         alert("Error sending email: " + resData.error);
       }
     } catch {
       alert("An error occurred while sending the email.");
+      setError("");
     } finally {
       setLoading(false);
     }
@@ -54,6 +63,7 @@ const ContactPage = () => {
       </p>
       <section className="pt-20">
         <form className="grid gap-5" onSubmit={handleSubmit}>
+          {error && <p className="text-sm text-center text-red-500">{error}</p>}
           <div className="grid gap-5 lg:grid-cols-2">
             <Input
               value={name}
