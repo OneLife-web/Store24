@@ -4,7 +4,7 @@ export const NavLinks = [
   { title: "MY ORDERS", link: "/profile/orders" },
   { title: "FAQ", link: "/faq" },
   { title: "SHIPPING INFO", link: "/shipping" },
-  { title: "TRACK ORDER", link: "/trackOrder" },
+  { title: "TRACK ORDER", link: "/track-order" },
   { title: "CONTACT US", link: "/contact" },
 ];
 
@@ -21,7 +21,7 @@ export const NavLinks2 = [
   { title: "Our Products", link: "/products" },
   { title: "Contact Us", link: "/contact" },
   { title: "About Us", link: "/about" },
-  { title: "Track Order", link: "/trackOrder" },
+  { title: "Track Order", link: "/track-order" },
 ];
 
 export const countries = [
