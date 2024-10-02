@@ -2,6 +2,7 @@ import { updateData } from "@/types";
 import InfoText from "../InfoText";
 import SortDropdown from "../SortDropdown";
 import Slider from "./Slider";
+import { useState } from "react";
 
 interface SortDropdownProps {
   sortOption: string;
@@ -14,9 +15,12 @@ const FilterSort: React.FC<SortDropdownProps> = ({
   onChange,
   data,
 }) => {
+  const [open, setOpen] = useState(false);
   return (
     <div className="md:hidden">
       <Slider
+        open={open}
+        setOpen={setOpen}
         trigger={
           <div className="flex items-center gap-3">
             <svg
@@ -54,7 +58,10 @@ const FilterSort: React.FC<SortDropdownProps> = ({
               </button>
             </div>
             <div className="basis-1/2 flex items-center justify-center">
-              <button className="w-full h-[48px] font-medium bg-primary text-white">
+              <button
+                onClick={() => setOpen(false)}
+                className="w-full h-[48px] font-medium bg-primary text-white"
+              >
                 Apply
               </button>
             </div>
