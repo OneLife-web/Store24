@@ -1,10 +1,61 @@
-import React from "react";
+"use client";
+import { useState } from "react";
+import Input from "@/components/Input";
+import { Loader2 } from "lucide-react";
 
 const ContactPage = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
   return (
     <div className="px-[3%] pb-20 lg:max-w-4xl min-h-screen mx-auto xl:max-w-5xl w-full">
       <h1 className="heading1 text-center pt-10 pb-5">Get in touch</h1>
-      <p className="bodyText text-center mx-auto max-sm:max-w-[80%]">We&apos;re here to help! Contact us anytime for assistance.</p>
+      <p className="bodyText text-center mx-auto max-sm:max-w-[80%]">
+        We&apos;re here to help! Contact us anytime for assistance.
+      </p>
+      <p className="bodyText text-center mx-auto max-sm:max-w-[80%] mt-5">
+        You will send an email to: mailto:store45co@gmail.com
+      </p>
+      <section className="pt-20">
+        <form className="grid gap-5">
+          <div className="grid gap-5 lg:grid-cols-2">
+            <Input
+              value={name}
+              className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              value={email}
+              className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <Input
+            value={phone}
+            className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
+            placeholder="State"
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Comment"
+            className="border rounded-lg max-sm:text-sm p-4 focus:outline-none w-full min-h-[150px] placeholder:text-black placeholder:font-normal"
+          ></textarea>
+
+          <button
+            className="bg-secondaryBg flex items-center justify-center font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? <Loader2 className="animate-spin" /> : "Send"}
+          </button>
+        </form>
+      </section>
     </div>
   );
 };
