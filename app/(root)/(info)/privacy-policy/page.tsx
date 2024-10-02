@@ -56,7 +56,7 @@ const PrivacyPolicyPage = () => {
           facilitate your orders:
         </p>
 
-        <h3 className="font-medium underline">Third-party Service Providers</h3>
+        <h3 className="font-medium underline pt-3">Third-party Service Providers</h3>
         <ul className="bodyText list-disc pl-4 py-3 grid gap-2">
           <li>
             <strong>Payment Gateway:</strong> We do not store your credit card
