@@ -29,10 +29,10 @@ const PaymentInfoPage = () => {
         </p>
 
         <p className="bodyText mt-4">
-          <strong>Important:</strong> You may experience payment declines or
-          other issues if your card does not support 3DS authentication. If this
-          occurs, please contact us and we will provide you with an alternative
-          payment option.
+          <strong className="underline">Important:</strong> You may experience
+          payment declines or other issues if your card does not support 3DS
+          authentication. If this occurs, please contact us and we will provide
+          you with an alternative payment option.
         </p>
 
         <p className="bodyText mt-4">
