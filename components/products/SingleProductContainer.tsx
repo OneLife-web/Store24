@@ -55,8 +55,8 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
               ${data?.price} USD
             </p>
             <div className="basis-1/2">
-              <div>
-                <ul className="bodyText grid gap-3 mt-3">
+              <div className="grid gap-4">
+                <ul className="grid gap-4 bodyText !opacity-85 grid gap-3 mt-3">
                   {data?.features.map((item, index) => (
                     <li key={index}>- {item}</li>
                   ))}
@@ -112,7 +112,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       </section>
       <section className="py-10 border-t">
         <h2 className="heading3">Why You Need This</h2>
-        <ul className="py-5 list-disc pl-8 bodyText !opacity-100">
+        <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
           {data.whyNeedThis.map((item, index) => (
             <li key={index}>
               <span className="font-semibold">{item.title}:</span>
@@ -123,7 +123,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       </section>
       <section className="py-10">
         <h2 className="heading3">Characteristics</h2>
-        <ul className="py-5 list-disc pl-8 bodyText !opacity-100">
+        <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
           {data.characteristics.map((item, index) => (
             <li key={index}>
               <span className="font-semibold">{item.title}:</span>
