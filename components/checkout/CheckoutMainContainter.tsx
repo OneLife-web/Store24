@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 //import { loadStripe } from "@stripe/stripe-js";
+import { FlutterWaveButton } from "flutterwave-react-v3";
 import { signOut, useSession } from "next-auth/react";
 import {
   ChevronDown,
@@ -19,10 +20,10 @@ import { ComboboxDemo } from "../ComboBox";
 import { useRouter } from "next/navigation";
 
 // Dynamically import PaystackButton with ssr option set to false
-const PaystackButton = dynamic(
+/* const PaystackButton = dynamic(
   () => import("react-paystack").then((mod) => mod.PaystackButton),
   { ssr: false }
-);
+); */
 
 const CheckoutMainContainter = () => {
   const [isClient, setIsClient] = useState(false);
@@ -171,12 +172,44 @@ const CheckoutMainContainter = () => {
   };
 
   // Paystack public key and other options
-  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
+  //const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
+  const publicKey2 = process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY!;
   const email = userSession?.user?.email || "";
-  const amount = totalPrice * 100; // Amount in kobo (Naira is multiplied by 100)
-  const reference = `order_${Math.floor(Math.random() * 1000000000 + 1)}`;
+  //const amount = totalPrice * 100; // Amount in kobo (Naira is multiplied by 100)
+  const amount2 = totalPrice; // Amount in kobo (Naira is multiplied by 100)
+  // const reference = `order_${Math.floor(Math.random() * 1000000000 + 1)}`;
+  const fullName = `${firstName} ${lastName}`;
 
-  const paystackProps = {
+  const config = {
+    public_key: publicKey2,
+    tx_ref: Date.now().toString(),
+    amount: amount2, // Amount in USD or your preferred currency
+    currency: "USD",
+    payment_options:
+      "card, banktransfer, banktransfer_ng, ussd, mobilemoneyghana, bank, wallet, applepay, googlepay, enaira, nqr",
+    customer: {
+      email: email,
+      phone_number: phone,
+      name: fullName,
+    },
+    customizations: {
+      title: "Payment for Goods",
+      description: "Flutterwave and PayPal integration",
+      logo: "https://ik.imagekit.io/krr3p3joi/WhatsApp_Image_2024-09-17_at_9.36.42_PM__1_-removebg-preview.png?updatedAt=1728162862298",
+    },
+  };
+
+  const fwConfig = {
+    ...config,
+    callback: async () => {
+      await handleOrderConfirmation();
+    },
+    onClose: () => {
+      //alert("Payment was not completed");
+    },
+  };
+
+  /*   const paystackProps = {
     email,
     amount,
     publicKey,
@@ -189,7 +222,7 @@ const CheckoutMainContainter = () => {
     },
     reference,
   };
-
+ */
   const handleOrderConfirmation = async () => {
     setLoading(true);
     try {
@@ -429,10 +462,16 @@ const CheckoutMainContainter = () => {
               </div>
             </div>
             {/* Paystack Button */}
-            <PaystackButton
+            {/*  <PaystackButton
               {...paystackProps}
               disabled={!isFormValid()}
               className="paystack-button"
+            /> */}
+            <FlutterWaveButton
+              text="Pay Now"
+              disabled={!isFormValid()}
+              className="paystack-button"
+              {...fwConfig}
             />
             {/* <button
               className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
@@ -457,10 +496,16 @@ const CheckoutMainContainter = () => {
       </div>
       <div className="max-lg:hidden px-[2.8%]">
         {/* Paystack Button */}
-        <PaystackButton
+        {/* <PaystackButton
           {...paystackProps}
           disabled={!isFormValid()}
           className="paystack-button"
+        /> */}
+        <FlutterWaveButton
+          text="Pay Now"
+          disabled={!isFormValid()}
+          className="paystack-button"
+          {...fwConfig}
         />
         {/*  <button
           className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
