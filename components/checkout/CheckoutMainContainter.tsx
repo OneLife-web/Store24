@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 //import { loadStripe } from "@stripe/stripe-js";
 import { signOut, useSession } from "next-auth/react";
 import {
   ChevronDown,
   ChevronUp,
   CircleHelp,
+  Loader,
   Loader2,
   Lock,
 } from "lucide-react";
@@ -14,15 +16,21 @@ import { useCart } from "@/providers/CartContext";
 import Image from "next/image";
 import PhoneNumberInput from "../PhoneInput";
 import { ComboboxDemo } from "../ComboBox";
-import { PaystackButton } from "react-paystack"; // Import PaystackButton
 import { useRouter } from "next/navigation";
 
+// Dynamically import PaystackButton with ssr option set to false
+const PaystackButton = dynamic(
+  () => import("react-paystack").then((mod) => mod.PaystackButton),
+  { ssr: false }
+);
+
 const CheckoutMainContainter = () => {
+  const [isClient, setIsClient] = useState(false);
   const { cart, totalPrice, clearCart } = useCart();
   const { data: userSession } = useSession();
   const router = useRouter();
   const id = userSession?.id;
-  //const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isShowAccount, setisShowAccount] = useState(false);
   // Form input states
   const [firstName, setFirstName] = useState("");
@@ -35,6 +43,10 @@ const CheckoutMainContainter = () => {
   const [deliveryInstructions, setDeliveryInstructions] = useState("");
   const [country, setCountry] = useState<string | undefined>(undefined);
   const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   /* const handleCheckout = async () => {
     setLoading(true);
@@ -179,25 +191,28 @@ const CheckoutMainContainter = () => {
   };
 
   const handleOrderConfirmation = async () => {
+    setLoading(true);
     try {
-      localStorage.setItem(
-        "orderDetails",
-        JSON.stringify({
-          firstName,
-          lastName,
-          street,
-          apt,
-          city,
-          state,
-          zip,
-          country,
-          phone,
-          deliveryInstructions,
-          cart,
-          totalPrice,
-        })
-      );
-
+      // Safe to use window here
+      if (isClient && typeof window.localStorage !== "undefined") {
+        window.localStorage.setItem(
+          "orderDetails",
+          JSON.stringify({
+            firstName,
+            lastName,
+            street,
+            apt,
+            city,
+            state,
+            zip,
+            country,
+            phone,
+            deliveryInstructions,
+            cart,
+            totalPrice,
+          })
+        );
+      }
       // Create an order in the backend
       const orderResponse = await fetch("/api/orders", {
         method: "POST",
@@ -234,17 +249,26 @@ const CheckoutMainContainter = () => {
         console.error("Failed to create order:", orderData.error);
         throw new Error(orderData.error || "Order creation failed");
       }
-      localStorage.setItem("orderId", orderData._id);
+      if (isClient && typeof window !== "undefined") {
+        window.localStorage.setItem("orderId", orderData._id);
+      }
       router.push("/checkout/success");
       handleClearCart();
     } catch (error) {
       console.error("Order confirmation error:", error);
       alert("There was an error confirming your order. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <section className="max-sm:bg-gray-100">
+      {loading && (
+        <div className="fixed z-40 top-0 bg-black/70 bottom-0 text-white right-0 left-0 h-screen flex items-center justify-center">
+          <Loader className="animate-spin" size={30} />
+        </div>
+      )}
       <div className="text-sm grid gap-2 px-[3%] py-3 bg-white">
         <div className="flex items-center justify-between">
           <p className="opacity-80">Account</p>
