@@ -1,5 +1,5 @@
 "use client";
-import dynamic from "next/dynamic";
+//import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 //import { loadStripe } from "@stripe/stripe-js";
 import { FlutterWaveButton } from "flutterwave-react-v3";
