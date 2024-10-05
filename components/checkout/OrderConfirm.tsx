@@ -31,9 +31,12 @@ export default function OrderConfirm() {
 
   useEffect(() => {
     const storedOrderDetails = localStorage.getItem("orderDetails");
-    if (storedOrderDetails) {
+    const storedId = localStorage.getItem("orderId");
+
+    if (storedOrderDetails && storedId) {
       const details = JSON.parse(storedOrderDetails);
       setOrderDetails(details);
+      setOrderId(storedId);
     }
   }, []);
 

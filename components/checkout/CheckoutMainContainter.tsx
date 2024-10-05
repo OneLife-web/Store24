@@ -180,8 +180,8 @@ const CheckoutMainContainter = () => {
 
   const handleOrderConfirmation = async () => {
     try {
-      // Save the order details to localStorage (optional)
       if (typeof window !== "undefined") {
+        // This code will only run in the browser, not on the server
         localStorage.setItem(
           "orderDetails",
           JSON.stringify({
@@ -237,6 +237,7 @@ const CheckoutMainContainter = () => {
         console.error("Failed to create order:", orderData.error);
         throw new Error(orderData.error || "Order creation failed");
       }
+      localStorage.setItem("orderId", orderData._id);
       router.push("/checkout/success");
       handleClearCart();
     } catch (error) {
