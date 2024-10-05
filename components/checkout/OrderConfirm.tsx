@@ -112,7 +112,7 @@ const OrderSummary = ({
         </div>
         <div className="flex items-center justify-between text-[10px] text-myGray lg:text-base">
           <span>Payment method:</span>
-          <span className="font-medium">Stripe - Online payment</span>
+          <span className="font-medium">Paystack - Online payment</span>
         </div>
       </div>
     </div>

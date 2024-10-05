@@ -180,26 +180,23 @@ const CheckoutMainContainter = () => {
 
   const handleOrderConfirmation = async () => {
     try {
-      if (typeof window !== "undefined") {
-        // This code will only run in the browser, not on the server
-        localStorage.setItem(
-          "orderDetails",
-          JSON.stringify({
-            firstName,
-            lastName,
-            street,
-            apt,
-            city,
-            state,
-            zip,
-            country,
-            phone,
-            deliveryInstructions,
-            cart,
-            totalPrice,
-          })
-        );
-      }
+      localStorage.setItem(
+        "orderDetails",
+        JSON.stringify({
+          firstName,
+          lastName,
+          street,
+          apt,
+          city,
+          state,
+          zip,
+          country,
+          phone,
+          deliveryInstructions,
+          cart,
+          totalPrice,
+        })
+      );
 
       // Create an order in the backend
       const orderResponse = await fetch("/api/orders", {
