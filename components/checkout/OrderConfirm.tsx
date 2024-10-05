@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useCart } from "@/providers/CartContext";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -28,59 +26,17 @@ interface OrderDetails {
 }
 
 export default function OrderConfirm() {
-  const { clearCart } = useCart();
-  const { data: session } = useSession();
-  const id = session?.id;
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
-  const handleClearCart = () => {
-    if (id) {
-      clearCart(id);
-    }
-  };
-
   useEffect(() => {
     const storedOrderDetails = localStorage.getItem("orderDetails");
-    const storedOrderId = localStorage.getItem("orderId");
-    if (storedOrderDetails && storedOrderId) {
+    if (storedOrderDetails) {
       const details = JSON.parse(storedOrderDetails);
       setOrderDetails(details);
-      setOrderId(storedOrderId); // Save orderId from localStorage
     }
   }, []);
 
-  useEffect(() => {
-    const updateOrderStatus = async () => {
-      if (orderId && id) {
-        try {
-          const userId = id; // Ensure this is the correct user ID
-          const response = await fetch(`/api/orders/${orderId}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              "user-id": userId, // Send the userId in headers
-            },
-            body: JSON.stringify({ status: "processing" }), // Update status to 'processing'
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to update order status");
-          }
-
-          // Successfully updated order, remove localStorage data
-          /* localStorage.removeItem("orderDetails");
-          localStorage.removeItem("orderId"); */
-
-          handleClearCart();
-        } catch (error) {
-          console.error("Error updating order status or deleting cart:", error);
-        }
-      }
-    };
-
-    updateOrderStatus();
-  }, [orderId, id]);
   return (
     <div>
       <div className="flex flex-col items-center gap-5 py-8 px-[3%] lg:gap-10">

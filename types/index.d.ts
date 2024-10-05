@@ -5,6 +5,7 @@ export interface InputProps {
   className?: string;
   placeholder?: string;
   icon?: React.ReactNode;
+  required?: boolean;
 }
 
 export interface IBannerInput {
@@ -85,4 +86,3 @@ export interface crumbsType {
   title: string;
   link: string;
 }
-

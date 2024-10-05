@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+//import { loadStripe } from "@stripe/stripe-js";
 import { signOut, useSession } from "next-auth/react";
 import {
   ChevronDown,
@@ -14,14 +14,16 @@ import { useCart } from "@/providers/CartContext";
 import Image from "next/image";
 import PhoneNumberInput from "../PhoneInput";
 import { ComboboxDemo } from "../ComboBox";
+import { PaystackButton } from "react-paystack"; // Import PaystackButton
+import { useRouter } from "next/navigation";
 
 const CheckoutMainContainter = () => {
-  const { cart, totalPrice } = useCart();
+  const { cart, totalPrice, clearCart } = useCart();
   const { data: userSession } = useSession();
-
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const id = userSession?.id;
+  //const [loading, setLoading] = useState(false);
   const [isShowAccount, setisShowAccount] = useState(false);
-
   // Form input states
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -34,7 +36,7 @@ const CheckoutMainContainter = () => {
   const [country, setCountry] = useState<string | undefined>(undefined);
   const [phone, setPhone] = useState("");
 
-  const handleCheckout = async () => {
+  /* const handleCheckout = async () => {
     setLoading(true);
 
     try {
@@ -134,6 +136,113 @@ const CheckoutMainContainter = () => {
     } finally {
       setLoading(false);
     }
+  }; */
+
+  const isFormValid = () => {
+    return (
+      firstName !== "" &&
+      lastName !== "" &&
+      street !== "" &&
+      city !== "" &&
+      state !== "" &&
+      zip !== "" &&
+      deliveryInstructions !== "" &&
+      country !== undefined &&
+      phone !== ""
+    );
+  };
+
+  const handleClearCart = () => {
+    if (id) {
+      clearCart(id);
+    }
+  };
+
+  // Paystack public key and other options
+  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
+  const email = userSession?.user?.email || "";
+  const amount = totalPrice * 100; // Amount in kobo (Naira is multiplied by 100)
+  const reference = `order_${Math.floor(Math.random() * 1000000000 + 1)}`;
+
+  const paystackProps = {
+    email,
+    amount,
+    publicKey,
+    text: "Pay Now",
+    onSuccess: async () => {
+      await handleOrderConfirmation();
+    },
+    onClose: () => {
+      alert("Payment was not completed");
+    },
+    reference,
+  };
+
+  const handleOrderConfirmation = async () => {
+    try {
+      // Save the order details to localStorage (optional)
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "orderDetails",
+          JSON.stringify({
+            firstName,
+            lastName,
+            street,
+            apt,
+            city,
+            state,
+            zip,
+            country,
+            phone,
+            deliveryInstructions,
+            cart,
+            totalPrice,
+          })
+        );
+      }
+
+      // Create an order in the backend
+      const orderResponse = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: cart.map((item) => ({
+            name: item.name,
+            image: item.productImage,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+          customerDetails: {
+            firstName,
+            lastName,
+            street,
+            apt,
+            city,
+            state,
+            zip,
+            country,
+            phone,
+            deliveryInstructions,
+            email: userSession?.user?.email,
+          },
+          userId: userSession?.id,
+          total: totalPrice,
+        }),
+      });
+
+      const orderData = await orderResponse.json();
+      if (!orderResponse.ok) {
+        console.error("Failed to create order:", orderData.error);
+        throw new Error(orderData.error || "Order creation failed");
+      }
+      router.push("/checkout/success");
+      handleClearCart();
+    } catch (error) {
+      console.error("Order confirmation error:", error);
+      alert("There was an error confirming your order. Please try again.");
+    }
   };
 
   return (
@@ -177,17 +286,20 @@ const CheckoutMainContainter = () => {
             <ComboboxDemo
               selectedCountry={country}
               setSelectedCountry={setCountry}
+              required
             />
           </div>
           <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
             <h2 className="heading2">Contact information</h2>
             <Input
+              required
               value={firstName}
               className="border h-14 mb-2 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="First name"
               onChange={(e) => setFirstName(e.target.value)}
             />
             <Input
+              required
               value={lastName}
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="Last name"
@@ -197,6 +309,7 @@ const CheckoutMainContainter = () => {
           <div className="bg-white px-[3%] py-3 pt-5 grid gap-2">
             <h2 className="heading2">Address</h2>
             <Input
+              required
               value={street}
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="Street"
@@ -209,24 +322,28 @@ const CheckoutMainContainter = () => {
               onChange={(e) => setApt(e.target.value)}
             />
             <Input
+              required
               value={state}
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="State"
               onChange={(e) => setState(e.target.value)}
             />
             <Input
+              required
               value={city}
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="City"
               onChange={(e) => setCity(e.target.value)}
             />
             <Input
+              required
               value={zip}
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="Zip code"
               onChange={(e) => setZip(e.target.value)}
             />
             <Input
+              required
               value={deliveryInstructions}
               className="border h-14 lg:h-16 placeholder:text-black placeholder:font-normal"
               placeholder="Delivery Instructions"
@@ -289,14 +406,20 @@ const CheckoutMainContainter = () => {
                 <p>${totalPrice}</p>
               </div>
             </div>
-            <button
+            {/* Paystack Button */}
+            <PaystackButton
+              {...paystackProps}
+              disabled={!isFormValid()}
+              className="paystack-button"
+            />
+            {/* <button
               className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
               type="submit"
               onClick={handleCheckout}
               disabled={loading}
             >
               {loading ? "Processing..." : "Pay Now"}
-            </button>
+            </button> */}
             <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
               <span>
                 <Lock strokeWidth={1.2} size={15} />
@@ -310,15 +433,21 @@ const CheckoutMainContainter = () => {
           </div>
         )}
       </div>
-      <div className="max-lg:hidden">
-        <button
+      <div className="max-lg:hidden px-[2.8%]">
+        {/* Paystack Button */}
+        <PaystackButton
+          {...paystackProps}
+          disabled={!isFormValid()}
+          className="paystack-button"
+        />
+        {/*  <button
           className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
           type="submit"
           onClick={handleCheckout}
           disabled={loading}
         >
           {loading ? "Processing..." : "Pay Now"}
-        </button>
+        </button> */}
         <p className="text-xs text-center w-fit flex items-center mx-auto gap-2 mt-3">
           <span>
             <Lock strokeWidth={1.2} size={15} />

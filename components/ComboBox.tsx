@@ -23,11 +23,13 @@ import { countries } from "@/lib/constants";
 interface SelectCountryProps {
   selectedCountry: string | undefined; // Change to string | undefined
   setSelectedCountry: (country: string | undefined) => void;
+  required?: boolean;
 }
 
 export function ComboboxDemo({
   selectedCountry,
   setSelectedCountry,
+  required,
 }: SelectCountryProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -49,7 +51,7 @@ export function ComboboxDemo({
       </PopoverTrigger>
       <PopoverContent className="w-[300px] bg-white p-0">
         <Command>
-          <CommandInput placeholder="Search a country" />
+          <CommandInput required={required} placeholder="Search a country" />
           <CommandList>
             <CommandEmpty>No country found.</CommandEmpty>
             <CommandGroup>
