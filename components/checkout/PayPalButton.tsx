@@ -63,14 +63,12 @@ const PayPalButton = ({
   };
 
   const onApprove = (_data: OnApproveData, actions: OnApproveActions) => {
-    return actions!.order!.capture().then((details: any) => {
-      console.log("Transaction completed by " + details.payer.name.given_name);
-      // Handle successful payment (e.g., call backend to update order status)
+    return actions!.order!.capture().then(() => {
       handleOrderConfirmation();
     });
   };
 
-  const onError = (err: any) => {
+  const onError = (err: Record<string, unknown>) => {
     console.error("PayPal Checkout Error: ", err);
   };
 
