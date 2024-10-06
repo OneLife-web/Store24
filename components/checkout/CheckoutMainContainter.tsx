@@ -470,7 +470,7 @@ const CheckoutMainContainter = () => {
               className="paystack-button"
             /> */}
             <FlutterWaveButton
-              text="Pay Now"
+              text="Pay Online"
               disabled={!isFormValid()}
               className="paystack-button"
               {...fwConfig}
