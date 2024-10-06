@@ -1,9 +1,9 @@
 "use client";
 //import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-//import { loadStripe } from "@stripe/stripe-js";
-import { FlutterWaveButton } from "flutterwave-react-v3";
 import { signOut, useSession } from "next-auth/react";
+//import { loadStripe } from "@stripe/stripe-js";
+import { closePaymentModal, FlutterWaveButton } from "flutterwave-react-v3";
 import {
   ChevronDown,
   ChevronUp,
@@ -18,6 +18,7 @@ import Image from "next/image";
 import PhoneNumberInput from "../PhoneInput";
 import { ComboboxDemo } from "../ComboBox";
 import { useRouter } from "next/navigation";
+import PayPalButton from "./PayPalButton";
 
 // Dynamically import PaystackButton with ssr option set to false
 /* const PaystackButton = dynamic(
@@ -202,6 +203,7 @@ const CheckoutMainContainter = () => {
   const fwConfig = {
     ...config,
     callback: async () => {
+      closePaymentModal();
       await handleOrderConfirmation();
     },
     onClose: () => {
@@ -473,6 +475,17 @@ const CheckoutMainContainter = () => {
               className="paystack-button"
               {...fwConfig}
             />
+            <div className="my-10 relative h-[0.5px] bg-gray-300 w-full">
+              <p className="text-sm bg-white px-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                or Pay with
+              </p>
+            </div>
+            <PayPalButton
+              totalPrice={amount2}
+              cart={cart}
+              handleOrderConfirmation={handleOrderConfirmation}
+              disabled={!isFormValid()}
+            />
             {/* <button
               className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
               type="submit"
@@ -502,10 +515,21 @@ const CheckoutMainContainter = () => {
           className="paystack-button"
         /> */}
         <FlutterWaveButton
-          text="Pay Now"
+          text="Pay Online"
           disabled={!isFormValid()}
           className="paystack-button"
           {...fwConfig}
+        />
+        <div className="my-10 relative h-[0.5px] bg-gray-300 w-full">
+          <p className="text-sm bg-white px-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            or Pay with
+          </p>
+        </div>
+        <PayPalButton
+          totalPrice={amount2}
+          cart={cart}
+          handleOrderConfirmation={handleOrderConfirmation}
+          disabled={!isFormValid()}
         />
         {/*  <button
           className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
