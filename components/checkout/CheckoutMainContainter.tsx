@@ -269,7 +269,7 @@ const CheckoutMainContainter = () => {
     reference,
   };
  */
-  const handleOrderConfirmation = async (customerDetails: any = null) => {
+  const handleOrderConfirmation = async () => {
     setLoading(true);
 
     try {
