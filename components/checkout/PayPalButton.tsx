@@ -7,16 +7,32 @@ import {
   CreateOrderData,
 } from "@paypal/paypal-js";
 
+interface CustomerDetails {
+  firstName: string;
+  lastName: string;
+  street: string;
+  apt: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string | undefined;
+  phone: string;
+  deliveryInstructions: string;
+  email: string | undefined | null;
+}
+
 const PayPalButton = ({
   totalPrice,
   cart,
   handleOrderConfirmation,
   disabled,
+  getCustomerDetails,
 }: {
   totalPrice: number;
   cart: CartItem[];
-  handleOrderConfirmation: () => void;
+  handleOrderConfirmation: () => Promise<void>;
   disabled: boolean;
+  getCustomerDetails: () => CustomerDetails;
 }) => {
   const publicKey3 = process.env.NEXT_PUBLIC_PAYPAL_PUBLIC_KEY!;
 
@@ -62,10 +78,24 @@ const PayPalButton = ({
     });
   };
 
-  const onApprove = (_data: OnApproveData, actions: OnApproveActions) => {
-    return actions!.order!.capture().then(() => {
-      handleOrderConfirmation();
-    });
+  const onApprove = async (_data: OnApproveData, actions: OnApproveActions) => {
+    try {
+      const details = await actions.order!.capture();
+      console.log(
+        "Transaction completed by " +
+          (details.payment_source?.paypal?.name?.given_name || "Guest")
+      );
+
+      // Get the most up-to-date customer details
+      const customerDetails = getCustomerDetails();
+      console.log("Customer details at PayPal approval:", customerDetails);
+
+      // Confirm the order on your backend
+      await handleOrderConfirmation();
+    } catch (error) {
+      console.error("PayPal Checkout Error: ", error);
+      alert("There was an error processing your payment. Please try again.");
+    }
   };
 
   const onError = (err: Record<string, unknown>) => {

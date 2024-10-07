@@ -1,6 +1,6 @@
 "use client";
 //import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 //import { loadStripe } from "@stripe/stripe-js";
 import { closePaymentModal, FlutterWaveButton } from "flutterwave-react-v3";
@@ -49,6 +49,50 @@ const CheckoutMainContainter = () => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const customerDetailsRef = useRef({
+    firstName,
+    lastName,
+    street,
+    apt,
+    city,
+    state,
+    zip,
+    country,
+    phone,
+    deliveryInstructions,
+    email: userSession?.user?.email,
+  });
+
+  useEffect(() => {
+    setIsClient(true);
+    // Update the ref whenever the form fields change
+    customerDetailsRef.current = {
+      firstName,
+      lastName,
+      street,
+      apt,
+      city,
+      state,
+      zip,
+      country,
+      phone,
+      deliveryInstructions,
+      email: userSession?.user?.email,
+    };
+  }, [
+    firstName,
+    lastName,
+    street,
+    apt,
+    city,
+    state,
+    zip,
+    country,
+    phone,
+    deliveryInstructions,
+    userSession?.user?.email,
+  ]);
 
   /* const handleCheckout = async () => {
     setLoading(true);
@@ -225,24 +269,17 @@ const CheckoutMainContainter = () => {
     reference,
   };
  */
-  const handleOrderConfirmation = async () => {
+  const handleOrderConfirmation = async (customerDetails: any = null) => {
     setLoading(true);
+
     try {
-      // Safe to use window here
+      const orderDetails = customerDetailsRef.current;
+
       if (isClient && typeof window.localStorage !== "undefined") {
         window.localStorage.setItem(
           "orderDetails",
           JSON.stringify({
-            firstName,
-            lastName,
-            street,
-            apt,
-            city,
-            state,
-            zip,
-            country,
-            phone,
-            deliveryInstructions,
+            ...orderDetails,
             cart,
             totalPrice,
           })
@@ -261,19 +298,7 @@ const CheckoutMainContainter = () => {
             price: item.price,
             quantity: item.quantity,
           })),
-          customerDetails: {
-            firstName,
-            lastName,
-            street,
-            apt,
-            city,
-            state,
-            zip,
-            country,
-            phone,
-            deliveryInstructions,
-            email: userSession?.user?.email,
-          },
+          customerDetails: orderDetails,
           userId: userSession?.id,
           total: totalPrice,
         }),
@@ -485,6 +510,7 @@ const CheckoutMainContainter = () => {
               cart={cart}
               handleOrderConfirmation={handleOrderConfirmation}
               disabled={!isFormValid()}
+              getCustomerDetails={() => customerDetailsRef.current}
             />
             {/* <button
               className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
@@ -530,6 +556,7 @@ const CheckoutMainContainter = () => {
           cart={cart}
           handleOrderConfirmation={handleOrderConfirmation}
           disabled={!isFormValid()}
+          getCustomerDetails={() => customerDetailsRef.current}
         />
         {/*  <button
           className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
