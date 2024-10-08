@@ -56,7 +56,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             </p>
             <div className="basis-1/2">
               <div className="grid gap-4">
-                <ul className="grid gap-4 bodyText !opacity-85 grid gap-3 mt-3">
+                <ul className="grid gap-4 bodyText !opacity-85 mt-3">
                   {data?.features.map((item, index) => (
                     <li key={index}>- {item}</li>
                   ))}
@@ -116,7 +116,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           {data.whyNeedThis.map((item, index) => (
             <li key={index}>
               <span className="font-semibold">{item.title}:</span>
-              <p className="opacity-80">{item.content}</p>
+              <p className="opacity-85">{item.content}</p>
             </li>
           ))}
         </ul>
@@ -127,7 +127,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           {data.characteristics.map((item, index) => (
             <li key={index}>
               <span className="font-semibold">{item.title}:</span>
-              <p className="opacity-80">{item.content}</p>
+              <p className="opacity-85">{item.content}</p>
             </li>
           ))}
         </ul>
