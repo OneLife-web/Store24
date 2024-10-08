@@ -1,6 +1,6 @@
 export const getSettings = async () => {
   try {
-    const res = await fetch("https://store45.vercel.app/api/settings", {
+    const res = await fetch("https://www.store45co.com/api/settings", {
       method: "GET",
       next: { revalidate: 300 }, // Revalidate every 300 seconds
     });
