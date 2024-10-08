@@ -45,7 +45,7 @@ const Promotion = ({ data }: { data: Settings }) => {
   return (
     <section className="py-10 max-lg:px-[3%]">
       <h1 className="heading3 text-center mb-5 mx-auto max-sm:w-[80%]">
-        Welcome to Store45. See what&apos;s new
+        Welcome to Store45co. See what&apos;s new
       </h1>
       <p className="text-center bodyText">
         Our newest release is deserving of fascination

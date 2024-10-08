@@ -10,6 +10,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  images?: string[];
 }
 
 interface CartContextType {

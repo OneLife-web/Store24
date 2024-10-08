@@ -19,6 +19,7 @@ import PhoneNumberInput from "../PhoneInput";
 import { ComboboxDemo } from "../ComboBox";
 import { useRouter } from "next/navigation";
 import PayPalButton from "./PayPalButton";
+import { generateOrderId } from "@/utils/helper";
 
 // Dynamically import PaystackButton with ssr option set to false
 /* const PaystackButton = dynamic(
@@ -274,6 +275,7 @@ const CheckoutMainContainter = () => {
 
     try {
       const orderDetails = customerDetailsRef.current;
+      const orderId = generateOrderId(); // Generate a custom order ID
 
       if (isClient && typeof window.localStorage !== "undefined") {
         window.localStorage.setItem(
@@ -301,6 +303,7 @@ const CheckoutMainContainter = () => {
           customerDetails: orderDetails,
           userId: userSession?.id,
           total: totalPrice,
+          orderId: orderId,
         }),
       });
 
@@ -310,7 +313,7 @@ const CheckoutMainContainter = () => {
         throw new Error(orderData.error || "Order creation failed");
       }
       if (isClient && typeof window !== "undefined") {
-        window.localStorage.setItem("orderId", orderData._id);
+        window.localStorage.setItem("orderId", orderId);
       }
       router.push("/checkout/success");
       handleClearCart();
@@ -325,7 +328,7 @@ const CheckoutMainContainter = () => {
   return (
     <section className="max-sm:bg-gray-100">
       {loading && (
-        <div className="fixed z-40 top-0 bg-black/70 bottom-0 text-white right-0 left-0 h-screen flex items-center justify-center">
+        <div className="fixed z-[1000] top-0 bg-black/70 bottom-0 text-white right-0 left-0 h-screen flex items-center justify-center">
           <Loader className="animate-spin" size={30} />
         </div>
       )}

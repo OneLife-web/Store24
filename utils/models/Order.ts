@@ -17,6 +17,7 @@ interface Order extends Document {
   userId: mongoose.Types.ObjectId; // Use ObjectId here
   status: "pending" | "processing" | "completed" | "failed";
   total: number;
+  orderId: string;
 }
 
 const OrderSchema: Schema = new Schema({
@@ -52,6 +53,11 @@ const OrderSchema: Schema = new Schema({
   },
   total: {
     type: Number,
+    required: true,
+  },
+  orderId: {
+    type: String,
+    unique: true,
     required: true,
   },
 });

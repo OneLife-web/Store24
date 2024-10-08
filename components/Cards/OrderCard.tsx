@@ -6,10 +6,12 @@ const OrderCard = ({
   items,
   status,
   total,
+  orderId,
 }: {
   items: { name: string; image: string; price: number; quantity: number }[];
   status: "pending" | "processing" | "completed" | "failed";
   total: number;
+  orderId: string;
 }) => {
   return (
     <div className="bg-gray-100/80 lg:min-w-[500px] relative rounded-2xl min-h-[110px] flex items-center pl-3">
@@ -27,7 +29,8 @@ const OrderCard = ({
               {item.quantity} &times; {item.name}
             </p>
           ))}
-          <p className="font-semibold text-sm">${total}</p>
+          <p className="font-medium text-sm">${total}</p>
+          {orderId && <p className="text-sm">Order ID: {orderId}</p>}
         </div>
       </div>
       <div className="w-fit absolute right-3 bottom-3">

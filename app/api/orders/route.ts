@@ -24,24 +24,32 @@ export async function POST(req: Request) {
         secure: true, // Ensures the connection uses SSL/TLS
       });
 
-      // Email options
-      const mailOptions = {
+      // Email options for the store
+      const storeMailOptions = {
         from: process.env.SMTP_USER, // Sender email address
         to: process.env.SMTP_USER, // Store's email address
-        subject: `New Order Received - ${savedOrder._id}`, // Email subject with order ID
+        subject: `New Order Received - ${savedOrder.orderId}`, // Email subject with order ID
         text: `
-          New order received from ${orderData.customerDetails.firstName} ${orderData.customerDetails.lastName}!
+          New order received from ${orderData.customerDetails.firstName} ${
+          orderData.customerDetails.lastName
+        }!
 
-          Order ID: ${savedOrder._id}
+          Order ID: ${savedOrder.orderId}
           Total: $${savedOrder.total}
 
           Customer Details:
-          Name: ${orderData.customerDetails.firstName} ${orderData.customerDetails.lastName}
+          Name: ${orderData.customerDetails.firstName} ${
+          orderData.customerDetails.lastName
+        }
           Email: ${orderData.customerDetails.email}
           Phone: ${orderData.customerDetails.phone}
 
           Delivery Address:
-          ${orderData.customerDetails.street}, ${orderData.customerDetails.city}, ${orderData.customerDetails.state}, ${orderData.customerDetails.zip}, ${orderData.customerDetails.country}
+          ${orderData.customerDetails.street}, ${
+          orderData.customerDetails.city
+        }, ${orderData.customerDetails.state}, ${
+          orderData.customerDetails.zip
+        }, ${orderData.customerDetails.country}
 
           Items:
           ${orderData.items
@@ -53,13 +61,47 @@ export async function POST(req: Request) {
 
           Special Instructions:
           ${orderData.customerDetails.deliveryInstructions || "None"}
-
-          Thank you for choosing our store!
         `,
       };
 
-      // Send email
-      await transporter.sendMail(mailOptions);
+      // Email options for the customer
+      const customerMailOptions = {
+        from: process.env.SMTP_USER, // Sender email address
+        to: orderData.customerDetails.email, // Customer's email address
+        subject: `Thank you for your order - ${savedOrder.orderId}`,
+        html: `
+          <h1>Thank you for your order, ${
+            orderData.customerDetails.firstName
+          }!</h1>
+          <p>Your order has been successfully placed with Store45Co. We will notify you once your tracking ID is available.</p>
+
+          <h2>Order Summary:</h2>
+          <ul>
+            ${orderData.items
+              .map(
+                (item: CartItem) => `
+                  <li>
+                    <img src="${
+                      item.images && item.images.length > 0
+                        ? item.images[0]
+                        : "/photo.png"
+                    }" alt="${item.name}" width="50" />
+                    ${item.quantity} x ${item.name} - $${item.price}
+                  </li>
+                `
+              )
+              .join("")}
+          </ul>
+          <p><strong>Total:</strong> $${savedOrder.total}</p>
+
+          <p>We will send you another email with your tracking ID once your items are shipped.</p>
+          <p>Thank you for shopping with us!</p>
+        `,
+      };
+
+      // Send both emails
+      await transporter.sendMail(storeMailOptions); // Send email to the store
+      await transporter.sendMail(customerMailOptions); // Send email to the customer
 
       return NextResponse.json({ order: savedOrder, status: 200 });
     } else {

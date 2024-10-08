@@ -9,6 +9,7 @@ interface Order {
   items: { name: string; image: string; price: number; quantity: number }[];
   status: "pending" | "processing" | "completed" | "failed";
   total: number;
+  orderId: string;
 }
 
 const OrderContainer = () => {
@@ -83,6 +84,7 @@ const OrderContainer = () => {
                 status={order.status}
                 key={order._id}
                 total={order.total}
+                orderId={order.orderId}
               />
             ))}
           </div>
