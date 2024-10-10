@@ -1,5 +1,5 @@
 import { hashPassword } from "@/lib/auth"; // Utility for hashing passwords
-import User from "@/utils/models/User";
+import { User } from "@/utils/models/User";
 import { connectToDb } from "@/utils/config/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
