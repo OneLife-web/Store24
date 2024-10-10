@@ -34,10 +34,9 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
               } as React.CSSProperties
             }
             spaceBetween={10}
-            navigation={true}
             thumbs={{ swiper: thumbsSwiper }}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper2"
+            className="mySwiper2 relative"
           >
             {images.map((image) => (
               <SwiperSlide key={image.url}>
@@ -46,8 +45,13 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
                   alt="slide image"
                   width={400}
                   height={450}
-                  className="w-full h-[450px] object-contain"
+                  className="w-full h-[450px] object-cover"
                 />
+                <div className="absolute font-medium py-1 whitespace-nowrap text-lg bg-opacity-95 px-4 rounded-full bottom-5 left-1/2 -translate-x-1/2 bg-white text-black">
+                  <span className="opacity-80">Item</span>
+                  <span className="px-2 opacity-80">|</span>
+                  <span className="">{image.caption}</span>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -58,16 +62,16 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper"
+            className="mt-5"
           >
             {images.map((image) => (
               <SwiperSlide key={image.url}>
                 <Image
                   src={image.url}
                   alt="slide image"
-                  width={400}
-                  height={450}
-                  className="w-full h-[450px] object-contain"
+                  width={200}
+                  height={100}
+                  className="w-full rounded-lg h-[100px] object-cover"
                 />
               </SwiperSlide>
             ))}
