@@ -209,7 +209,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           {data.reviews && data.reviews.length > 0 && (
             <div>
               {data.reviews.map((review) => (
-                <div>
+                <div key={review._id}>
                   <p>{review?.user}</p>
                   <Rating
                     initialValue={review.rating}

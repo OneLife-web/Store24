@@ -13,6 +13,7 @@ export async function GET(
   try {
     await connectToDb();
     const product = await Product.findById(id).populate("reviews");
+    console.log(product.reviews); // Check what ObjectIds are stored
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });

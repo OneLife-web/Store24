@@ -71,7 +71,7 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
                     alt="slide image"
                     width={200}
                     height={100}
-                    className="w-full rounded-lg h-[100px] object-cover"
+                    className="w-full rounded-lg h-[80px] object-cover"
                   />
                 </SwiperSlide>
               ))}
