@@ -149,7 +149,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           </div>
         </div>
       </section>
-      <section className="py-10 border-t">
+      <section className="py-10 max-sm:px-[3%] border-t">
         <h2 className="heading3">Why You Need This</h2>
         <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
           {data.whyNeedThis.map((item, index) => (
@@ -160,7 +160,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           ))}
         </ul>
       </section>
-      <section className="py-10">
+      <section className="py-10 max-sm:px-[3%]">
         <h2 className="heading3">Characteristics</h2>
         <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
           {data.characteristics.map((item, index) => (
@@ -171,7 +171,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           ))}
         </ul>
       </section>
-      <section className="py-14">
+      <section className="py-14 max-sm:px-[3%]">
         <AccordionDemo faqs={data.faqs} />
       </section>
     </div>
