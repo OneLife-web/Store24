@@ -55,27 +55,28 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <Swiper
-            onSwiper={handleOnSwiper}
-            spaceBetween={10}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mt-5"
-          >
-            {images.map((image) => (
-              <SwiperSlide key={image.url}>
-                <Image
-                  src={image.url}
-                  alt="slide image"
-                  width={200}
-                  height={100}
-                  className="w-full rounded-lg h-[100px] object-cover"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div className="mt-5 px-[3%]">
+            <Swiper
+              onSwiper={handleOnSwiper}
+              spaceBetween={10}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[FreeMode, Navigation, Thumbs]}
+            >
+              {images.map((image) => (
+                <SwiperSlide key={image.url}>
+                  <Image
+                    src={image.url}
+                    alt="slide image"
+                    width={200}
+                    height={100}
+                    className="w-full rounded-lg h-[100px] object-cover"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </>
       )}
     </>

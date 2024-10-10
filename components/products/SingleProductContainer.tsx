@@ -44,12 +44,12 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     }
   };
   return (
-    <div className="max-sm:px-[3%] pt-7 pb-20">
+    <div className="pb-20">
       <section className="lg:flex lg:gap-9 pb-10">
         <div className="lg:min-w-[60%]">
           <Carousel images={images} />
         </div>
-        <div className="w-full lg:flex items-center max-sm:mt-10">
+        <div className="w-full max-sm:px-[3%] lg:flex items-center max-sm:mt-10">
           <div>
             <h1 className="heading1">{data?.title}</h1>
             <div className="flex items-center">
