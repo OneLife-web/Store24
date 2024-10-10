@@ -1,6 +1,7 @@
 "use client";
 
 import { Rating } from "react-simple-star-rating";
+import ReactPlayer from 'react-player';
 import { updateData } from "@/types";
 import Carousel from "../Carousel";
 import Image from "next/image";
@@ -148,6 +149,17 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             </div>
           </div>
         </div>
+      </section>
+      <section className="py-10 max-sm:px-[3%] border-t">
+        {data.videos && data.videos?.length > 0 && (
+          <div className="video-container">
+            {data.videos.map((videoUrl, index) => (
+              <ReactPlayer key={index} url={videoUrl.url} controls width="400" />
+            ))}
+          </div>
+        )}
+        <h2 className="heading1 leading-7">Seemless Glow, Infinite Wonder</h2>
+        <p className="opacity-85 mt-2">{data?.description}</p>
       </section>
       <section className="py-10 max-sm:px-[3%] border-t">
         <h2 className="heading3">Why You Need This</h2>
