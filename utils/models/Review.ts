@@ -1,13 +1,14 @@
-import { Schema, model, models } from "mongoose";
+// utils/models/Review.ts
+import mongoose, { Schema } from "mongoose";
 
 const reviewSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true }, // reference to User schema
-    rating: { type: Number, required: true, min: 1, max: 5 }, // rating between 1 and 5
-    comment: { type: String, required: true }, // review comment
-    date: { type: Date, default: Date.now }, // review date
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    rating: { type: Number, required: true, min: 1, max: 5 },
+    comment: { type: String, required: true },
+    date: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );
 
-export const Review = models.Review || model("Review", reviewSchema);
+export const Review = mongoose.models.Review || mongoose.model("Review", reviewSchema);

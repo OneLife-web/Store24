@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyPassword } from "@/lib/auth";
-import User from "@/utils/models/User";
+import { User } from "@/utils/models/User";
 import { connectToDb } from "@/utils/config/mongodb";
 import { NextAuthOptions } from "next-auth";
 
@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
           user.id = existingUser._id.toString();
         }
       }
-      return true;  // Ensure true is returned for successful sign-in
+      return true; // Ensure true is returned for successful sign-in
     },
     async jwt({ token, user }) {
       if (user) {

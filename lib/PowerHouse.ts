@@ -2,7 +2,7 @@ export const getSettings = async () => {
   try {
     const res = await fetch("https://www.store45co.com/api/settings", {
       method: "GET",
-      //next: { revalidate: 300 }, // Revalidate every 300 seconds
+      next: { revalidate: 60 }, // Revalidate every 300 seconds
     });
 
     if (!res.ok) {
@@ -21,7 +21,7 @@ export const fetchProducts = async () => {
   try {
     const res = await fetch("https://www.store45co.com/api/product", {
       method: "GET",
-      //next: { revalidate: 300 }, // Revalidate every 300 seconds
+      next: { revalidate: 60 }, // Revalidate every 300 seconds
     });
 
     /* if (!res.ok) {
@@ -40,7 +40,7 @@ export const fetchProduct = async (id?: string) => {
   try {
     const res = await fetch(`https://www.store45co.com/api/product/${id}`, {
       method: "GET",
-      //next: { revalidate: 300 }, // Revalidate every 300 seconds
+      next: { revalidate: 60 }, // Revalidate every 300 seconds
     });
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);

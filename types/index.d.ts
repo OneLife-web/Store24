@@ -46,9 +46,14 @@ export interface ImageProps {
   caption: string;
 }
 
+export interface UserProps {
+  _id: string;
+  name: string;
+}
+
 export interface ReviewProps {
   _id: string;
-  user: string;
+  user: UserProps;
   comment: string;
   rating: number;
   date: string;

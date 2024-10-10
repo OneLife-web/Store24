@@ -12,14 +12,19 @@ export async function GET(
 
   try {
     await connectToDb();
-    const product = await Product.findById(id).populate("reviews");
-    console.log(product.reviews); // Check what ObjectIds are stored
+    const product = await Product.findById(id).populate({
+      path: "reviews",
+      populate: { path: "user", select: "name" },
+    });
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ product }, { status: 200 });
+    // Convert the Mongoose document to a plain JavaScript object
+    const plainProduct = JSON.parse(JSON.stringify(product));
+
+    return NextResponse.json({ product: plainProduct }, { status: 200 });
   } catch (error) {
     console.error("Error fetching product:", error);
     return NextResponse.json(

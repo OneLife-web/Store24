@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AccordionDemo from "../Accordion";
+import { formatDate } from "@/utils/helper";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
   const router = useRouter();
@@ -205,12 +206,16 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             size={30}
             allowFraction
           />
-
+        </div>
+        <div>
           {data.reviews && data.reviews.length > 0 && (
             <div>
               {data.reviews.map((review) => (
-                <div key={review._id}>
-                  <p>{review?.user}</p>
+                <div key={review._id} className="lg:max-w-[450px] grid gap-2 border-b border-black/25 py-8">
+                  <div className="flex text-sm opacity-70 items-center justify-between">
+                    <p>{review?.user?.name}</p>
+                    <p>{formatDate(new Date(review?.date))}</p>
+                  </div>
                   <Rating
                     initialValue={review.rating}
                     readonly
@@ -220,6 +225,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                     size={16}
                     allowFraction
                   />
+                  <p>{review.comment}</p>
                 </div>
               ))}
             </div>
