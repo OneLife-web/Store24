@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Rating } from "react-simple-star-rating";
 
 const Promotion = ({ data }: { data: Settings }) => {
   const router = useRouter();

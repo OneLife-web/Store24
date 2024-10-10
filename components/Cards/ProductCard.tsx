@@ -1,10 +1,8 @@
 "use client";
 import { updateData } from "@/types";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Rating } from "react-simple-star-rating";
 
 const ProductCard = ({ item }: { item: updateData }) => {
   return (
