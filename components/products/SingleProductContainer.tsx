@@ -69,18 +69,27 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                 100+ <span className="ml-[2px]">Sold</span>
               </p>
             </div>
-            <div className="flex gap-2 items-center">
-              <p className="text-xl font-semibold mt-3">${data?.price}</p>
-              <p className="text-base opacity-70 line-through mt-3">
+            <div className="flex gap-2 items-center mt-3">
+              <p className="text-xl font-semibold">${data?.price}</p>
+              <p className="text-base opacity-70 line-through">
                 ${data?.discountPrice}
               </p>
               {data?.price && data?.discountPrice && (
-                <p className="text-green-600 text-xl mt-3">
-                  {Math.round(
-                    ((data?.price - data?.discountPrice) / data?.price) * 100
+                <div className="flex items-center gap-1 ml-2 text-sm font-semibold bg-secondaryBg rounded-lg text-white px-2 py-1">
+                  <Image
+                    src="/tag.svg"
+                    width={22}
+                    height={22}
+                    alt="price tag"
+                  />
+                  <span className="">SAVE</span>
+                  {Math.abs(
+                    Math.round(
+                      ((data.price - data.discountPrice) / data.price) * 100
+                    )
                   )}
-                  % saved
-                </p>
+                  %
+                </div>
               )}
             </div>
 
