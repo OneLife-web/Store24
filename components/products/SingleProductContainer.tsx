@@ -1,5 +1,6 @@
 "use client";
 
+import { Rating } from "react-simple-star-rating";
 import { updateData } from "@/types";
 import Carousel from "../Carousel";
 import Image from "next/image";
@@ -29,7 +30,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     if (data?._id && data?.price !== undefined) {
       item = {
         productId: data._id,
-        productImage: data?.images[0] || "/mydemo.jpg",
+        productImage: data?.images[0]?.url || "/mydemo.jpg",
         name: data.title,
         price: data.price,
         quantity: 1, // Default to 1 when adding to cart
@@ -51,9 +52,38 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         <div className="w-full lg:flex items-center max-sm:mt-10">
           <div>
             <h1 className="heading1">{data?.title}</h1>
-            <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
-              ${data?.price} USD
-            </p>
+            <div className="flex items-center">
+              <Rating
+                initialValue={data.averageRating}
+                readonly
+                fillColor=""
+                className="mt-[-4px] pr-1 text-secondaryBg"
+                SVGclassName="inline"
+                size={16}
+                allowFraction
+              />
+              <p className="max-sm:text-base font-medium whitespace-nowrap">
+                {data.averageRating.toFixed(1)}
+              </p>
+              <p className="max-sm:text-base ml-3 pl-3 border-l font-medium whitespace-nowrap">
+                100+ <span className="ml-[2px]">Sold</span>
+              </p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <p className="text-xl font-semibold mt-3">${data?.price}</p>
+              <p className="text-base opacity-70 line-through mt-3">
+                ${data?.discountPrice}
+              </p>
+              {data?.price && data?.discountPrice && (
+                <p className="text-green-600 text-xl mt-3">
+                  {Math.round(
+                    ((data?.price - data?.discountPrice) / data?.price) * 100
+                  )}
+                  % saved
+                </p>
+              )}
+            </div>
+
             <div className="basis-1/2">
               <div className="grid gap-4">
                 <ul className="grid gap-4 bodyText !opacity-85 mt-3">

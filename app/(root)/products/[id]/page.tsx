@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
           url: `https://www.store45co.com/product/${id}`,
           images: [
             {
-              url: data.images[0], // Assuming product data includes an image URL
+              url: data?.images[0]?.url, // Assuming product data includes an image URL
               alt: `${data.title} image`,
               width: 1200,
               height: 630,
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
           description: `Buy ${data.title} at Store45co. ${featuresString}`,
           images: [
             {
-              url: data.images[0],
+              url: data?.images[0]?.url,
               alt: `${data.title} image`,
             },
           ],
@@ -56,6 +56,7 @@ const ProductDetailsPage = async ({ params }: { params: { id: string } }) => {
 
   if (id) {
     data = await fetchProduct(id);
+    console.log(data);
   }
   return (
     <main className="lg:max-w-4xl min-h-screen mx-auto xl:max-w-5xl w-full">

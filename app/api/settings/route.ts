@@ -13,7 +13,7 @@ export async function GET() {
     // Fetch the settings document (assuming only one document exists)
     const settings = await Settings.findOne().populate({
       path: "promotion.productId", // The path to populate
-      select: "title price images features", // Specify fields to select from the Product model
+      select: "",
     });
 
     // If no settings document exists, return a 404 response

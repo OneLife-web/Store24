@@ -12,7 +12,7 @@ export async function GET(
 
   try {
     await connectToDb();
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate("reviews");
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });

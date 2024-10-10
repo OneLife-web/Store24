@@ -41,11 +41,27 @@ export interface UpdateRequestBody {
   productId: string;
 }
 
+export interface ImageProps {
+  url: string;
+  caption: string;
+}
+
+export interface ReviewProps {
+  _id: string;
+  user: string;
+  comment: string;
+  rating: number;
+  date: string;
+}
+
 export interface productData {
   _id?: string;
-  images: string[];
+  images: ImageProps[];
+  videos?: ImageProps[];
   title: string;
+  description?: string;
   price: number | undefined;
+  discountPrice?: number | undefined;
   features: string[];
   whyNeedThis: {
     title: string;
@@ -59,13 +75,20 @@ export interface productData {
     question: string;
     answer: string;
   }[];
+  reviews: ReviewProps[];
+  averageRating: number;
+  totalReviews: number;
+  createdAt?: string;
 }
 
 export interface updateData {
   _id?: string;
-  images: string[];
+  images: ImageProps[];
+  videos?: ImageProps[];
   title: string;
+  description?: string;
   price: number | undefined;
+  discountPrice?: number | undefined;
   features: string[];
   whyNeedThis: {
     title: string;
@@ -79,6 +102,9 @@ export interface updateData {
     question: string;
     answer: string;
   }[];
+  reviews: ReviewProps[];
+  averageRating: number;
+  totalReviews: number;
   createdAt?: string;
 }
 

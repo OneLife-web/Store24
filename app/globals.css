@@ -59,42 +59,73 @@ button {
   padding: 0 10px !important;
 }
 
+.paystack-button {
+  @apply bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
 .swiper {
   width: 100%;
   height: 100%;
 }
 
 .swiper-slide {
-  background-position: center;
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
   background-size: cover;
+  background-position: center;
 }
 
-/* Swiper button overrides */
-.swiper-button-prev,
-.swiper-button-next {
-  color: #f8af24 !important; /* Change button color */
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
 }
 
-/* Optional: Change hover effect */
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-  transform: scale(1.1); /* Slight zoom effect on hover */
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
 }
 
-/* Swiper pagination dot overrides */
-.swiper-pagination-bullet {
-  background-color: #f8af24 !important; /* Dot color */
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
 }
 
-/* Active dot styling */
-.swiper-pagination-bullet-active {
-  background-color: #ff5733; /* Change color of active dot */
-  transform: scale(1.2); /* Optional: enlarge active dot */
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
 }
 
-.paystack-button {
-  @apply bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10 disabled:opacity-50 disabled:cursor-not-allowed;
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
 
 /* Target devices between 320px and 768px */
 @media (min-width: 320px) and (max-width: 1024px) {

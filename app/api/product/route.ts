@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     await connectToDb();
-    const products = await Product.find({});
+    const products = await Product.find({}).populate("reviews");
 
     if (!products) {
       return NextResponse.json({ error: "No product found" }, { status: 404 });

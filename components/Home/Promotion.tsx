@@ -1,11 +1,13 @@
 "use client";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { Settings } from "@/types";
+import { StarFilledIcon } from "@radix-ui/react-icons";
 import { Loader2, MoveRight } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Rating } from "react-simple-star-rating";
 
 const Promotion = ({ data }: { data: Settings }) => {
   const router = useRouter();
@@ -28,7 +30,7 @@ const Promotion = ({ data }: { data: Settings }) => {
     ) {
       item = {
         productId: data.promotion.productId._id,
-        productImage: data.promotion.productId.images[0],
+        productImage: data.promotion.productId.images[0].url,
         name: data.promotion.productId.title,
         price: data.promotion.productId.price,
         quantity: 1, // Default to 1 when adding to cart
@@ -52,7 +54,7 @@ const Promotion = ({ data }: { data: Settings }) => {
       </p>
       <div className="flex max-lg:flex-col max-lg:gap-7 mt-16">
         <Image
-          src={data?.promotion?.productId?.images[0]}
+          src={data?.promotion?.productId?.images[0]?.url}
           alt="image"
           width={300}
           height={450}
@@ -67,9 +69,25 @@ const Promotion = ({ data }: { data: Settings }) => {
                 <li key={index}>- {item}</li>
               ))}
             </ul>
-            <p className="bodyText !font-semibold my-3 !opacity-100 !max-sm:text-base text-lg">
-              ${data?.promotion?.productId?.price} USD
-            </p>
+            <div className="flex items-center gap-3 mt-3">
+              <div className="flex items-center gap-1">
+                <StarFilledIcon className="text-secondaryBg size-6" />
+                <p className="lg:text-lg">
+                  {data.promotion.productId.averageRating.toFixed(1)}
+                </p>
+              </div>
+              <p className="border-l pl-3 lg:text-lg">100+ Sold</p>
+            </div>
+
+            <div className="flex gap-1 items-center">
+              <p className="font-semibold my-3 text-lg">
+                ${data?.promotion?.productId?.price}
+              </p>
+              <p className="bodyText line-through !max-sm:text-sm text-base">
+                ${data?.promotion?.productId?.discountPrice}
+              </p>
+            </div>
+
             <div>
               <p className="text-center">
                 We accept these payment methods and more..
