@@ -1,7 +1,7 @@
 "use client";
 
 import { Rating } from "react-simple-star-rating";
-import ReactPlayer from 'react-player';
+import ReactPlayer from "react-player";
 import { updateData } from "@/types";
 import Carousel from "../Carousel";
 import Image from "next/image";
@@ -154,11 +154,18 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         {data.videos && data.videos?.length > 0 && (
           <div className="video-container">
             {data.videos.map((videoUrl, index) => (
-              <ReactPlayer key={index} url={videoUrl.url} controls width="400" />
+              <ReactPlayer
+                key={index}
+                url={videoUrl.url}
+                controls
+                width="400"
+              />
             ))}
           </div>
         )}
-        <h2 className="heading1 leading-7">Seemless Glow, Infinite Wonder</h2>
+        <h2 className="heading1 leading-7 pt-3">
+          Seemless Glow, Infinite Wonder
+        </h2>
         <p className="opacity-85 mt-2">{data?.description}</p>
       </section>
       <section className="py-10 max-sm:px-[3%] border-t">
@@ -182,6 +189,42 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             </li>
           ))}
         </ul>
+      </section>
+      <section className="py-10 max-sm:px-[3%]">
+        <h2 className="heading3">Product Reviews and Ratings</h2>
+        <div className="flex gap-3 items-center py-3">
+          <h1 className="heading1 !font-normal">
+            {data.averageRating.toFixed(1)}
+          </h1>
+          <Rating
+            initialValue={data.averageRating}
+            readonly
+            fillColor=""
+            className="text-secondaryBg"
+            SVGclassName="inline"
+            size={30}
+            allowFraction
+          />
+
+          {data.reviews && data.reviews.length > 0 && (
+            <div>
+              {data.reviews.map((review) => (
+                <div>
+                  <p>{review?.user}</p>
+                  <Rating
+                    initialValue={review.rating}
+                    readonly
+                    fillColor=""
+                    className="text-secondaryBg"
+                    SVGclassName="inline"
+                    size={16}
+                    allowFraction
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
       <section className="py-14 max-sm:px-[3%]">
         <AccordionDemo faqs={data.faqs} />
