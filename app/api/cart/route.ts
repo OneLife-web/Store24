@@ -3,6 +3,7 @@ import Cart from "@/utils/models/Cart";
 import { NextResponse } from "next/server";
 
 interface CartItem {
+  _id: string;
   productId: string;
   productImage: string;
   name: string;
@@ -148,7 +149,7 @@ export async function DELETE(req: Request) {
 
     if (cart) {
       cart.items = cart.items.filter(
-        (item: CartItem) => item.productId.toString() !== productId
+        (item: CartItem) => item._id.toString() !== productId
       );
 
       // Update total price

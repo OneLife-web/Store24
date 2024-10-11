@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export interface CartItem {
+  _id?: string;
   productId: string;
   productImage: string;
   name: string;

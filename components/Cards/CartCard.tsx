@@ -32,7 +32,9 @@ const CartCard = ({
           className="size-20 object-contain"
         />
         <div className="flex-grow">
-          <h3 className="font-semibold">{item.name}</h3>
+          <h3 className="font-semibold">
+            {item.name} - {item.color}
+          </h3>
           <p className="bodyText !opacity-90">${item.price}</p>
           <div className="flex items-center justify-between gap-1">
             <div className="border mt-2 border-primary w-full flex items-center gap-1 justify-between">
@@ -53,17 +55,19 @@ const CartCard = ({
                 +
               </button>
             </div>
-            <button
-              onClick={() => removeItem(item.productId, userId, index)}
-              disabled={loading}
-              className="flex items-center justify-center px-3"
-            >
-              {loading ? (
-                <Loader2 className="animate-spin" size={17} />
-              ) : (
-                <Trash2 strokeWidth={1.2} size={17} />
-              )}
-            </button>
+            {item._id && (
+              <button
+                onClick={() => removeItem(item._id, userId, index)}
+                disabled={loading}
+                className="flex items-center justify-center px-3"
+              >
+                {loading ? (
+                  <Loader2 className="animate-spin" size={17} />
+                ) : (
+                  <Trash2 strokeWidth={1.2} size={17} />
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>
