@@ -137,7 +137,7 @@ const Promotion = ({ data }: { data: Settings }) => {
                 />
               </div>
             </div>
-            <div className="flex gap-3 flex-wrap pt-2">
+            <div className="flex gap-3 flex-wrap pt-7">
               {data.promotion.productId.colors &&
                 data.promotion.productId.colors.map((col) => (
                   <button
