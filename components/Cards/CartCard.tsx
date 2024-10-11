@@ -55,19 +55,18 @@ const CartCard = ({
                 +
               </button>
             </div>
-            {item._id && (
-              <button
-                onClick={() => removeItem(item._id, userId, index)}
-                disabled={loading}
-                className="flex items-center justify-center px-3"
-              >
-                {loading ? (
-                  <Loader2 className="animate-spin" size={17} />
-                ) : (
-                  <Trash2 strokeWidth={1.2} size={17} />
-                )}
-              </button>
-            )}
+
+            <button
+              onClick={() => removeItem(item?._id ?? "", userId, index)}
+              disabled={loading}
+              className="flex items-center justify-center px-3"
+            >
+              {loading ? (
+                <Loader2 className="animate-spin" size={17} />
+              ) : (
+                <Trash2 strokeWidth={1.2} size={17} />
+              )}
+            </button>
           </div>
         </div>
       </div>
