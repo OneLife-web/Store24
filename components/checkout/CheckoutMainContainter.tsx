@@ -299,6 +299,8 @@ const CheckoutMainContainter = () => {
             image: item.productImage,
             price: item.price,
             quantity: item.quantity,
+            productImage: item.productImage,
+            color: item.color,
           })),
           customerDetails: orderDetails,
           userId: userSession?.id,
@@ -464,7 +466,9 @@ const CheckoutMainContainter = () => {
                             {item.quantity}
                           </div>
                         </div>
-                        <p className="text-sm">{item.name}</p>
+                        <p className="text-sm">
+                          {item.name} - {item.color}
+                        </p>
                       </div>
                       <p className="text-sm">${item.price}</p>
                     </div>

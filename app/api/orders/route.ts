@@ -76,17 +76,19 @@ export async function POST(req: Request) {
           <p>Your order has been successfully placed with Store45Co. We will notify you once your tracking ID is available.</p>
 
           <h2>Order Summary:</h2>
-          <ul>
+          <ul style="list-style-type: none; padding: 0; margin: 0;">
             ${orderData.items
               .map(
                 (item: CartItem) => `
-                  <li>
+                  <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
                     <img src="${
-                      item.images && item.images.length > 0
-                        ? item.images[0]
-                        : "/photo.png"
-                    }" alt="${item.name}" width="50" />
-                    ${item.quantity} x ${item.name} - $${item.price}
+                      item.productImage ? item.productImage : "/photo.png"
+                    }" alt="${
+                  item.name
+                }" width="40" style="border-radius: 8px;" />
+                    ${item.quantity} x ${item.name} - $${item.price} - ${
+                  item.color
+                }
                   </li>
                 `
               )

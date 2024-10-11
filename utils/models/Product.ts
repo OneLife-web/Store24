@@ -10,7 +10,8 @@ const reviewSchema = new Schema(
   { timestamps: true }
 );
 
-export const Review = mongoose.models.Review || mongoose.model("Review", reviewSchema);
+export const Review =
+  mongoose.models.Review || mongoose.model("Review", reviewSchema);
 
 const productSchema = new Schema(
   {
@@ -27,10 +28,12 @@ const productSchema = new Schema(
       },
     ], // Add this line
     title: { type: String, required: true },
+    quantitySold: { type: String },
     description: { type: String },
     price: { type: Number, required: true },
     discountPrice: { type: Number },
     features: [String],
+    colors: [String],
     whyNeedThis: [
       {
         title: { type: String, required: true },

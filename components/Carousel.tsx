@@ -69,7 +69,7 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
                   <Image
                     src={image.url}
                     alt="slide image"
-                    width={200}
+                    width={80}
                     height={100}
                     className="w-full rounded-lg h-[80px] object-cover"
                   />

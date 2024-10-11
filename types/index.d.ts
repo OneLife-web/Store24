@@ -64,10 +64,12 @@ export interface productData {
   images: ImageProps[];
   videos?: ImageProps[];
   title: string;
+  quantitySold?: string;
   description?: string;
   price: number | undefined;
   discountPrice?: number | undefined;
   features: string[];
+  colors: string[];
   whyNeedThis: {
     title: string;
     content: string;
@@ -91,10 +93,12 @@ export interface updateData {
   images: ImageProps[];
   videos?: ImageProps[];
   title: string;
+  quantitySold?: string;
   description?: string;
   price: number | undefined;
   discountPrice?: number | undefined;
   features: string[];
+  colors: string[];
   whyNeedThis: {
     title: string;
     content: string;

@@ -9,6 +9,7 @@ interface CartItem {
   quantity: number;
   productImage: string;
   price: number;
+  color?: string;
 }
 
 interface OrderDetails {
@@ -100,6 +101,7 @@ const OrderSummary = ({
                 key={item.name}
                 price={item.price}
                 images={item.productImage}
+                color={item?.color}
               />
             ))}
           </div>
@@ -123,15 +125,17 @@ const OrderItem = ({
   name,
   images,
   price,
+  color,
 }: {
   name: string;
   images: string;
   price: number;
+  color?: string;
 }) => {
   return (
     <div className="grid gap-3 rounded-[7.33px] border-[0.46px] border-[#F4F4F4] px-3 py-5 lg:border-0 lg:border-b lg:px-0 lg:last:border-b-0">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-4 lg:max-w-[583px] lg:items-start lg:gap-5">
+        <div className="flex items-center gap-4 lg:max-w-[583px] lg:gap-5">
           <div>
             <Image
               src={images}
@@ -144,7 +148,7 @@ const OrderItem = ({
           </div>
           <div className="grid gap-1">
             <p className="max-w-[194px] font-medium text-[10px] text-myGray lg:max-w-full lg:text-base">
-              {name}
+              {name} - {color}
             </p>
           </div>
         </div>

@@ -11,8 +11,12 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AccordionDemo from "../Accordion";
 import { formatDate } from "@/utils/helper";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
+  const [color, setColor] = useState("");
   const router = useRouter();
   const { images } = data;
   const { addItemToCart, loading } = useCart();
@@ -27,6 +31,11 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       return;
     }
 
+    if (!color) {
+      toast.error("Select your preferred color");
+      return;
+    }
+
     let item: CartItem | undefined;
 
     if (data?._id && data?.price !== undefined) {
@@ -36,6 +45,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         name: data.title,
         price: data.price,
         quantity: 1, // Default to 1 when adding to cart
+        color: color,
       };
 
       if (item && userId) {
@@ -48,7 +58,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
   return (
     <div className="pb-20">
       <section className="lg:flex lg:gap-9 pb-10">
-        <div className="lg:min-w-[60%]">
+        <div className="lg:min-w-[40%]">
           <Carousel images={images} />
         </div>
         <div className="w-full max-sm:px-[3%] lg:flex items-center max-sm:mt-10">
@@ -68,7 +78,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                 {data.averageRating.toFixed(1)}
               </p>
               <p className="max-sm:text-base ml-3 pl-3 border-l font-medium whitespace-nowrap">
-                100+ <span className="ml-[2px]">Sold</span>
+                {data.quantitySold}+ <span className="ml-[2px]">Sold</span>
               </p>
             </div>
             <div className="flex gap-2 items-center mt-3">
@@ -102,6 +112,23 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                     <li key={index}>- {item}</li>
                   ))}
                 </ul>
+                <div className="flex gap-3 flex-wrap pt-2">
+                  {data.colors &&
+                    data.colors.map((col) => (
+                      <button
+                      key={col}
+                        onClick={() => setColor(col)}
+                        className={cn(
+                          "border border-primary rounded-full px-6 py-2",
+                          {
+                            "bg-primary text-white": col === color,
+                          }
+                        )}
+                      >
+                        {col}
+                      </button>
+                    ))}
+                </div>
                 <button
                   onClick={handleAddToCart}
                   disabled={loading}
@@ -153,18 +180,19 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       </section>
       <section className="py-10 max-sm:px-[3%] border-t">
         {data.videos && data.videos?.length > 0 && (
-          <div className="video-container">
+          <div className="grid gap-5">
             {data.videos.map((videoUrl, index) => (
               <ReactPlayer
                 key={index}
                 url={videoUrl.url}
-                controls
+                controls={true}
                 width="400"
+                style={{ borderRadius: "10px" }} // add rounded edge to the player
               />
             ))}
           </div>
         )}
-        <h2 className="heading1 leading-7 pt-3">
+        <h2 className="heading1 leading-7 pt-5">
           Seemless Glow, Infinite Wonder
         </h2>
         <p className="opacity-85 mt-2">{data?.description}</p>
@@ -211,7 +239,10 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
           {data.reviews && data.reviews.length > 0 && (
             <div>
               {data.reviews.map((review) => (
-                <div key={review._id} className="lg:max-w-[450px] grid gap-2 border-b border-black/25 py-8">
+                <div
+                  key={review._id}
+                  className="lg:max-w-[450px] grid gap-2 border-b border-black/25 py-8"
+                >
                   <div className="flex text-sm opacity-70 items-center justify-between">
                     <p>{review?.user?.name}</p>
                     <p>{formatDate(new Date(review?.date))}</p>

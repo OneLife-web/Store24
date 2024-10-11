@@ -8,6 +8,8 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  images?: string[];
+  color?: string;
 }
 
 interface CartRequest {
@@ -17,6 +19,7 @@ interface CartRequest {
   name?: string;
   price?: number;
   quantity?: number;
+  color?: string;
 }
 
 // Add item to cart
@@ -31,6 +34,7 @@ export async function POST(req: Request) {
       name,
       price,
       quantity,
+      color,
     }: CartRequest = await req.json();
 
     // Ensure a valid quantity (default to 1 if not provided)
@@ -43,14 +47,22 @@ export async function POST(req: Request) {
       cart = new Cart({
         userId,
         items: [
-          { productId, productImage, name, price, quantity: itemQuantity },
+          {
+            productId,
+            productImage,
+            name,
+            price,
+            quantity: itemQuantity,
+            color,
+          },
         ],
         totalPrice: price! * itemQuantity,
       });
     } else {
       // Check if the product is already in the cart
       const existingItem = cart.items.find(
-        (item: CartItem) => item.productId.toString() === productId
+        (item: CartItem) =>
+          item.productId.toString() === productId && item.color === color
       );
 
       if (existingItem) {
@@ -64,6 +76,7 @@ export async function POST(req: Request) {
           name,
           price,
           quantity: itemQuantity,
+          color,
         });
       }
 

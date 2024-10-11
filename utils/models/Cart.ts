@@ -21,6 +21,9 @@ const CartItemSchema = new mongoose.Schema({
     required: true,
     default: 1,
   },
+  color: {
+    type: String,
+  },
 });
 
 const CartSchema = new mongoose.Schema({
