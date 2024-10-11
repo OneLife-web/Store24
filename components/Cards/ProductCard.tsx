@@ -23,7 +23,9 @@ const ProductCard = ({ item }: { item: updateData }) => {
           <StarFilledIcon className="text-secondaryBg size-6" />
           <p className="max-sm:text-sm">{item.averageRating.toFixed(1)}</p>
         </div>
-        <p className="border-l pl-3 max-sm:text-sm">100+ Sold</p>
+        <p className="border-l pl-3 max-sm:text-sm">
+          {item.quantitySold}+ Sold
+        </p>
       </div>
       <div className="flex mt-1 gap-1 items-center">
         <p className="font-semibold text-lg">${item?.price}</p>

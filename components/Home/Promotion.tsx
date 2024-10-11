@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { Settings } from "@/types";
 import { StarFilledIcon } from "@radix-ui/react-icons";
@@ -7,12 +8,15 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Promotion = ({ data }: { data: Settings }) => {
   const router = useRouter();
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
+  const [color, setColor] = useState("");
 
   const handleAddToCart = async () => {
     if (!userId) {
@@ -21,6 +25,12 @@ const Promotion = ({ data }: { data: Settings }) => {
       );
       return;
     }
+
+    if (!color) {
+      toast.error("Select your preferred color");
+      return;
+    }
+
     let item: CartItem | undefined;
 
     if (
@@ -33,6 +43,7 @@ const Promotion = ({ data }: { data: Settings }) => {
         name: data.promotion.productId.title,
         price: data.promotion.productId.price,
         quantity: 1, // Default to 1 when adding to cart
+        color: color,
       };
 
       if (item && userId) {
@@ -75,7 +86,9 @@ const Promotion = ({ data }: { data: Settings }) => {
                   {data.promotion.productId.averageRating.toFixed(1)}
                 </p>
               </div>
-              <p className="border-l pl-3 lg:text-lg">100+ Sold</p>
+              <p className="border-l pl-3 lg:text-lg">
+                {data.promotion.productId.quantitySold}+ Sold
+              </p>
             </div>
 
             <div className="flex gap-1 items-center">
@@ -123,6 +136,23 @@ const Promotion = ({ data }: { data: Settings }) => {
                   alt="logo"
                 />
               </div>
+            </div>
+            <div className="flex gap-3 flex-wrap pt-2">
+              {data.promotion.productId.colors &&
+                data.promotion.productId.colors.map((col) => (
+                  <button
+                    key={col}
+                    onClick={() => setColor(col)}
+                    className={cn(
+                      "border border-primary rounded-full px-6 py-2",
+                      {
+                        "bg-primary text-white": col === color,
+                      }
+                    )}
+                  >
+                    {col}
+                  </button>
+                ))}
             </div>
             <button
               onClick={handleAddToCart}
