@@ -24,7 +24,7 @@ const ShippingInfo = () => {
               <p>
                 The estimated arrival time may vary depending on your location,
                 you can find more details on our{" "}
-                <Link className="text-secondaryBg underline" href="/shipping">Shipping page</Link>
+                <Link className="underline" href="/shipping">Shipping page</Link>
               </p>
             </AccordionContent>
           </AccordionItem>
