@@ -28,11 +28,11 @@ input:-webkit-autofill {
   @apply text-lg max-sm:text-base font-medium;
 }
 .heading4 {
-  @apply text-xl font-semibold;
+  @apply text-2xl font-semibold;
 }
 
 .heading3 {
-  @apply font-bold text-xl md:text-2xl;
+  @apply font-bold text-lg md:text-2xl;
 }
 
 button {
