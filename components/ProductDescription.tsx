@@ -14,7 +14,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
         </span>
       </h3>
       {data.whyNeedThis && (
-        <div className="mt-3">
+        <div className="mt-3 max-sm:text-sm">
           {data.whyNeedThis.map((info, i) => (
             <div key={i} className="flex">
               <div className="basis-[40%] flex items-center bg-gray-100 text-primary/70 py-2 px-4">
