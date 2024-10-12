@@ -42,7 +42,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
           <h2 className="heading3 !font-medium">Features:</h2>
           <ul className="mt-4 grid gap-5 list-decimal pl-[3%]">
             {data.features.map((info, i) => (
-              <li key={i} className="bodyText">
+              <li key={i} className="bodyText !font-normal">
                 {info}
               </li>
             ))}
