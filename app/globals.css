@@ -28,7 +28,7 @@ input:-webkit-autofill {
   @apply text-lg max-sm:text-base font-medium;
 }
 .heading4 {
-  @apply text-2xl font-semibold;
+  @apply text-xl font-semibold;
 }
 
 .heading3 {
