@@ -32,7 +32,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
               <div className="heading3 !font-medium opacity-70">
                 {info.title}
               </div>
-              <div className="bodyText">{info.content}</div>
+              <div className="bodyText !font-normal">{info.content}</div>
             </div>
           ))}
         </div>
