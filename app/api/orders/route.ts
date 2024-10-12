@@ -68,12 +68,11 @@ export async function POST(req: Request) {
       const customerMailOptions = {
         from: process.env.SMTP_USER, // Sender email address
         to: orderData.customerDetails.email, // Customer's email address
-        subject: `Thank you for your order - ${savedOrder.orderId}`,
+        subject: `Order Confirmation - ${savedOrder.orderId}`,
         html: `
-          <h1>Thank you for your order, ${
-            orderData.customerDetails.firstName
-          }!</h1>
-          <p>Your order has been successfully placed with Store45Co. We will notify you once your tracking ID is available.</p>
+          <h1>Dear ${orderData.customerDetails.firstName},</h1>
+          <p>Your order has been successfully placed with Store45Co.</p>
+          <p>We will notify you once your tracking ID is available.</p>
 
           <h2>Order Summary:</h2>
           <ul style="list-style-type: none; padding: 0; margin: 0;">
@@ -96,7 +95,7 @@ export async function POST(req: Request) {
           </ul>
           <p><strong>Total:</strong> $${savedOrder.total}</p>
 
-          <p>We will send you another email with your tracking ID once your items are shipped.</p>
+          <p>We'll keep you updated and send you your tracking number as soon as your order is processed and on it's way to you.</p>
           <p>Thank you for shopping with us!</p>
         `,
       };
