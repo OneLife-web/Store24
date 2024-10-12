@@ -7,31 +7,34 @@ const ProductDescription = ({ data }: { data: updateData }) => {
   return (
     <div>
       <h2 className="heading4">Product details</h2>
-      <h3 className="heading3 pt-4 flex items-center gap-1 !font-medium">
-        Specifications{" "}
-        <span>
-          <ChevronRight strokeWidth={1.2} size={17} />
-        </span>
-      </h3>
+      {data.description && (
+        <p className="bodyText !font-normal mt-3">{data.description}</p>
+      )}
       {data.whyNeedThis && (
-        <div className="mt-3 max-sm:text-sm">
-          {data.whyNeedThis.map((info, i) => (
-            <div key={i} className="flex">
-              <div className="basis-[40%] flex items-center bg-gray-100 text-primary/90 py-2 px-4">
-                {info.title}
+        <>
+          <h3 className="heading3 pt-4 flex items-center gap-1 !font-medium">
+            Specifications{" "}
+            <span>
+              <ChevronRight strokeWidth={1.2} size={17} />
+            </span>
+          </h3>
+          <div className="mt-3 max-sm:text-sm">
+            {data.whyNeedThis.map((info, i) => (
+              <div key={i} className="flex">
+                <div className="basis-[40%] flex items-center bg-gray-100 text-primary/90 py-2 px-4">
+                  {info.title}
+                </div>
+                <div className="basis-[60%] py-2 px-4">{info.content}</div>
               </div>
-              <div className="basis-[60%] py-2 px-4">{info.content}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </>
       )}
       {data.characteristics && (
         <div className="py-7 grid gap-5">
           {data.characteristics.map((info, i) => (
             <div key={i} className="grid gap-3">
-              <div className="heading3 !font-medium">
-                {info.title}
-              </div>
+              <div className="heading3 !font-medium">{info.title}</div>
               <div className="bodyText !font-normal">{info.content}</div>
             </div>
           ))}
