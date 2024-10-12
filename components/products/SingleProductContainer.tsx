@@ -109,7 +109,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         </div>
         <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
           <Truck strokeWidth={1.2} size={28} />
-          <p className="font-medium">Free shipping</p>
+          <p className="font-medium max-sm:text-xs">Free shipping</p>
         </div>
         <ShippingInfo />
       </section>
