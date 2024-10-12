@@ -88,7 +88,7 @@ const ScrollspyTabs = ({ data }: { data: updateData }) => {
   };
 
   return (
-    <div className="mt-4 bg-white">
+    <div className="max-sm:mt-4">
       <nav
         ref={navRef}
         className={`sticky top-0 z-10 bg-white transition-all duration-300 ${
@@ -119,7 +119,6 @@ const ScrollspyTabs = ({ data }: { data: updateData }) => {
           ref={(el) => {
             sectionRefs.current[section.id] = el;
           }}
-          className="min-h-screen p-4"
         >
           {section.content}
         </div>

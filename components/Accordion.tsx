@@ -14,7 +14,7 @@ const AccordionDemo = ({
   }[];
 }) => {
   return (
-    <div>
+    <div className="bg-white max-sm:mt-4 py-10 pb-24 max-sm:px-[3%]">
       <p className="bodyText text-center">FREQUENTLY ASKED</p>
       <h1 className="heading1 text-center">QUESTIONS</h1>
       <div>

@@ -5,13 +5,13 @@ import React from "react";
 
 const ProductDescription = ({ data }: { data: updateData }) => {
   return (
-    <div>
-      <h2 className="heading4">Product details</h2>
+    <div className="bg-white">
+      <h2 className="heading4 px-[3%]">Product details</h2>
       {data.description && (
-        <p className="bodyText !font-normal mt-3">{data.description}</p>
+        <p className="bodyText px-[3%] !font-normal mt-3">{data.description}</p>
       )}
       {data.whyNeedThis && (
-        <div className="py-7">
+        <div className="py-7 px-[3%]">
           <h3 className="heading3 flex items-center gap-1 !font-medium">
             Specifications{" "}
             <span>
@@ -31,7 +31,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
         </div>
       )}
       {data.characteristics && (
-        <div className="py-7 grid gap-5">
+        <div className="py-7 px-[3%] grid gap-5">
           {data.characteristics.map((info, i) => (
             <div key={i} className="grid gap-3">
               <div className="heading3 !font-medium">{info.title}</div>
@@ -41,7 +41,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
         </div>
       )}
       {data.features && (
-        <div className="py-7">
+        <div className="py-7 px-[3%]">
           <h2 className="heading3 !font-medium">Features:</h2>
           <ul className="mt-4 grid gap-5 list-decimal pl-[3%]">
             {data.features.map((info, i) => (
@@ -61,6 +61,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
               width={400}
               height={400}
               alt="product image"
+              className="w-full"
             />
           ))}
         </div>

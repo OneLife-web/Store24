@@ -19,8 +19,8 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
   //const [color, setColor] = useState("");
   //const router = useRouter();
   const { images } = data;
- // const { addItemToCart, loading } = useCart();
- // const { data: session } = useSession();
+  // const { addItemToCart, loading } = useCart();
+  // const { data: session } = useSession();
   //const userId = session?.id;
 
   /*  const handleAddToCart = async () => {
@@ -56,12 +56,12 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     }
   }; */
   return (
-    <div className="pb-10">
+    <div>
       <section className="lg:flex bg-white lg:gap-9 pb-7">
         <div className="lg:min-w-[40%]">
           <Carousel images={images} />
         </div>
-        <div className="w-full max-sm:px-[3%] lg:flex items-center max-sm:mt-10">
+        <div className="w-full max-sm:px-[3%] lg:flex flex-col items-center max-sm:mt-10">
           <div>
             <h1 className="heading1">{data?.title}</h1>
             <div className="flex items-center">
@@ -106,12 +106,12 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
               )}
             </div>
           </div>
+          <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
+            <Truck strokeWidth={1.2} size={28} />
+            <p className="font-medium max-sm:text-xs">Free shipping</p>
+          </div>
+          <ShippingInfo />
         </div>
-        <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
-          <Truck strokeWidth={1.2} size={28} />
-          <p className="font-medium max-sm:text-xs">Free shipping</p>
-        </div>
-        <ShippingInfo />
       </section>
       <section>
         <ScrollspyTabs data={data} />

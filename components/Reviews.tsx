@@ -5,8 +5,8 @@ import { Rating } from "react-simple-star-rating";
 
 const Reviews = ({ data }: { data: updateData }) => {
   return (
-    <div className="py-10 max-sm:px-[3%]">
-      <h2 className="heading4">Product Reviews and Ratings</h2>
+    <div className="py-10 bg-white max-sm:mt-4 max-sm:px-[3%]">
+      <h2 className="heading4">Reviews</h2>
       <div className="flex gap-3 items-center py-3">
         <h1 className="heading1 !font-normal">
           {data.averageRating.toFixed(1)}
