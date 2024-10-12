@@ -1,22 +1,23 @@
 "use client";
-import { cn } from "@/lib/utils";
+//import { cn } from "@/lib/utils";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { Settings } from "@/types";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import { Loader2, MoveRight } from "lucide-react";
+import { Loader2, MoveRight, Truck } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import toast from "react-hot-toast";
+import ShippingInfo from "../ShippingInfo";
+//import { useState } from "react";
+//import toast from "react-hot-toast";
 
 const Promotion = ({ data }: { data: Settings }) => {
   const router = useRouter();
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
-  const [color, setColor] = useState("");
+  //const [color, setColor] = useState("");
 
   const handleAddToCart = async () => {
     if (!userId) {
@@ -26,10 +27,10 @@ const Promotion = ({ data }: { data: Settings }) => {
       return;
     }
 
-    if (!color) {
+    /* if (!color) {
       toast.error("Select your preferred color");
       return;
-    }
+    } */
 
     let item: CartItem | undefined;
 
@@ -43,7 +44,7 @@ const Promotion = ({ data }: { data: Settings }) => {
         name: data.promotion.productId.title,
         price: data.promotion.productId.price,
         quantity: 1, // Default to 1 when adding to cart
-        color: color,
+        //color: color,
       };
 
       if (item && userId) {
@@ -74,11 +75,11 @@ const Promotion = ({ data }: { data: Settings }) => {
         <div className="basis-1/2">
           <div className="lg:max-w-[60%] mx-auto">
             <h1 className="heading1">{data?.promotion?.productId?.title}</h1>
-            <ul className="bodyText grid gap-3 mt-3">
+            {/* <ul className="bodyText grid gap-3 mt-3">
               {data?.promotion?.productId?.features.map((item, index) => (
                 <li key={index}>- {item}</li>
               ))}
-            </ul>
+            </ul> */}
             <div className="flex items-center gap-3 mt-3">
               <div className="flex items-center gap-1">
                 <StarFilledIcon className="text-secondaryBg size-6" />
@@ -98,9 +99,34 @@ const Promotion = ({ data }: { data: Settings }) => {
               <p className="bodyText line-through !max-sm:text-sm text-base">
                 ${data?.promotion?.productId?.discountPrice}
               </p>
+              {data?.promotion.productId.price &&
+                data?.promotion.productId.discountPrice && (
+                  <div className="flex items-center gap-1 ml-2 text-sm font-semibold bg-secondaryBg rounded-lg text-white px-2 py-1">
+                    <Image
+                      src="/tag.svg"
+                      width={22}
+                      height={22}
+                      alt="price tag"
+                    />
+                    <span className="">SAVE</span>
+                    {Math.abs(
+                      Math.round(
+                        ((data.promotion.productId.discountPrice -
+                          data.promotion.productId.price) /
+                          data.promotion.productId.discountPrice) *
+                          100
+                      )
+                    )}
+                    %
+                  </div>
+                )}
             </div>
-
-            <div>
+            <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
+              <Truck strokeWidth={1.2} size={22} />
+              <p className="font-medium max-sm:text-xs">Free shipping</p>
+            </div>
+            <ShippingInfo />
+            <div className="mt-4">
               <p className="text-center">
                 We accept these payment methods and more..
               </p>
@@ -137,7 +163,7 @@ const Promotion = ({ data }: { data: Settings }) => {
                 />
               </div>
             </div>
-            <div className="flex gap-3 flex-wrap pt-7">
+            {/* <div className="flex gap-3 flex-wrap pt-7">
               {data.promotion.productId.colors &&
                 data.promotion.productId.colors.map((col) => (
                   <button
@@ -153,7 +179,7 @@ const Promotion = ({ data }: { data: Settings }) => {
                     {col}
                   </button>
                 ))}
-            </div>
+            </div> */}
             <button
               onClick={handleAddToCart}
               disabled={loading}
