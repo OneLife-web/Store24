@@ -4,15 +4,25 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 
+// Define an interface for the country data
+interface Country {
+  name: {
+    common: string;
+  };
+  flags: {
+    svg: string;
+  };
+}
+
 const Reviews = ({ data }: { data: updateData }) => {
   const [countryFlags, setCountryFlags] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const fetchCountryFlags = async () => {
       const response = await fetch("https://restcountries.com/v3.1/all");
-      const countries = await response.json();
+      const countries: Country[] = await response.json();
       const flags: Record<string, string> = {};
-      countries.forEach((country: any) => {
+      countries.forEach((country) => {
         flags[country.name.common] = country.flags.svg;
       });
       setCountryFlags(flags);
