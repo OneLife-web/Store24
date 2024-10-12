@@ -19,8 +19,8 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
   //const [color, setColor] = useState("");
   //const router = useRouter();
   const { images } = data;
-  const { addItemToCart, loading } = useCart();
-  const { data: session } = useSession();
+ // const { addItemToCart, loading } = useCart();
+ // const { data: session } = useSession();
   //const userId = session?.id;
 
   /*  const handleAddToCart = async () => {
