@@ -7,19 +7,21 @@ const Reviews = ({ data }: { data: updateData }) => {
   return (
     <div className="py-10 bg-white max-sm:mt-4 max-sm:px-[3%]">
       <h2 className="heading4">Reviews</h2>
-      <div className="flex gap-3 items-center py-3">
-        <h1 className="heading1 !font-normal">
+      <div className="flex gap-2 items-end py-3">
+        <h1 className="heading1 !font-medium">
           {data.averageRating.toFixed(1)}
         </h1>
         <Rating
           initialValue={data.averageRating}
           readonly
-          fillColor=""
-          className="text-secondaryBg"
+          className="text-secondaryBg mb-[6px]"
           SVGclassName="inline"
-          size={30}
+          size={20}
           allowFraction
         />
+        <p className="bodyText mb-1 ml-2">
+          {data.totalReviews} {data.totalReviews <= 1 ? "Review" : "Reviews"}
+        </p>
       </div>
       <div>
         {data.reviews && data.reviews.length > 0 && (

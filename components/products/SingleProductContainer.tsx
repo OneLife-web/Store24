@@ -4,26 +4,25 @@ import { Rating } from "react-simple-star-rating";
 import { updateData } from "@/types";
 import Carousel from "../Carousel";
 import Image from "next/image";
-//import { useCart } from "@/providers/CartContext";
-//import { useSession } from "next-auth/react";
-//import { Loader2, Truck } from "lucide-react";
-//import { useRouter } from "next/navigation";
-//import { cn } from "@/lib/utils";
-//import { useState } from "react";
-//import toast from "react-hot-toast";
+import { CartItem, useCart } from "@/providers/CartContext";
+import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import ScrollspyTabs from "../ScrollableTabs";
 import ShippingInfo from "../ShippingInfo";
 import { Truck } from "lucide-react";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
-  //const [color, setColor] = useState("");
-  //const router = useRouter();
+  const [color, setColor] = useState("");
+  const router = useRouter();
   const { images } = data;
-  // const { addItemToCart, loading } = useCart();
-  // const { data: session } = useSession();
-  //const userId = session?.id;
+  const { addItemToCart, loading } = useCart();
+  const { data: session } = useSession();
+  const userId = session?.id;
 
-  /*  const handleAddToCart = async () => {
+  const handleAddToCart = async () => {
     if (!userId) {
       router.push(
         `/sign-in?callbackUrl=${encodeURIComponent(window.location.pathname)}`
@@ -54,14 +53,14 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     } else {
       console.error("Product ID or Price is missing");
     }
-  }; */
+  };
   return (
-    <div>
-      <section className="lg:flex bg-white lg:gap-9 pb-7">
+    <div className="relative">
+      <section className="lg:flex bg-white lg:gap-9 md:pt-10 pb-7">
         <div className="lg:min-w-[40%]">
           <Carousel images={images} />
         </div>
-        <div className="w-full max-sm:px-[3%] lg:flex flex-col items-center max-sm:mt-10">
+        <div className="w-full max-sm:px-[3%] lg:flex justify-center flex-col max-sm:mt-10">
           <div>
             <h1 className="heading1">{data?.title}</h1>
             <div className="flex items-center">
@@ -107,7 +106,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             </div>
           </div>
           <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
-            <Truck strokeWidth={1.2} size={28} />
+            <Truck strokeWidth={1.2} size={22} />
             <p className="font-medium max-sm:text-xs">Free shipping</p>
           </div>
           <ShippingInfo />
@@ -116,6 +115,15 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       <section>
         <ScrollspyTabs data={data} />
       </section>
+      <div className="fixed z-50 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
+        <button
+          onClick={handleAddToCart}
+          disabled={loading}
+          className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
+        >
+          {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
+        </button>
+      </div>
     </div>
   );
 };
