@@ -17,7 +17,7 @@ input:-webkit-autofill {
 }
 
 .bodyText {
-  @apply opacity-70 font-medium max-sm:text-sm;
+  @apply opacity-90 font-medium max-sm:text-sm;
 }
 
 .heading1 {
