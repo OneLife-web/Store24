@@ -10,7 +10,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
       <h3 className="heading3 pt-4 flex items-center gap-1 !font-medium">
         Specifications{" "}
         <span>
-          <ChevronRight />
+          <ChevronRight strokeWidth={1.2} size={17} />
         </span>
       </h3>
       {data.whyNeedThis && (
