@@ -1,30 +1,29 @@
 "use client";
 
 import { Rating } from "react-simple-star-rating";
-import ReactPlayer from "react-player";
 import { updateData } from "@/types";
 import Carousel from "../Carousel";
 import Image from "next/image";
-import { CartItem, useCart } from "@/providers/CartContext";
+import { useCart } from "@/providers/CartContext";
 import { useSession } from "next-auth/react";
-import { Loader2 } from "lucide-react";
+//import { Loader2, Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
-import AccordionDemo from "../Accordion";
-import { formatDate } from "@/utils/helper";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
-import toast from "react-hot-toast";
+//import { cn } from "@/lib/utils";
+//import { useState } from "react";
+//import toast from "react-hot-toast";
 import ScrollspyTabs from "../ScrollableTabs";
+import ShippingInfo from "../ShippingInfo";
+import { Truck } from "lucide-react";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
-  const [color, setColor] = useState("");
+  //const [color, setColor] = useState("");
   const router = useRouter();
   const { images } = data;
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
 
-  const handleAddToCart = async () => {
+  /*  const handleAddToCart = async () => {
     if (!userId) {
       router.push(
         `/sign-in?callbackUrl=${encodeURIComponent(window.location.pathname)}`
@@ -55,10 +54,10 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     } else {
       console.error("Product ID or Price is missing");
     }
-  };
+  }; */
   return (
-    <div className="pb-20">
-      <section className="lg:flex lg:gap-9 pb-10">
+    <div className="pb-10">
+      <section className="lg:flex bg-white lg:gap-9 pb-7">
         <div className="lg:min-w-[40%]">
           <Carousel images={images} />
         </div>
@@ -108,76 +107,14 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             </div>
           </div>
         </div>
-      </section>
-      <ScrollspyTabs />
-      <section className="py-10 max-sm:px-[3%] border-t">
-        <h2 className="heading3">Why You Need This</h2>
-        <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
-          {data.whyNeedThis.map((item, index) => (
-            <li key={index}>
-              <span className="font-semibold">{item.title}:</span>
-              <p className="opacity-85">{item.content}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="py-10 max-sm:px-[3%]">
-        <h2 className="heading3">Characteristics</h2>
-        <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
-          {data.characteristics.map((item, index) => (
-            <li key={index}>
-              <span className="font-semibold">{item.title}:</span>
-              <p className="opacity-85">{item.content}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="py-10 max-sm:px-[3%]">
-        <h2 className="heading3">Product Reviews and Ratings</h2>
-        <div className="flex gap-3 items-center py-3">
-          <h1 className="heading1 !font-normal">
-            {data.averageRating.toFixed(1)}
-          </h1>
-          <Rating
-            initialValue={data.averageRating}
-            readonly
-            fillColor=""
-            className="text-secondaryBg"
-            SVGclassName="inline"
-            size={30}
-            allowFraction
-          />
+        <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
+          <Truck strokeWidth={1.2} size={28} />
+          <p className="font-medium">Free shipping</p>
         </div>
-        <div>
-          {data.reviews && data.reviews.length > 0 && (
-            <div>
-              {data.reviews.map((review) => (
-                <div
-                  key={review._id}
-                  className="lg:max-w-[450px] grid gap-2 border-b border-black/25 py-8"
-                >
-                  <div className="flex text-sm opacity-70 items-center justify-between">
-                    <p>{review?.user?.name}</p>
-                    <p>{formatDate(new Date(review?.date))}</p>
-                  </div>
-                  <Rating
-                    initialValue={review.rating}
-                    readonly
-                    fillColor=""
-                    className="text-secondaryBg"
-                    SVGclassName="inline"
-                    size={16}
-                    allowFraction
-                  />
-                  <p>{review.comment}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <ShippingInfo />
       </section>
-      <section className="py-14 max-sm:px-[3%]">
-        <AccordionDemo faqs={data.faqs} />
+      <section>
+        <ScrollspyTabs data={data} />
       </section>
     </div>
   );

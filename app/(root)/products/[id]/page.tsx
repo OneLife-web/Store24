@@ -58,7 +58,7 @@ const ProductDetailsPage = async ({ params }: { params: { id: string } }) => {
     data = await fetchProduct(id);
   }
   return (
-    <main className="lg:max-w-4xl min-h-screen mx-auto xl:max-w-5xl w-full">
+    <main className="lg:max-w-4xl min-h-screen bg-gray-100 mx-auto xl:max-w-5xl w-full">
       <SingleProductContainer data={data} />
     </main>
   );
