@@ -11,8 +11,8 @@ const ProductDescription = ({ data }: { data: updateData }) => {
         <p className="bodyText !font-normal mt-3">{data.description}</p>
       )}
       {data.whyNeedThis && (
-        <>
-          <h3 className="heading3 pt-4 flex items-center gap-1 !font-medium">
+        <div className="py-7">
+          <h3 className="heading3 flex items-center gap-1 !font-medium">
             Specifications{" "}
             <span>
               <ChevronRight strokeWidth={1.2} size={17} />
@@ -28,7 +28,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
       {data.characteristics && (
         <div className="py-7 grid gap-5">
