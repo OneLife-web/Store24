@@ -110,7 +110,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       <section>
         <ScrollspyTabs data={data} />
       </section>
-      <div className="fixed border-t z-50 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
+      <div className="fixed z-10 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
         <button
           onClick={handleAddToCart}
           disabled={loading}
