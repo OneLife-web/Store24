@@ -56,6 +56,7 @@ const ProductDetailsPage = async ({ params }: { params: { id: string } }) => {
 
   if (id) {
     data = await fetchProduct(id);
+    console.log(data);
   }
   return (
     <main className="lg:max-w-4xl min-h-screen bg-gray-100 mx-auto xl:max-w-5xl w-full">

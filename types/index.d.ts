@@ -56,6 +56,7 @@ export interface ReviewProps {
   user: UserProps;
   comment: string;
   rating: number;
+  country: string;
   date: string;
 }
 

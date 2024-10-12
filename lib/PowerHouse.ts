@@ -1,6 +1,6 @@
 export const getSettings = async () => {
   try {
-    const res = await fetch("https://www.store45co.com/api/settings", {
+    const res = await fetch("http://localhost:3000/api/settings", {
       method: "GET",
       next: { revalidate: 60 }, // Revalidate every 300 seconds
     });
@@ -19,7 +19,7 @@ export const getSettings = async () => {
 
 export const fetchProducts = async () => {
   try {
-    const res = await fetch("https://www.store45co.com/api/product", {
+    const res = await fetch("http://localhost:3000/api/product", {
       method: "GET",
       next: { revalidate: 60 }, // Revalidate every 300 seconds
     });
@@ -38,7 +38,7 @@ export const fetchProducts = async () => {
 
 export const fetchProduct = async (id?: string) => {
   try {
-    const res = await fetch(`https://www.store45co.com/api/product/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/product/${id}`, {
       method: "GET",
       next: { revalidate: 60 }, // Revalidate every 300 seconds
     });

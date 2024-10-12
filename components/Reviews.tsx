@@ -1,9 +1,26 @@
 import { updateData } from "@/types";
 import { formatDate } from "@/utils/helper";
-import React from "react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 
 const Reviews = ({ data }: { data: updateData }) => {
+  const [countryFlags, setCountryFlags] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const fetchCountryFlags = async () => {
+      const response = await fetch("https://restcountries.com/v3.1/all");
+      const countries = await response.json();
+      const flags: Record<string, string> = {};
+      countries.forEach((country: any) => {
+        flags[country.name.common] = country.flags.svg;
+      });
+      setCountryFlags(flags);
+    };
+
+    fetchCountryFlags();
+  }, []);
+
   return (
     <div className="py-10 bg-white max-sm:mt-4 max-sm:px-[3%]">
       <h2 className="heading4">Reviews</h2>
@@ -32,7 +49,18 @@ const Reviews = ({ data }: { data: updateData }) => {
                 className="lg:max-w-[450px] grid gap-2 border-b border-black/25 py-8"
               >
                 <div className="flex text-sm opacity-70 items-center justify-between">
-                  <p>{review?.user?.name}</p>
+                  <div className="flex items-center gap-3">
+                    <p>{review?.user?.name}</p>
+                    {review.country && countryFlags[review.country] && (
+                      <Image
+                        src={countryFlags[review.country]}
+                        alt={`${review.country} flag`}
+                        width={24}
+                        height={16}
+                      />
+                    )}
+                  </div>
+
                   <p>{formatDate(new Date(review?.date))}</p>
                 </div>
                 <Rating
@@ -44,7 +72,7 @@ const Reviews = ({ data }: { data: updateData }) => {
                   size={16}
                   allowFraction
                 />
-                <p>{review.comment}</p>
+                <p className="max-sm:text-sm">{review.comment}</p>
               </div>
             ))}
           </div>
