@@ -14,6 +14,7 @@ import { formatDate } from "@/utils/helper";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import ScrollspyTabs from "../ScrollableTabs";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
   const [color, setColor] = useState("");
@@ -97,106 +98,18 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                   <span className="">SAVE</span>
                   {Math.abs(
                     Math.round(
-                      ((data.price - data.discountPrice) / data.price) * 100
+                      ((data.discountPrice - data.price) / data.discountPrice) *
+                        100
                     )
                   )}
                   %
                 </div>
               )}
             </div>
-
-            <div className="basis-1/2">
-              <div className="grid gap-4">
-                <ul className="grid gap-4 bodyText !opacity-85 mt-3">
-                  {data?.features.map((item, index) => (
-                    <li key={index}>- {item}</li>
-                  ))}
-                </ul>
-                <div className="flex gap-3 flex-wrap pt-2">
-                  {data.colors &&
-                    data.colors.map((col) => (
-                      <button
-                      key={col}
-                        onClick={() => setColor(col)}
-                        className={cn(
-                          "border border-primary rounded-full px-6 py-2",
-                          {
-                            "bg-primary text-white": col === color,
-                          }
-                        )}
-                      >
-                        {col}
-                      </button>
-                    ))}
-                </div>
-                <button
-                  onClick={handleAddToCart}
-                  disabled={loading}
-                  className="bg-secondaryBg rounded-lg flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
-                >
-                  {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
-                </button>
-                <div>
-                  <p className="text-center">
-                    We accept these payment methods and more..
-                  </p>
-                  <div className="mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
-                    <Image
-                      src="/payment-logos/visa.svg"
-                      width={43}
-                      height={43}
-                      alt="logo"
-                    />
-                    <Image
-                      src="/payment-logos/mastercard.svg"
-                      width={43}
-                      height={43}
-                      alt="logo"
-                    />
-                    <Image
-                      src="/payment-logos/amex.svg"
-                      width={43}
-                      height={43}
-                      alt="logo"
-                    />
-                    <Image
-                      src="/payment-logos/apple.svg"
-                      width={43}
-                      height={43}
-                      alt="logo"
-                    />
-                    <Image
-                      src="/payment-logos/google.svg"
-                      width={43}
-                      height={43}
-                      alt="logo"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
-      <section className="py-10 max-sm:px-[3%] border-t">
-        {data.videos && data.videos?.length > 0 && (
-          <div className="grid gap-5">
-            {data.videos.map((videoUrl, index) => (
-              <ReactPlayer
-                key={index}
-                url={videoUrl.url}
-                controls={true}
-                width="400"
-                style={{ borderRadius: "10px" }} // add rounded edge to the player
-              />
-            ))}
-          </div>
-        )}
-        <h2 className="heading1 leading-7 pt-5">
-          Seemless Glow, Infinite Wonder
-        </h2>
-        <p className="opacity-85 mt-2">{data?.description}</p>
-      </section>
+      <ScrollspyTabs />
       <section className="py-10 max-sm:px-[3%] border-t">
         <h2 className="heading3">Why You Need This</h2>
         <ul className="grid gap-4 py-5 list-disc pl-8 bodyText !opacity-100">
