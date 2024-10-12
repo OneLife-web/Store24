@@ -15,7 +15,7 @@ import ShippingInfo from "../ShippingInfo";
 import { Truck } from "lucide-react";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
-  const [color, setColor] = useState("");
+  //const [color, setColor] = useState("");
   const router = useRouter();
   const { images } = data;
   const { addItemToCart, loading } = useCart();
@@ -30,11 +30,6 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       return;
     }
 
-    if (!color) {
-      toast.error("Select your preferred color");
-      return;
-    }
-
     let item: CartItem | undefined;
 
     if (data?._id && data?.price !== undefined) {
@@ -44,7 +39,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         name: data.title,
         price: data.price,
         quantity: 1, // Default to 1 when adding to cart
-        color: color,
+        //color: color,
       };
 
       if (item && userId) {
@@ -115,7 +110,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       <section>
         <ScrollspyTabs data={data} />
       </section>
-      <div className="fixed z-50 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
+      <div className="fixed border-t z-50 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
         <button
           onClick={handleAddToCart}
           disabled={loading}
