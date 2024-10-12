@@ -40,7 +40,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
       {data.features && (
         <div className="py-7">
           <h2 className="heading3 !font-medium">Features:</h2>
-          <ul className="mt-4 grid gap-3 list-decimal pl-[3%]">
+          <ul className="mt-4 grid gap-5 list-decimal pl-[3%]">
             {data.features.map((info, i) => (
               <li key={i} className="bodyText">
                 {info}
