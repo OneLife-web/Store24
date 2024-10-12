@@ -17,11 +17,11 @@ import { Truck } from "lucide-react";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
   //const [color, setColor] = useState("");
-  const router = useRouter();
+  //const router = useRouter();
   const { images } = data;
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
-  const userId = session?.id;
+  //const userId = session?.id;
 
   /*  const handleAddToCart = async () => {
     if (!userId) {
