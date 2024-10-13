@@ -74,7 +74,7 @@ const Promotion = ({ data }: { data: Settings }) => {
         />
         <div className="basis-1/2">
           <div className="lg:max-w-[60%] mx-auto">
-            <h1 className="heading1">{data?.promotion?.productId?.title}</h1>
+            <h1 className="heading1 truncate">{data?.promotion?.productId?.title}</h1>
             {/* <ul className="bodyText grid gap-3 mt-3">
               {data?.promotion?.productId?.features.map((item, index) => (
                 <li key={index}>- {item}</li>
