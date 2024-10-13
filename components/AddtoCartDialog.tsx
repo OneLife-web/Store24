@@ -47,7 +47,10 @@ export function AddtoCartDialog({
           <div className="grid gap-4 max-h-[350px] custom-scrollbar overflow-y-scroll py-4">
             <div className="grid items-center gap-4">
               {images.map((image) => (
-                <div className="flex items-center justify-between">
+                <div
+                  key={image.caption}
+                  className="flex items-center justify-between"
+                >
                   <div
                     onClick={() => setSelectedItem(image)}
                     className="flex items-center gap-2"
