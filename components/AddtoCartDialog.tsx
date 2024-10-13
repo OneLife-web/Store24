@@ -40,7 +40,7 @@ export function AddtoCartDialog({
       <DialogContent className="border-none max-sm:px-[3%]">
         <div className="border rounded-xl bg-white px-4 py-7">
           <DialogHeader>
-            <DialogTitle className="heading4 pb-3">
+            <DialogTitle className="heading2 pb-3">
               Select your preferred item
             </DialogTitle>
           </DialogHeader>
@@ -50,11 +50,9 @@ export function AddtoCartDialog({
                 <div
                   key={image.caption}
                   className="flex items-center justify-between"
+                  onClick={() => setSelectedItem(image)}
                 >
-                  <div
-                    onClick={() => setSelectedItem(image)}
-                    className="flex items-center gap-2"
-                  >
+                  <div className="flex items-center gap-2">
                     <Image
                       src={image.url}
                       className="rounded-lg"
