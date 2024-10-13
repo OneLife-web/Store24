@@ -15,7 +15,7 @@ const ProductCard = ({ item }: { item: updateData }) => {
         className="min-w-[150px] object-contain md:min-w-[200px] h-[150px]"
         unoptimized={item?.images[0]?.url?.endsWith(".webp")}
       ></Image>
-      <p className="text-sm font-semibold my-2 w-fit border-b border-transparent group-hover:border-primary transition-all duration-300">
+      <p className="text-sm font-semibold my-2 w-fit border-b border-transparent group-hover:border-primary truncate-two-lines transition-all duration-300">
         {item?.title}
       </p>
       <div className="flex items-center gap-3">

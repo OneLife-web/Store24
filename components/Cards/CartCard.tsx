@@ -32,7 +32,7 @@ const CartCard = ({
           className="size-20 object-contain"
         />
         <div className="flex-grow">
-          <h3 className="font-semibold">
+          <h3 className="font-semibold truncate-two-lines">
             {item.name} - {item.color}
           </h3>
           <p className="bodyText !opacity-90">${item.price}</p>

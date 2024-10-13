@@ -25,12 +25,12 @@ const OrderCard = ({
         />
         <div className="grid gap-1">
           {items.map((item) => (
-            <p key={item.name} className="max-sm:text-sm">
+            <p key={item.name} className="max-sm:text-sm truncate">
               {item.quantity} &times; {item.name}
             </p>
           ))}
           <p className="font-medium text-sm">${total}</p>
-          {orderId && <p className="text-sm">Order ID: {orderId}</p>}
+          {orderId && <p className="text-sm">Order ID: #{orderId}</p>}
         </div>
       </div>
       <div className="w-fit absolute right-3 bottom-3">

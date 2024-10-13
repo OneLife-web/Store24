@@ -1,21 +1,21 @@
 "use client";
 
 import { Rating } from "react-simple-star-rating";
-import { updateData } from "@/types";
+import { ImageProps, updateData } from "@/types";
 import Carousel from "../Carousel";
 import Image from "next/image";
 import { CartItem, useCart } from "@/providers/CartContext";
 import { useSession } from "next-auth/react";
-import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-//import { useState } from "react";
-//import toast from "react-hot-toast";
 import ScrollspyTabs from "../ScrollableTabs";
 import ShippingInfo from "../ShippingInfo";
 import { Truck } from "lucide-react";
+import { useState } from "react";
+import { AddtoCartDialog } from "../AddtoCartDialog";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
-  //const [color, setColor] = useState("");
+  const [isBuy, setIsBuy] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<ImageProps | null>(null);
   const router = useRouter();
   const { images } = data;
   const { addItemToCart, loading } = useCart();
@@ -35,15 +35,17 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
     if (data?._id && data?.price !== undefined) {
       item = {
         productId: data._id,
-        productImage: data?.images[0]?.url || "/mydemo.jpg",
+        productImage: selectedItem?.url || "/mydemo.jpg",
         name: data.title,
         price: data.price,
         quantity: 1, // Default to 1 when adding to cart
-        //color: color,
+        color: selectedItem?.caption,
       };
 
       if (item && userId) {
         await addItemToCart(item, userId); // Await if addItemToCart is a Promise
+        setIsBuy(false);
+        setSelectedItem(null);
       }
     } else {
       console.error("Product ID or Price is missing");
@@ -57,7 +59,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         </div>
         <div className="w-full max-sm:px-[3%] lg:flex justify-center flex-col max-sm:mt-10">
           <div>
-            <h1 className="heading1">{data?.title}</h1>
+            <h1 className="max-sm:text-sm font-semibold mb-2">{data?.title}</h1>
             <div className="flex items-center">
               <Rating
                 initialValue={data.averageRating}
@@ -111,13 +113,22 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         <ScrollspyTabs data={data} />
       </section>
       <div className="fixed z-10 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
-        <button
+        <AddtoCartDialog
+          handleAddToCart={handleAddToCart}
+          images={images}
+          loading={loading}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          isBuy={isBuy}
+          setIsBuy={setIsBuy}
+        />
+        {/* <button
           onClick={handleAddToCart}
           disabled={loading}
           className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
         >
           {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
-        </button>
+        </button> */}
       </div>
     </div>
   );

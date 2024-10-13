@@ -66,6 +66,35 @@ button {
   @apply bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10 disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
+/* Custom Scrollbar for the dropdown */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f4f4f4;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 10px;
+  border: 2px solid #f4f4f4;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a8a8a8;
+}
+
+.truncate-two-lines {
+  display: -webkit-box; /* Required for line clamping */
+  -webkit-box-orient: vertical; /* Required for line clamping */
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+  display: box; /* Fallback for non-WebKit browsers (not widely supported) */
+}
+
 /* Target devices between 320px and 768px */
 @media (min-width: 320px) and (max-width: 1024px) {
   .react-tel-input {
