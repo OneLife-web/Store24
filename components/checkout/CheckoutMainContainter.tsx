@@ -466,7 +466,7 @@ const CheckoutMainContainter = () => {
                             {item.quantity}
                           </div>
                         </div>
-                        <p className="text-sm">
+                        <p className="text-sm truncate-two-lines">
                           {item.name} - {item.color}
                         </p>
                       </div>

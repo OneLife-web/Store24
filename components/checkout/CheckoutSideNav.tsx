@@ -36,7 +36,7 @@ const CheckoutSideNav = () => {
                       {item.quantity}
                     </div>
                   </div>
-                  <p className="text-sm">{item.name} - {item.color}</p>
+                  <p className="text-sm truncate-two-lines">{item.name} - {item.color}</p>
                 </div>
                 <p className="text-sm">${item.price}</p>
               </div>
