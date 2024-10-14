@@ -39,7 +39,7 @@ const CartCard = ({
           <div className="flex items-center justify-between gap-1">
             <div className="border mt-2 border-primary w-full flex items-center gap-1 justify-between">
               <button
-                onClick={() => decreaseItem(item.productId, item.quantity)}
+                onClick={() => decreaseItem(item._id!, item.quantity)}
                 disabled={item.quantity === 1}
                 className="basis-[33.3%] h-10 flex items-center justify-center"
               >
@@ -49,7 +49,7 @@ const CartCard = ({
                 <p className="font-semibold">{item.quantity}</p>
               </div>
               <button
-                onClick={() => increaseItem(item.productId, item.quantity)}
+                onClick={() => increaseItem(item._id!, item.quantity)}
                 className="basis-[33.3%] h-10 flex items-center justify-center"
               >
                 +

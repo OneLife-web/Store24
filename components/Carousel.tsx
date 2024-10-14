@@ -47,11 +47,13 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
                   height={450}
                   className="w-full h-[450px] object-cover"
                 />
-                <div className="absolute font-medium py-1 whitespace-nowrap text-sm bg-opacity-95 px-4 rounded-full bottom-5 left-1/2 -translate-x-1/2 bg-white text-black">
-                  <span className="opacity-70">Item</span>
-                  <span className="px-2 opacity-70">|</span>
-                  <span className="">{image.caption}</span>
-                </div>
+                {image.caption && (
+                  <div className="absolute font-medium py-1 whitespace-nowrap text-sm bg-opacity-95 px-4 rounded-full bottom-5 left-1/2 -translate-x-1/2 bg-white text-black">
+                    <span className="opacity-70">Item</span>
+                    <span className="px-2 opacity-70">|</span>
+                    <span className="">{image.caption}</span>
+                  </div>
+                )}
               </SwiperSlide>
             ))}
           </Swiper>

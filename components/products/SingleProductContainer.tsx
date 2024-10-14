@@ -9,15 +9,18 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ScrollspyTabs from "../ScrollableTabs";
 import ShippingInfo from "../ShippingInfo";
-import { Truck } from "lucide-react";
+import { Loader2, Truck } from "lucide-react";
 import { useState } from "react";
 import { AddtoCartDialog } from "../AddtoCartDialog";
+import toast from "react-hot-toast";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
   const [isBuy, setIsBuy] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<ImageProps | null>(null);
+  const [selectedItems, setSelectedItems] = useState<ImageProps[]>([]);
   const router = useRouter();
   const { images } = data;
+  const imagesWithCaptions = images.filter((image) => image.caption);
+  const hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
@@ -30,27 +33,54 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       return;
     }
 
-    let item: CartItem | undefined;
+    if (!selectedItems.length) {
+      toast.error("Please select at least one item.");
+      return;
+    }
 
+    // Ensure productId and price are available
     if (data?._id && data?.price !== undefined) {
-      item = {
-        productId: data._id,
-        productImage: selectedItem?.url || "/mydemo.jpg",
-        name: data.title,
-        price: data.price,
-        quantity: 1, // Default to 1 when adding to cart
-        color: selectedItem?.caption,
-      };
+      try {
+        if (hasMultipleImagesWithCaptions) {
+          for (const selectedItem of selectedItems) {
+            // For each selected item, dynamically set image and color based on selection
+            const item: CartItem = {
+              productId: data._id, // Using the product ID from the data
+              productImage: selectedItem.url || "/mydemo.jpg", // Image from the selected item
+              name: data.title, // Product title from data
+              price: data.price, // Base price from data
+              quantity: 1, // Default quantity set to 1
+              color: selectedItem.caption, // Color or description from the selected item
+            };
 
-      if (item && userId) {
-        await addItemToCart(item, userId); // Await if addItemToCart is a Promise
-        setIsBuy(false);
-        setSelectedItem(null);
+            // Add each selected item to the cart
+            await addItemToCart(item, userId!);
+          }
+
+          // After adding all items, clear the selection and close the dialog
+          setSelectedItems([]); // Reset selection after adding
+          setIsBuy(false); // Close dialog
+        } else {
+          const item: CartItem = {
+            productId: data._id, // Using the product ID from the data
+            productImage: images[0]?.url || "/mydemo.jpg", // Image from the selected item
+            name: data.title, // Product title from data
+            price: data.price, // Base price from data
+            quantity: 1, // Default quantity set to 1
+            color: images[0]?.caption, // Color or description from the selected item
+          };
+
+          // Add each selected item to the cart
+          await addItemToCart(item, userId!);
+        }
+      } catch (error) {
+        console.error("Error adding to cart:", error);
       }
     } else {
       console.error("Product ID or Price is missing");
     }
   };
+
   return (
     <div className="relative">
       <section className="lg:flex bg-white lg:gap-9 md:pt-10 pb-7">
@@ -113,22 +143,25 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         <ScrollspyTabs data={data} />
       </section>
       <div className="fixed z-10 bottom-0 bg-white right-0 left-0 px-[3%] py-5">
-        <AddtoCartDialog
-          handleAddToCart={handleAddToCart}
-          images={images}
-          loading={loading}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          isBuy={isBuy}
-          setIsBuy={setIsBuy}
-        />
-        {/* <button
-          onClick={handleAddToCart}
-          disabled={loading}
-          className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
-        >
-          {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
-        </button> */}
+        {hasMultipleImagesWithCaptions ? (
+          <AddtoCartDialog
+            handleAddToCart={handleAddToCart}
+            images={images}
+            loading={loading}
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
+            isBuy={isBuy}
+            setIsBuy={setIsBuy}
+          />
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            disabled={loading}
+            className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
+          >
+            {loading ? <Loader2 className="animate-spin" /> : "Add To Cart"}
+          </button>
+        )}
       </div>
     </div>
   );

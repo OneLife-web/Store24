@@ -110,7 +110,7 @@ export async function PUT(req: Request) {
 
     if (cart) {
       const item = cart.items.find(
-        (item: CartItem) => item.productId.toString() === productId
+        (item: CartItem) => item._id.toString() === productId
       );
       if (item) {
         item.quantity = quantity!;
