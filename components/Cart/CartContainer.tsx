@@ -82,7 +82,7 @@ const CartContainer = ({
         <p className="bodyText max-sm:text-xs text-sm">PRODUCT</p>
         <p className="bodyText max-sm:text-xs text-sm">TOTAL</p>
       </div>
-      <div className="py-4">
+      <div className="py-4 max-h-[70vh] overflow-y-scroll custom-scrollbar">
         <ul className="grid gap-5">
           {[...cart].reverse().map((item, index) => (
             <li key={item?._id}>
