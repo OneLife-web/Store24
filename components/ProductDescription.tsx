@@ -10,7 +10,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
       {data.description && (
         <p className="bodyText px-[3%] !font-normal mt-3">{data.description}</p>
       )}
-      {data.whyNeedThis && (
+      {data.whyNeedThis && data.whyNeedThis.length > 0 && (
         <div className="py-7 px-[3%]">
           <h3 className="heading3 flex items-center gap-1 !font-medium">
             Specifications{" "}
@@ -30,7 +30,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
           </div>
         </div>
       )}
-      {data.characteristics && (
+      {data.characteristics && data.characteristics.length > 0 && (
         <div className="py-7 px-[3%] grid gap-5">
           {data.characteristics.map((info, i) => (
             <div key={i} className="grid gap-3">
