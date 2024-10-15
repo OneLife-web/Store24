@@ -40,7 +40,7 @@ const ProductDescription = ({ data }: { data: updateData }) => {
           ))}
         </div>
       )}
-      {data.features && (
+      {data.features && data.features.length > 0 && (
         <div className="py-7 px-[3%]">
           <h2 className="heading3 !font-medium">Features:</h2>
           <ul className="mt-4 grid gap-5 list-decimal pl-[3%]">
