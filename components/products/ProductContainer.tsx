@@ -72,7 +72,7 @@ const ProductContainer = ({ data }: { data: updateData[] }) => {
 
   return (
     <section className="py-10 px-[3%]">
-      <h1 className="heading1">Strong Grip Collection</h1>
+      <h1 className="heading1">All Products</h1>
       <div className="my-7 mb-10 flex items-center justify-between">
         <FilterSort data={data} sortOption={sortOption} onChange={handleSortChange} />
         <div className="max-sm:hidden">
