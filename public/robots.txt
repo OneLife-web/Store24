@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.store45co.com
+
+# Sitemaps
+Sitemap: https://www.store45co.com/sitemap.xml
