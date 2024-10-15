@@ -80,12 +80,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const data = await response.json();
       setCart(data.items); // Sync cart state with response
       setTotalPrice(data.totalPrice); // Sync total price with response
-
-      // If operation was successful
-      toast.success("Item added to cart successfully!"); // Trigger success toast
     } catch (error) {
-      // Error toast
-      toast.error("Failed to add item to cart.");
       console.error("Failed to add item to cart", error);
     } finally {
       setLoading(false); // End loading

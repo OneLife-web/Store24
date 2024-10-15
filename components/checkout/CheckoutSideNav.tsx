@@ -23,14 +23,14 @@ const CheckoutSideNav = () => {
           {cart.map((item) => (
             <li key={item.productId}>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 max-w-[300px]">
                   <div className="relative w-fit">
                     <Image
                       src={item.productImage}
                       width={70}
                       height={70}
                       alt="product Image"
-                      className="size-[70px] object-cover rounded-xl object-center"
+                      className="size-[70px] min-w-[70px] object-cover rounded-xl object-center"
                     />
                     <div className="text-xs -top-2 -right-2 bg-gray-800 flex items-center justify-center text-white size-[22px] rounded-full absolute">
                       {item.quantity}

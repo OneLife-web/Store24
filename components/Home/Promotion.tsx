@@ -1,7 +1,7 @@
 "use client";
 //import { cn } from "@/lib/utils";
 import { CartItem, useCart } from "@/providers/CartContext";
-import { Settings } from "@/types";
+import { ImageProps, Settings } from "@/types";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { Loader2, MoveRight, Truck } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -9,15 +9,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ShippingInfo from "../ShippingInfo";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { AddtoCartDialog } from "../AddtoCartDialog";
 //import { useState } from "react";
 //import toast from "react-hot-toast";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  const [isBuy, setIsBuy] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<ImageProps[]>([]);
   const router = useRouter();
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
-  //const [color, setColor] = useState("");
+  const { images } = data.promotion.productId;
+  const imagesWithCaptions = images.filter(
+    (image) =>
+      image.caption !== null &&
+      image.caption !== undefined &&
+      image.caption.trim() !== ""
+  );
+  const hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
 
   const handleAddToCart = async () => {
     if (!userId) {
@@ -27,28 +39,55 @@ const Promotion = ({ data }: { data: Settings }) => {
       return;
     }
 
-    /* if (!color) {
-      toast.error("Select your preferred color");
+    if (!selectedItems.length) {
+      toast.error("Please select at least one item.");
       return;
-    } */
+    }
 
-    let item: CartItem | undefined;
-
+    // Ensure productId and price are available
     if (
       data?.promotion?.productId?._id &&
       data?.promotion?.productId?.price !== undefined
     ) {
-      item = {
-        productId: data.promotion.productId._id,
-        productImage: data.promotion.productId.images[0].url,
-        name: data.promotion.productId.title,
-        price: data.promotion.productId.price,
-        quantity: 1, // Default to 1 when adding to cart
-        //color: color,
-      };
+      try {
+        if (hasMultipleImagesWithCaptions) {
+          for (const selectedItem of selectedItems) {
+            // For each selected item, dynamically set image and color based on selection
+            const item: CartItem = {
+              productId: data?.promotion?.productId?._id, // Using the product ID from the data
+              productImage: selectedItem.url || "/mydemo.jpg", // Image from the selected item
+              name: data?.promotion?.productId?.title, // Product title from data
+              price: data?.promotion?.productId?.price, // Base price from data
+              quantity: 1, // Default quantity set to 1
+              color: selectedItem.caption, // Color or description from the selected item
+            };
 
-      if (item && userId) {
-        await addItemToCart(item, userId); // Await if addItemToCart is a Promise
+            // Add each selected item to the cart
+            await addItemToCart(item, userId!);
+          }
+
+          toast.success("Items added to cart");
+          setSelectedItems([]); // Reset selection after adding
+          setIsBuy(false); // Close dialog
+        } else {
+          const item: CartItem = {
+            productId: data?.promotion?.productId?._id, // Using the product ID from the data
+            productImage: images[0]?.url || "/mydemo.jpg", // Image from the selected item
+            name: data?.promotion?.productId?.title, // Product title from data
+            price: data?.promotion?.productId?.price, // Base price from data
+            quantity: 1, // Default quantity set to 1
+            color: images[0]?.caption, // Color or description from the selected item
+          };
+
+          // Add each selected item to the cart
+          await addItemToCart(item, userId!);
+
+          toast.success("Item added to cart");
+        }
+      } catch (error) {
+        // Error toast
+        toast.error("Failed to add item to cart.");
+        console.error("Error adding to cart:", error);
       }
     } else {
       console.error("Product ID or Price is missing");
@@ -74,7 +113,9 @@ const Promotion = ({ data }: { data: Settings }) => {
         />
         <div className="basis-1/2">
           <div className="lg:max-w-[60%] mx-auto">
-            <h1 className="heading1 truncate">{data?.promotion?.productId?.title}</h1>
+            <h1 className="heading1 truncate-two-lines lg:max-w-full">
+              {data?.promotion?.productId?.title}
+            </h1>
             {/* <ul className="bodyText grid gap-3 mt-3">
               {data?.promotion?.productId?.features.map((item, index) => (
                 <li key={index}>- {item}</li>
@@ -180,13 +221,31 @@ const Promotion = ({ data }: { data: Settings }) => {
                   </button>
                 ))}
             </div> */}
-            <button
-              onClick={handleAddToCart}
-              disabled={loading}
-              className="bg-secondaryBg rounded-lg flex items-center justify-center w-full py-3 font-semibold mt-10 transform transition-transform hover:scale-105"
-            >
-              {loading ? <Loader2 className="animate-spin" /> : "BUY NOW"}
-            </button>
+            <div className="mt-10">
+              {hasMultipleImagesWithCaptions ? (
+                <AddtoCartDialog
+                  handleAddToCart={handleAddToCart}
+                  images={imagesWithCaptions}
+                  loading={loading}
+                  selectedItems={selectedItems}
+                  setSelectedItems={setSelectedItems}
+                  isBuy={isBuy}
+                  setIsBuy={setIsBuy}
+                />
+              ) : (
+                <button
+                  onClick={handleAddToCart}
+                  disabled={loading}
+                  className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
+                >
+                  {loading ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    "Add To Cart"
+                  )}
+                </button>
+              )}
+            </div>
             <Link
               href={`/products/${data?.promotion?.productId?._id}`}
               className="text-sm w-fit mt-7 font-semibold flex items-center gap-2 group"

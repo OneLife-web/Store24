@@ -19,7 +19,12 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
   const [selectedItems, setSelectedItems] = useState<ImageProps[]>([]);
   const router = useRouter();
   const { images } = data;
-  const imagesWithCaptions = images.filter((image) => image.caption);
+  const imagesWithCaptions = images.filter(
+    (image) =>
+      image.caption !== null &&
+      image.caption !== undefined &&
+      image.caption.trim() !== ""
+  );
   const hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
@@ -57,7 +62,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             await addItemToCart(item, userId!);
           }
 
-          // After adding all items, clear the selection and close the dialog
+          toast.success("Items added to cart");
           setSelectedItems([]); // Reset selection after adding
           setIsBuy(false); // Close dialog
         } else {
@@ -72,8 +77,12 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
 
           // Add each selected item to the cart
           await addItemToCart(item, userId!);
+
+          toast.success("Item added to cart");
         }
       } catch (error) {
+        // Error toast
+        toast.error("Failed to add item to cart.");
         console.error("Error adding to cart:", error);
       }
     } else {
@@ -146,7 +155,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
         {hasMultipleImagesWithCaptions ? (
           <AddtoCartDialog
             handleAddToCart={handleAddToCart}
-            images={images}
+            images={imagesWithCaptions}
             loading={loading}
             selectedItems={selectedItems}
             setSelectedItems={setSelectedItems}

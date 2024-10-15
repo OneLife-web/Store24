@@ -25,7 +25,10 @@ const OrderCard = ({
         />
         <div className="grid gap-1">
           {items.map((item) => (
-            <p key={item.name} className="max-sm:text-sm truncate">
+            <p
+              key={item.name}
+              className="max-sm:text-sm max-w-[200px] truncate"
+            >
               {item.quantity} &times; {item.name}
             </p>
           ))}

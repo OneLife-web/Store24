@@ -73,6 +73,12 @@ export default function OrderConfirm() {
         >
           Continue Shopping
         </Link>
+        <Link
+          href="/profile/orders"
+          className="mb-3 min-w-full flex items-center justify-center rounded-xl border-0 p-3 font-medium text-base shadow-none lg:min-w-[600px] lg:p-5"
+        >
+          View Order
+        </Link>
       </div>
     </div>
   );
@@ -143,11 +149,11 @@ const OrderItem = ({
               width={95}
               height={95}
               loading="lazy"
-              className="h-[43.5px] w-[43.52px] rounded-[10px] lg:h-[95px] lg:w-[95px] lg:rounded-3xl"
+              className="h-[43.5px] w-[43.52px] min-w-[43.53px] lg:min-w-[95px] rounded-[10px] lg:h-[95px] lg:w-[95px] lg:rounded-3xl"
             />
           </div>
           <div className="grid gap-1">
-            <p className="max-w-[194px] font-medium text-[10px] text-myGray lg:max-w-full lg:text-base">
+            <p className="max-w-[194px] truncate-two-lines font-medium text-[10px] text-myGray lg:max-w-full lg:text-base">
               {name} - {color}
             </p>
           </div>

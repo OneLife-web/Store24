@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       const storeMailOptions = {
         from: process.env.SMTP_USER, // Sender email address
         to: process.env.SMTP_USER, // Store's email address
-        subject: `New Order Received - ${savedOrder.orderId}`, // Email subject with order ID
+        subject: `New Order Received - #${savedOrder.orderId}`, // Email subject with order ID
         text: `
           New order received from ${orderData.customerDetails.firstName} ${
           orderData.customerDetails.lastName
@@ -68,9 +68,9 @@ export async function POST(req: Request) {
       const customerMailOptions = {
         from: process.env.SMTP_USER, // Sender email address
         to: orderData.customerDetails.email, // Customer's email address
-        subject: `Order Confirmation - ${savedOrder.orderId}`,
+        subject: `Order Confirmation - #${savedOrder.orderId}`,
         html: `
-          <h1>Dear ${orderData.customerDetails.firstName},</h1>
+          <p>Dear ${orderData.customerDetails.firstName},</p>
           <p>Your order has been successfully placed with Store45Co.</p>
           <p>We will notify you once your tracking ID is available.</p>
 
@@ -79,14 +79,15 @@ export async function POST(req: Request) {
             ${orderData.items
               .map(
                 (item: CartItem) => `
-                  <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                  <li style="display: flex; align-items: center; margin-bottom: 10px;">
                     <img src="${
                       item.productImage ? item.productImage : "/photo.png"
                     }" alt="${
                   item.name
-                }" width="40" style="border-radius: 8px;" />
-                    ${item.quantity} x ${item.name} - $${item.price} - ${
-                  item.color
+                }" width="40" style="border-radius: 8px; margin-right: 10px;" />
+                   <span style="max-width: 200px;">
+            ${item.quantity} x ${item.name} - $${item.price} - ${item.color}
+          </span>
                 }
                   </li>
                 `

@@ -14,6 +14,12 @@ import { ImageProps } from "@/types";
 import { useState } from "react";
 import { Swiper as SwiperType } from "swiper/types";
 
+const isAnimated = (url: string) => {
+  // Check if the image is an animated format (like GIF)
+  return url.endsWith('.gif');
+};
+
+
 const Carousel = ({ images }: { images: ImageProps[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
@@ -46,6 +52,7 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
                   width={400}
                   height={450}
                   className="w-full h-[450px] object-cover"
+                  unoptimized={isAnimated(image.url)}
                 />
                 {image.caption && (
                   <div className="absolute font-medium py-1 whitespace-nowrap text-sm bg-opacity-95 px-4 rounded-full bottom-5 left-1/2 -translate-x-1/2 bg-white text-black">
@@ -74,6 +81,7 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
                     width={80}
                     height={100}
                     className="w-full rounded-lg h-[80px] object-cover"
+                    unoptimized={isAnimated(image.url)}
                   />
                 </SwiperSlide>
               ))}

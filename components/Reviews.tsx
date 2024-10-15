@@ -91,7 +91,7 @@ const Reviews = ({ data }: { data: updateData }) => {
         </p>
       </div>
       <div>
-        {data.reviews && data.reviews.length > 0 && (
+        {data.reviews && data.reviews.length > 0 ? (
           <div>
             {paginatedReviews.reverse().map((review) => (
               <div
@@ -178,6 +178,10 @@ const Reviews = ({ data }: { data: updateData }) => {
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
+          </div>
+        ) : (
+          <div className="min-h-[20vh] flex items-center justify-center">
+            <p className="max-sm:text-sm">No Review Available</p>
           </div>
         )}
       </div>
