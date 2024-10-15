@@ -16,6 +16,15 @@ import { AddtoCartDialog } from "../AddtoCartDialog";
 //import toast from "react-hot-toast";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  const averageRating =
+    data.promotion.productId?.reviews &&
+    data.promotion.productId.reviews.length > 0
+      ? data.promotion.productId.reviews.reduce(
+          (acc, curr) => acc + curr.rating,
+          0
+        ) / data.promotion.productId.reviews.length
+      : 0; // Default to 0 if no reviews
+
   const [isBuy, setIsBuy] = useState(false);
   const [selectedItems, setSelectedItems] = useState<ImageProps[]>([]);
   const router = useRouter();
@@ -124,9 +133,7 @@ const Promotion = ({ data }: { data: Settings }) => {
             <div className="flex items-center gap-3 mt-3">
               <div className="flex items-center gap-1">
                 <StarFilledIcon className="text-secondaryBg size-6" />
-                <p className="lg:text-lg">
-                  {data.promotion.productId.averageRating.toFixed(1)}
-                </p>
+                <p className="lg:text-lg">{averageRating.toFixed(1)}</p>
               </div>
               <p className="border-l pl-3 lg:text-lg">
                 {data.promotion.productId.quantitySold}+ Sold

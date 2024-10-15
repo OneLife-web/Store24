@@ -5,6 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = ({ item }: { item: updateData }) => {
+  const averageRating =
+    item?.reviews && item.reviews.length > 0
+      ? item.reviews.reduce((acc, curr) => acc + curr.rating, 0) /
+        item.reviews.length
+      : 0; // Default to 0 if no reviews
+
   return (
     <Link href={`/products/${item?._id}`} className="group cursor-pointer">
       <Image
@@ -21,7 +27,7 @@ const ProductCard = ({ item }: { item: updateData }) => {
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1">
           <StarFilledIcon className="text-secondaryBg size-6" />
-          <p className="max-sm:text-sm">{item.averageRating.toFixed(1)}</p>
+          <p className="max-sm:text-sm">{averageRating.toFixed(1)}</p>
         </div>
         <p className="border-l pl-3 max-sm:text-sm">
           {item.quantitySold}+ Sold

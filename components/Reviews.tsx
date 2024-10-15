@@ -24,6 +24,12 @@ interface Country {
 }
 
 const Reviews = ({ data }: { data: updateData }) => {
+  const averageRating =
+    data?.reviews && data.reviews.length > 0
+      ? data.reviews.reduce((acc, curr) => acc + curr.rating, 0) /
+        data.reviews.length
+      : 0; // Default to 0 if no reviews
+
   const [countryFlags, setCountryFlags] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const reviewsPerPage = 5; // You can adjust this number based on your needs.
@@ -75,11 +81,9 @@ const Reviews = ({ data }: { data: updateData }) => {
     >
       <h2 className="heading4">Reviews</h2>
       <div className="flex gap-2 items-end py-3">
-        <h1 className="heading1 !font-medium">
-          {data.averageRating.toFixed(1)}
-        </h1>
+        <h1 className="heading1 !font-medium">{averageRating.toFixed(1)}</h1>
         <Rating
-          initialValue={data.averageRating}
+          initialValue={averageRating}
           readonly
           className="text-secondaryBg mb-[6px]"
           SVGclassName="inline"
@@ -87,7 +91,8 @@ const Reviews = ({ data }: { data: updateData }) => {
           allowFraction
         />
         <p className="bodyText mb-1 ml-2">
-          {data.totalReviews} {data.totalReviews <= 1 ? "Review" : "Reviews"}
+          {data.reviews.length}{" "}
+          {data.reviews.length <= 1 ? "Review" : "Reviews"}
         </p>
       </div>
       <div>
@@ -100,7 +105,7 @@ const Reviews = ({ data }: { data: updateData }) => {
               >
                 <div className="flex text-sm opacity-70 items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <p>{review?.user?.name}</p>
+                    <p>{review?.name}</p>
                     {review.country && countryFlags[review.country] && (
                       <Image
                         src={countryFlags[review.country]}

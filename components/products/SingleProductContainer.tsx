@@ -15,6 +15,12 @@ import { AddtoCartDialog } from "../AddtoCartDialog";
 import toast from "react-hot-toast";
 
 const SingleProductContainer = ({ data }: { data: updateData }) => {
+  const averageRating =
+    data?.reviews && data.reviews.length > 0
+      ? data.reviews.reduce((acc, curr) => acc + curr.rating, 0) /
+        data.reviews.length
+      : 0; // Default to 0 if no reviews
+
   const [isBuy, setIsBuy] = useState(false);
   const [selectedItems, setSelectedItems] = useState<ImageProps[]>([]);
   const router = useRouter();
@@ -101,7 +107,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
             <h1 className="max-sm:text-sm font-semibold mb-2">{data?.title}</h1>
             <div className="flex items-center">
               <Rating
-                initialValue={data.averageRating}
+                initialValue={averageRating}
                 readonly
                 fillColor=""
                 className="mt-[-4px] pr-1 text-secondaryBg"
@@ -110,7 +116,7 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
                 allowFraction
               />
               <p className="max-sm:text-base font-medium whitespace-nowrap">
-                {data.averageRating.toFixed(1)}
+                {averageRating.toFixed(1)}
               </p>
               <p className="max-sm:text-base ml-3 pl-3 border-l font-medium whitespace-nowrap">
                 {data.quantitySold}+ <span className="ml-[2px]">Sold</span>

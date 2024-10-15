@@ -52,11 +52,11 @@ export interface UserProps {
 }
 
 export interface ReviewProps {
-  _id: string;
-  user: UserProps;
+  _id?: string;
+  name: string;
   comment: string;
   rating: number;
-  country: string;
+  country?: string;
   date: string;
 }
 
@@ -84,8 +84,6 @@ export interface productData {
     answer: string;
   }[];
   reviews: ReviewProps[];
-  averageRating: number;
-  totalReviews: number;
   createdAt?: string;
 }
 

@@ -2,23 +2,21 @@ import mongoose, { Schema } from "mongoose";
 
 const reviewSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    rating: { type: Number, required: true, min: 1, max: 5 },
+    name: { type: String, required: true },
     comment: { type: String, required: true },
-    date: { type: Date, default: Date.now },
+    date: { type: String, required: true }, // You can use Date type if you prefer
+    rating: { type: Number, required: true, min: 1, max: 5 }, // Enforce rating limits
+    country: { type: String }, // Optional, if you want to allow empty countries
   },
-  { timestamps: true }
+  { timestamps: true } // Timestamps for each review
 );
-
-export const Review =
-  mongoose.models.Review || mongoose.model("Review", reviewSchema);
 
 const productSchema = new Schema(
   {
     images: [
       {
-        url: { type: String, required: true }, // Ensure URL is required
-        caption: { type: String, required: true }, // Ensure caption is required
+        url: { type: String, required: true },
+        caption: { type: String }, // Ensure caption is required
       },
     ],
     descriptionImages: [String],
@@ -47,9 +45,7 @@ const productSchema = new Schema(
         answer: { type: String, required: true },
       },
     ],
-    reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }], // references to reviews
-    averageRating: { type: Number, default: 0 }, // average product rating
-    totalReviews: { type: Number, default: 0 }, // total number of reviews
+    reviews: [reviewSchema], // Add the reviews field here
   },
   { timestamps: true }
 );
