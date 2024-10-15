@@ -100,7 +100,7 @@ const CartContainer = ({
         </ul>
       </div>
 
-      <div className="absolute grid gap-3 border-t pb-5 pt-9 bottom-0 right-[3%] left-[3%]">
+      <div className="absolute bg-white grid gap-3 border-t pb-5 pt-9 bottom-0 right-[3%] left-[3%]">
         <div className="flex items-center justify-between">
           <p className="font-semibold text-lg">Estimated Total</p>
           <p className="font-semibold text-lg opacity-90">${totalPrice} USD</p>
