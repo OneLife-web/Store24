@@ -38,7 +38,7 @@ const Reviews = ({ data }: { data: updateData }) => {
   const reviewSectionRef = useRef<HTMLDivElement>(null);
 
   // Calculate total pages
-  const totalPages = Math.ceil(data.reviews.length / reviewsPerPage);
+  const totalPages = Math.ceil(data?.reviews?.length / reviewsPerPage);
 
   // Function to handle page changes
   const handlePageChange = (page: number) => {
@@ -55,7 +55,7 @@ const Reviews = ({ data }: { data: updateData }) => {
   };
 
   // Paginate the reviews
-  const paginatedReviews = data.reviews.slice(
+  const paginatedReviews = data?.reviews?.slice(
     (currentPage - 1) * reviewsPerPage,
     currentPage * reviewsPerPage
   );
@@ -91,12 +91,12 @@ const Reviews = ({ data }: { data: updateData }) => {
           allowFraction
         />
         <p className="bodyText mb-1 ml-2">
-          {data.reviews.length}{" "}
-          {data.reviews.length <= 1 ? "Review" : "Reviews"}
+          {data?.reviews?.length}{" "}
+          {data?.reviews?.length <= 1 ? "Review" : "Reviews"}
         </p>
       </div>
       <div>
-        {data.reviews && data.reviews.length > 0 ? (
+        {data.reviews && data?.reviews?.length > 0 ? (
           <div>
             {paginatedReviews.reverse().map((review) => (
               <div
