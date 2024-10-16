@@ -15,7 +15,6 @@ const TopBanner = () => {
     try {
       const res = await getSettings();
       if (res.status === 200) {
-        console.log(res);
         setTopBanner(res?.banner);
       }
     } catch (error) {
