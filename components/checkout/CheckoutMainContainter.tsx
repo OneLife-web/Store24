@@ -306,6 +306,7 @@ const CheckoutMainContainter = () => {
           userId: userSession?.id,
           total: totalPrice,
           orderId: orderId,
+          packageInfo: deliveryInstructions,
         }),
       });
 
