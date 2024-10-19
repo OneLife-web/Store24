@@ -9,7 +9,7 @@ const OrderCard = ({
   orderId,
 }: {
   items: { name: string; image: string; price: number; quantity: number }[];
-  status: "pending" | "processing" | "completed" | "failed";
+  status: "pending" | "processing" | "completed" | "cancelled";
   total: number;
   orderId: string;
 }) => {
@@ -40,7 +40,7 @@ const OrderCard = ({
         <p
           className={cn("w-fit rounded-full px-[10px] py-[5px]", {
             "bg-[#F8BCBC] font-clashmd text-[10px] md:text-xs text-[#8B1A1A]":
-              status === "failed" || status === "completed", // 'failed' was corrected here
+              status === "cancelled" || status === "completed", // 'failed' was corrected here
             "bg-[#BAD9F7] font-clashmd text-[10px] md:text-xs text-[#1673CC]":
               status === "pending",
             "bg-[#BAF7BA] font-clashmd text-[10px] md:text-xs text-[#1B691B]":

@@ -16,6 +16,8 @@ import { AddtoCartDialog } from "../AddtoCartDialog";
 //import toast from "react-hot-toast";
 
 const Promotion = ({ data }: { data: Settings }) => {
+  let imagesWithCaptions;
+  let hasMultipleImagesWithCaptions;
   const averageRating =
     data.promotion.productId?.reviews &&
     data.promotion.productId.reviews.length > 0
@@ -31,14 +33,6 @@ const Promotion = ({ data }: { data: Settings }) => {
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
-  const { images } = data.promotion.productId;
-  const imagesWithCaptions = images.filter(
-    (image) =>
-      image.caption !== null &&
-      image.caption !== undefined &&
-      image.caption.trim() !== ""
-  );
-  const hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
 
   const handleAddToCart = async () => {
     if (!userId) {
@@ -59,6 +53,14 @@ const Promotion = ({ data }: { data: Settings }) => {
       data?.promotion?.productId?.price !== undefined
     ) {
       try {
+        const { images } = data?.promotion?.productId;
+        imagesWithCaptions = images.filter(
+          (image) =>
+            image.caption !== null &&
+            image.caption !== undefined &&
+            image.caption.trim() !== ""
+        );
+        hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
         if (hasMultipleImagesWithCaptions) {
           for (const selectedItem of selectedItems) {
             // For each selected item, dynamically set image and color based on selection
@@ -111,107 +113,108 @@ const Promotion = ({ data }: { data: Settings }) => {
       <p className="text-center bodyText">
         Our newest release is deserving of fascination
       </p>
-      <div className="flex max-lg:flex-col max-lg:gap-7 mt-16">
-        <Image
-          src={data?.promotion?.productId?.images[0]?.url}
-          alt="image"
-          width={300}
-          height={450}
-          loading="eager"
-          className="object-contain lg:basis-1/2 max-lg:h-[450px] max-h-[495px] w-full"
-        />
-        <div className="basis-1/2">
-          <div className="lg:max-w-[60%] mx-auto">
-            <h1 className="heading1 truncate-two-lines lg:max-w-full">
-              {data?.promotion?.productId?.title}
-            </h1>
-            {/* <ul className="bodyText grid gap-3 mt-3">
+      {data.promotion.productId && (
+        <div className="flex max-lg:flex-col max-lg:gap-7 mt-16">
+          <Image
+            src={data?.promotion?.productId?.images[0]?.url}
+            alt="image"
+            width={300}
+            height={450}
+            loading="eager"
+            className="object-contain lg:basis-1/2 max-lg:h-[450px] max-h-[495px] w-full"
+          />
+          <div className="basis-1/2">
+            <div className="lg:max-w-[60%] mx-auto">
+              <h1 className="heading1 truncate-two-lines lg:max-w-full">
+                {data?.promotion?.productId?.title}
+              </h1>
+              {/* <ul className="bodyText grid gap-3 mt-3">
               {data?.promotion?.productId?.features.map((item, index) => (
                 <li key={index}>- {item}</li>
               ))}
             </ul> */}
-            <div className="flex items-center gap-3 mt-3">
-              <div className="flex items-center gap-1">
-                <StarFilledIcon className="text-secondaryBg size-6" />
-                <p className="lg:text-lg">{averageRating.toFixed(1)}</p>
+              <div className="flex items-center gap-3 mt-3">
+                <div className="flex items-center gap-1">
+                  <StarFilledIcon className="text-secondaryBg size-6" />
+                  <p className="lg:text-lg">{averageRating.toFixed(1)}</p>
+                </div>
+                <p className="border-l pl-3 lg:text-lg">
+                  {data.promotion?.productId?.quantitySold}+ Sold
+                </p>
               </div>
-              <p className="border-l pl-3 lg:text-lg">
-                {data.promotion.productId.quantitySold}+ Sold
-              </p>
-            </div>
 
-            <div className="flex gap-1 items-center">
-              <p className="font-semibold my-3 text-lg">
-                ${data?.promotion?.productId?.price}
-              </p>
-              <p className="bodyText line-through !max-sm:text-sm text-base">
-                ${data?.promotion?.productId?.discountPrice}
-              </p>
-              {data?.promotion.productId.price &&
-                data?.promotion.productId.discountPrice && (
-                  <div className="flex items-center gap-1 ml-2 text-sm font-semibold bg-secondaryBg rounded-lg text-white px-2 py-1">
-                    <Image
-                      src="/tag.svg"
-                      width={22}
-                      height={22}
-                      alt="price tag"
-                    />
-                    <span className="">SAVE</span>
-                    {Math.abs(
-                      Math.round(
-                        ((data.promotion.productId.discountPrice -
-                          data.promotion.productId.price) /
-                          data.promotion.productId.discountPrice) *
-                          100
-                      )
-                    )}
-                    %
-                  </div>
-                )}
-            </div>
-            <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
-              <Truck strokeWidth={1.2} size={22} />
-              <p className="font-medium max-sm:text-xs">Free shipping</p>
-            </div>
-            <ShippingInfo />
-            <div className="mt-4">
-              <p className="text-center">
-                We accept these payment methods and more..
-              </p>
-              <div className="max-w-[70%] mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
-                <Image
-                  src="/payment-logos/visa.svg"
-                  width={43}
-                  height={43}
-                  alt="logo"
-                />
-                <Image
-                  src="/payment-logos/mastercard.svg"
-                  width={43}
-                  height={43}
-                  alt="logo"
-                />
-                <Image
-                  src="/payment-logos/amex.svg"
-                  width={43}
-                  height={43}
-                  alt="logo"
-                />
-                <Image
-                  src="/payment-logos/apple.svg"
-                  width={43}
-                  height={43}
-                  alt="logo"
-                />
-                <Image
-                  src="/payment-logos/google.svg"
-                  width={43}
-                  height={43}
-                  alt="logo"
-                />
+              <div className="flex gap-1 items-center">
+                <p className="font-semibold my-3 text-lg">
+                  ${data?.promotion?.productId?.price}
+                </p>
+                <p className="bodyText line-through !max-sm:text-sm text-base">
+                  ${data?.promotion?.productId?.discountPrice}
+                </p>
+                {data?.promotion?.productId?.price &&
+                  data?.promotion?.productId?.discountPrice && (
+                    <div className="flex items-center gap-1 ml-2 text-sm font-semibold bg-secondaryBg rounded-lg text-white px-2 py-1">
+                      <Image
+                        src="/tag.svg"
+                        width={22}
+                        height={22}
+                        alt="price tag"
+                      />
+                      <span className="">SAVE</span>
+                      {Math.abs(
+                        Math.round(
+                          ((data.promotion.productId.discountPrice -
+                            data.promotion.productId.price) /
+                            data.promotion.productId.discountPrice) *
+                            100
+                        )
+                      )}
+                      %
+                    </div>
+                  )}
               </div>
-            </div>
-            {/* <div className="flex gap-3 flex-wrap pt-7">
+              <div className="flex items-center gap-2 px-[3%] pt-7 pb-3">
+                <Truck strokeWidth={1.2} size={22} />
+                <p className="font-medium max-sm:text-xs">Free shipping</p>
+              </div>
+              <ShippingInfo />
+              <div className="mt-4">
+                <p className="text-center">
+                  We accept these payment methods and more..
+                </p>
+                <div className="max-w-[70%] mx-auto mt-2 flex items-center gap-3 flex-wrap justify-center">
+                  <Image
+                    src="/payment-logos/visa.svg"
+                    width={43}
+                    height={43}
+                    alt="logo"
+                  />
+                  <Image
+                    src="/payment-logos/mastercard.svg"
+                    width={43}
+                    height={43}
+                    alt="logo"
+                  />
+                  <Image
+                    src="/payment-logos/amex.svg"
+                    width={43}
+                    height={43}
+                    alt="logo"
+                  />
+                  <Image
+                    src="/payment-logos/apple.svg"
+                    width={43}
+                    height={43}
+                    alt="logo"
+                  />
+                  <Image
+                    src="/payment-logos/google.svg"
+                    width={43}
+                    height={43}
+                    alt="logo"
+                  />
+                </div>
+              </div>
+              {/* <div className="flex gap-3 flex-wrap pt-7">
               {data.promotion.productId.colors &&
                 data.promotion.productId.colors.map((col) => (
                   <button
@@ -228,46 +231,39 @@ const Promotion = ({ data }: { data: Settings }) => {
                   </button>
                 ))}
             </div> */}
-            <div className="mt-10">
-              {hasMultipleImagesWithCaptions ? (
-                <AddtoCartDialog
-                  handleAddToCart={handleAddToCart}
-                  images={imagesWithCaptions}
-                  loading={loading}
-                  selectedItems={selectedItems}
-                  setSelectedItems={setSelectedItems}
-                  isBuy={isBuy}
-                  setIsBuy={setIsBuy}
-                />
-              ) : (
-                <button
-                  onClick={handleAddToCart}
-                  disabled={loading}
-                  className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
-                >
-                  {loading ? (
-                    <Loader2 className="animate-spin" />
-                  ) : (
-                    "Add To Cart"
-                  )}
-                </button>
-              )}
-            </div>
-            <Link
-              href={`/products/${data?.promotion?.productId?._id}`}
-              className="text-sm w-fit mt-7 font-semibold flex items-center gap-2 group"
-            >
-              <span className="border-b border-transparent group-hover:border-black transition-all duration-300">
-                View full details
-              </span>
+              <div className="mt-10">
+                {hasMultipleImagesWithCaptions ? (
+                  <div></div>
+                ) : (
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={loading}
+                    className="bg-secondaryBg rounded-full flex items-center justify-center w-full py-3 font-semibold my-4 transform transition-transform hover:scale-105"
+                  >
+                    {loading ? (
+                      <Loader2 className="animate-spin" />
+                    ) : (
+                      "Add To Cart"
+                    )}
+                  </button>
+                )}
+              </div>
+              <Link
+                href={`/products/${data?.promotion?.productId?._id}`}
+                className="text-sm w-fit mt-7 font-semibold flex items-center gap-2 group"
+              >
+                <span className="border-b border-transparent group-hover:border-black transition-all duration-300">
+                  View full details
+                </span>
 
-              <span className="inline-block transform transition-transform duration-300 group-hover:translate-x-1">
-                <MoveRight strokeWidth={1.5} />
-              </span>
-            </Link>
+                <span className="inline-block transform transition-transform duration-300 group-hover:translate-x-1">
+                  <MoveRight strokeWidth={1.5} />
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
