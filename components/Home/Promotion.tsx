@@ -16,8 +16,6 @@ import { AddtoCartDialog } from "../AddtoCartDialog";
 //import toast from "react-hot-toast";
 
 const Promotion = ({ data }: { data: Settings }) => {
-  let imagesWithCaptions;
-  let hasMultipleImagesWithCaptions;
   const averageRating =
     data.promotion.productId?.reviews &&
     data.promotion.productId.reviews.length > 0
@@ -33,7 +31,8 @@ const Promotion = ({ data }: { data: Settings }) => {
   const { addItemToCart, loading } = useCart();
   const { data: session } = useSession();
   const userId = session?.id;
-
+  let imagesWithCaptions;
+  let hasMultipleImagesWithCaptions;
   const handleAddToCart = async () => {
     if (!userId) {
       router.push(
@@ -53,14 +52,15 @@ const Promotion = ({ data }: { data: Settings }) => {
       data?.promotion?.productId?.price !== undefined
     ) {
       try {
-        const { images } = data?.promotion?.productId;
-        imagesWithCaptions = images.filter(
+        const { images } = data.promotion.productId;
+        const imagesWithCaptions = images.filter(
           (image) =>
             image.caption !== null &&
             image.caption !== undefined &&
             image.caption.trim() !== ""
         );
-        hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
+        const hasMultipleImagesWithCaptions = imagesWithCaptions.length > 1;
+
         if (hasMultipleImagesWithCaptions) {
           for (const selectedItem of selectedItems) {
             // For each selected item, dynamically set image and color based on selection
@@ -113,7 +113,7 @@ const Promotion = ({ data }: { data: Settings }) => {
       <p className="text-center bodyText">
         Our newest release is deserving of fascination
       </p>
-      {data.promotion.productId && (
+      {data.promotion?.productId && (
         <div className="flex max-lg:flex-col max-lg:gap-7 mt-16">
           <Image
             src={data?.promotion?.productId?.images[0]?.url}
@@ -129,17 +129,17 @@ const Promotion = ({ data }: { data: Settings }) => {
                 {data?.promotion?.productId?.title}
               </h1>
               {/* <ul className="bodyText grid gap-3 mt-3">
-              {data?.promotion?.productId?.features.map((item, index) => (
-                <li key={index}>- {item}</li>
-              ))}
-            </ul> */}
+                {data?.promotion?.productId?.features.map((item, index) => (
+                  <li key={index}>- {item}</li>
+                ))}
+              </ul> */}
               <div className="flex items-center gap-3 mt-3">
                 <div className="flex items-center gap-1">
                   <StarFilledIcon className="text-secondaryBg size-6" />
                   <p className="lg:text-lg">{averageRating.toFixed(1)}</p>
                 </div>
                 <p className="border-l pl-3 lg:text-lg">
-                  {data.promotion?.productId?.quantitySold}+ Sold
+                  {data.promotion.productId.quantitySold}+ Sold
                 </p>
               </div>
 
@@ -150,8 +150,8 @@ const Promotion = ({ data }: { data: Settings }) => {
                 <p className="bodyText line-through !max-sm:text-sm text-base">
                   ${data?.promotion?.productId?.discountPrice}
                 </p>
-                {data?.promotion?.productId?.price &&
-                  data?.promotion?.productId?.discountPrice && (
+                {data?.promotion.productId.price &&
+                  data?.promotion.productId.discountPrice && (
                     <div className="flex items-center gap-1 ml-2 text-sm font-semibold bg-secondaryBg rounded-lg text-white px-2 py-1">
                       <Image
                         src="/tag.svg"
@@ -215,25 +215,33 @@ const Promotion = ({ data }: { data: Settings }) => {
                 </div>
               </div>
               {/* <div className="flex gap-3 flex-wrap pt-7">
-              {data.promotion.productId.colors &&
-                data.promotion.productId.colors.map((col) => (
-                  <button
-                    key={col}
-                    onClick={() => setColor(col)}
-                    className={cn(
-                      "border border-primary rounded-full px-6 py-2",
-                      {
-                        "bg-primary text-white": col === color,
-                      }
-                    )}
-                  >
-                    {col}
-                  </button>
-                ))}
-            </div> */}
+                {data.promotion.productId.colors &&
+                  data.promotion.productId.colors.map((col) => (
+                    <button
+                      key={col}
+                      onClick={() => setColor(col)}
+                      className={cn(
+                        "border border-primary rounded-full px-6 py-2",
+                        {
+                          "bg-primary text-white": col === color,
+                        }
+                      )}
+                    >
+                      {col}
+                    </button>
+                  ))}
+              </div> */}
               <div className="mt-10">
                 {hasMultipleImagesWithCaptions ? (
-                  <div></div>
+                  <AddtoCartDialog
+                    handleAddToCart={handleAddToCart}
+                    images={imagesWithCaptions}
+                    loading={loading}
+                    selectedItems={selectedItems}
+                    setSelectedItems={setSelectedItems}
+                    isBuy={isBuy}
+                    setIsBuy={setIsBuy}
+                  />
                 ) : (
                   <button
                     onClick={handleAddToCart}

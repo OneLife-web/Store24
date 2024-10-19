@@ -21,7 +21,8 @@ export function AddtoCartDialog({
   setIsBuy,
 }: {
   handleAddToCart: () => void;
-  images: ImageProps[];
+  images: ImageProps[] | undefined;
+
   loading: boolean;
   selectedItems: ImageProps[]; // Now an array to hold multiple selected items
   setSelectedItems: (items: ImageProps[]) => void; // Updates the array of selected items
@@ -63,33 +64,34 @@ export function AddtoCartDialog({
           </DialogHeader>
           <div className="grid gap-4 max-h-[350px] custom-scrollbar overflow-y-scroll py-4">
             <div className="grid items-center gap-4">
-              {images.map((image) => (
-                <div
-                  key={image.caption}
-                  className="flex items-center justify-between cursor-pointer"
-                  onClick={() => toggleSelection(image)}
-                >
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src={image.url}
-                      className="rounded-lg"
-                      width={80}
-                      height={100}
-                      alt="image"
-                    />
-                    <p>{image.caption}</p>
+              {images &&
+                images.map((image) => (
+                  <div
+                    key={image.caption}
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleSelection(image)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={image.url}
+                        className="rounded-lg"
+                        width={80}
+                        height={100}
+                        alt="image"
+                      />
+                      <p>{image.caption}</p>
+                    </div>
+                    {/* Check if the item is selected */}
+                    {selectedItems.some(
+                      (item) => item.caption === image.caption
+                    ) && (
+                      <CheckCheck
+                        strokeWidth={1.2}
+                        className="mr-5 text-secondaryBg"
+                      />
+                    )}
                   </div>
-                  {/* Check if the item is selected */}
-                  {selectedItems.some(
-                    (item) => item.caption === image.caption
-                  ) && (
-                    <CheckCheck
-                      strokeWidth={1.2}
-                      className="mr-5 text-secondaryBg"
-                    />
-                  )}
-                </div>
-              ))}
+                ))}
             </div>
             <div className="grid grid-cols-4 items-center gap-4"></div>
           </div>
