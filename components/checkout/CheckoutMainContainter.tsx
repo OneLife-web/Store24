@@ -18,7 +18,7 @@ import Image from "next/image";
 import PhoneNumberInput from "../PhoneInput";
 import { ComboboxDemo } from "../ComboBox";
 import { useRouter } from "next/navigation";
-import PayPalButton from "./PayPalButton";
+//import PayPalButton from "./PayPalButton";
 import { generateOrderId } from "@/utils/helper";
 
 // Dynamically import PaystackButton with ssr option set to false
