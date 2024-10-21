@@ -508,7 +508,7 @@ const CheckoutMainContainter = () => {
               className="paystack-button"
               {...fwConfig}
             />
-            <div className="my-10 relative h-[0.5px] bg-gray-300 w-full">
+            {/* <div className="my-10 relative h-[0.5px] bg-gray-300 w-full">
               <p className="text-sm bg-white px-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 or Pay with
               </p>
@@ -519,7 +519,7 @@ const CheckoutMainContainter = () => {
               handleOrderConfirmation={handleOrderConfirmation}
               disabled={!isFormValid()}
               getCustomerDetails={() => customerDetailsRef.current}
-            />
+            /> */}
             {/* <button
               className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
               type="submit"
@@ -554,18 +554,18 @@ const CheckoutMainContainter = () => {
           className="paystack-button"
           {...fwConfig}
         />
-        <div className="my-10 relative h-[0.5px] bg-gray-300 w-full">
+        <div className="my-10 relative h-[0.5px] bg-gray-300 w-full hidden">
           <p className="text-sm bg-white px-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             or Pay with
           </p>
         </div>
-        <PayPalButton
+        {/* <PayPalButton
           totalPrice={amount2}
           cart={cart}
           handleOrderConfirmation={handleOrderConfirmation}
           disabled={!isFormValid()}
           getCustomerDetails={() => customerDetailsRef.current}
-        />
+        /> */}
         {/*  <button
           className="bg-secondaryBg font-semibold rounded-lg w-full h-14 lg:h-16 mt-10"
           type="submit"
