@@ -1,5 +1,6 @@
 import Collection from "@/components/Home/Collection";
 import Promotion from "@/components/Home/Promotion";
+import Loader from "@/components/Loader";
 import { fetchProducts, getSettings } from "@/lib/PowerHouse";
 import { Settings, updateData } from "@/types";
 
