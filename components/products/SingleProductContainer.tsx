@@ -44,10 +44,10 @@ const SingleProductContainer = ({ data }: { data: updateData }) => {
       return;
     }
 
-    if (!selectedItems.length) {
+    /* if (!selectedItems.length) {
       toast.error("Please select at least one item.");
       return;
-    }
+    } */
 
     // Ensure productId and price are available
     if (data?._id && data?.price !== undefined) {
