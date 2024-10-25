@@ -6,8 +6,8 @@ const Loader = () => {
     <div className="fixed top-0 bottom-0 right-0 left-0 h-screen flex items-center justify-center bg-black/75">
       <div className="w-fit relative">
         <Loader2
-          size={32}
-          strokeWidth={1.1}
+          size={40}
+          strokeWidth={1.2}
           className="text-secondaryBg animate-spin"
         />
         {/* <Image
