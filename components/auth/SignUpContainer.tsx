@@ -115,14 +115,14 @@ const SignUpContainer = () => {
           {loading ? <Loader2 className="animate-spin" /> : " Sign up"}
         </button>
       </form>
-      <div className="relative w-full h-[2px] my-7 bg-gray-100">
+      <div className="relative hidden w-full h-[2px] my-7 bg-gray-100">
         <p className="absolute bg-white px-3 text-sm font-medium text-gray-500 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           Or Continue With
         </p>
       </div>
       <button
         onClick={handleGoogleSignIn}
-        className="flex gap-2 items-center font-medium justify-center w-full h-[60px] border rounded-lg"
+        className="gap-2 hidden items-center font-medium justify-center w-full h-[60px] border rounded-lg"
       >
         <Image src="/google.svg" width={20} height={20} alt="logo" />
         Sign in with Google
