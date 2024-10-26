@@ -87,6 +87,16 @@ const Footer = () => {
               {" "}
               &copy; {currentYear}, store45. All rights reserved.
             </p>
+            <p className="pt-9">
+              {" "}
+              Developed by{" "}
+              <a
+                href="mailto:fatomoyeemmanuel1@gmail.com"
+                className="text-secondaryBg underline"
+              >
+                Techeritage
+              </a>
+            </p>
           </div>
         </div>
       </div>
